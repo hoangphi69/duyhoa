@@ -1,7 +1,21 @@
-import type { NextConfig } from "next";
+import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  turbopack: {
+    rules: {
+      '*.svg': {
+        loaders: [
+          {
+            loader: '@svgr/webpack',
+            options: {
+              svgo: false, // Disables SVGO entirely for Turbopack to ensure IDs stay
+            },
+          },
+        ],
+        as: '*.js',
+      },
+    },
+  },
 };
 
 export default nextConfig;

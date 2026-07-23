@@ -1,65 +1,104 @@
-import Image from "next/image";
+'use client';
 
-export default function Home() {
+import Footer from '@/components/footer';
+import ContactSection from '@/components/section-contact';
+import EcosystemSection from '@/components/section-ecosystem';
+import MapSection from '@/components/section-map';
+import PartnersSection from '@/components/section-partners';
+import ReasonsSection from '@/components/section-reason';
+import { Button } from '@/components/ui/button';
+import { ChevronRight, Phone } from 'lucide-react';
+
+export default function LandingPage() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+    <>
+      <div className="*:mx-auto *:lg:px-8 *:px-4 *:sm:px-6 *:container">
+        <section className="relative flex flex-col justify-between py-10 md:py-20 min-h-[80vh]">
+          <div className="z-10 relative content-center grow">
+            <h1 className="font-heading text-foreground text-4xl sm:text-5xl md:text-6xl uppercase leading-[1.3] tracking-tight">
+              Nhà phân phối hàng đầu miền Bắc
+            </h1>
+
+            <div className="flex xl:flex-row flex-col gap-6 md:gap-8 pt-8">
+              <div className="flex sm:flex-row flex-col gap-4 pt-2">
+                <Button
+                  size="lg"
+                  className="gap-2 px-8 w-full sm:w-auto h-12 text-sm"
+                >
+                  <Phone className="w-5 h-5" />
+                  Liên hệ nhập hàng ngay
+                </Button>
+                <Button
+                  size="lg"
+                  variant="outline"
+                  className="gap-2 px-8 w-full sm:w-auto h-12 text-sm"
+                >
+                  Tìm hiểu các dự án
+                  <ChevronRight className="w-4 h-4" />
+                </Button>
+              </div>
+
+              <p className="max-w-xl text-muted-foreground text-lg sm:text-xl leading-relaxed">
+                Gần 15 năm phân phối chính hãng, hơn 1.200 đại lý tin tưởng. Một
+                cuộc gọi — đủ cả Điện, Nước, Thiết bị vệ sinh, Dụng cụ cầm tay,
+                giao tận cửa hàng.
+              </p>
+            </div>
+          </div>
+
+          <div className="z-10 relative flex flex-col lg:justify-between items-start lg:items-end self-end gap-8 lg:gap-0 mt-8 lg:mt-0">
+            <div className="gap-px grid grid-cols-2 lg:grid-cols-4 bg-border border border-border w-full">
+              <div className="flex flex-col gap-1 bg-card p-6">
+                <span className="font-mono font-medium text-primary text-3xl">
+                  15 <span className="text-2xl">năm</span>
+                </span>
+                <span className="font-medium text-muted-foreground text-xs sm:text-sm leading-tight">
+                  Kinh nghiệm thị trường
+                </span>
+              </div>
+
+              <div className="flex flex-col gap-1 bg-card p-6">
+                <span className="font-mono font-medium text-primary text-3xl">
+                  1.200+
+                </span>
+                <span className="font-medium text-muted-foreground text-xs sm:text-sm leading-tight">
+                  Đại lý đang đồng hành
+                </span>
+              </div>
+
+              <div className="flex flex-col gap-1 bg-card p-6">
+                <span className="font-mono font-medium text-primary text-3xl">
+                  2.000 <span className="text-2xl">m²</span>
+                </span>
+                <span className="font-medium text-muted-foreground text-xs sm:text-sm leading-tight">
+                  Tổng kho, luôn sẵn hàng
+                </span>
+              </div>
+
+              <div className="flex flex-col gap-1 bg-card p-6">
+                <span className="font-mono font-medium text-primary text-3xl">
+                  50
+                </span>
+                <span className="font-medium text-muted-foreground text-xs sm:text-sm leading-tight">
+                  Nhân sự & đội xe giao hàng
+                </span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <EcosystemSection />
+
+        <MapSection />
+
+        <ReasonsSection />
+
+        <PartnersSection />
+
+        <ContactSection />
+      </div>
+
+      <Footer />
+    </>
   );
 }
