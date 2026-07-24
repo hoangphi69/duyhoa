@@ -9,13 +9,13 @@ export default function Footer() {
         {/* TOP ROW: 3 Columns with vertical dividers */}
         <div className="grid grid-cols-1 md:grid-cols-3 border-white/10 border-b">
           {/* Col 1: Logo & Contact */}
-          <div className="flex flex-col p-8 md:p-12 border-white/10 md:border-r border-b md:border-b-0">
+          <div className="flex flex-col place-content-center p-8 md:p-12 border-white/10 md:border-r border-b md:border-b-0">
             {/* Logo in the first grid item */}
             <Link href="/">
               <Image
                 src={logo}
                 alt="Duy Hoà Logo"
-                className="w-full h-auto object-contain"
+                className="w-full h-28 object-contain"
               />
             </Link>
           </div>
@@ -25,7 +25,7 @@ export default function Footer() {
             <h4 className="mt-auto md:mt-0 mb-4 font-semibold text-primary text-xs uppercase tracking-widest">
               Địa chỉ tổng kho
             </h4>
-            <div className="space-y-1 font-heading font-semibold text-white text-lg md:text-3xl">
+            <div className="space-y-1 font-heading font-semibold text-background text-lg md:text-3xl">
               <p>Số 351, Tổ 2 Khu Hợp Thành, Phường Yên Tử, Quảng Ninh</p>
             </div>
           </div>
@@ -35,7 +35,7 @@ export default function Footer() {
             <h4 className="mt-auto md:mt-0 mb-4 font-semibold text-primary text-xs uppercase tracking-widest">
               Liên hệ
             </h4>
-            <div className="space-y-1 font-heading font-semibold text-white text-lg md:text-3xl">
+            <div className="space-y-1 font-heading font-semibold text-background text-lg md:text-3xl">
               <p className="">0904 683 035</p>
               <p>duyhoa@gmail.com</p>
             </div>
@@ -51,23 +51,35 @@ export default function Footer() {
             </h4>
             <ul className="space-y-3 text-slate-400 text-sm">
               <li>
-                <Link href="#" className="hover:text-white transition-colors">
-                  Vật tư Điện
+                <Link
+                  href="/"
+                  className="hover:text-background transition-colors"
+                >
+                  Trang chủ
                 </Link>
               </li>
               <li>
-                <Link href="#" className="hover:text-white transition-colors">
-                  Vật tư Nước
+                <Link
+                  href="/about"
+                  className="hover:text-background transition-colors"
+                >
+                  Về chúng tôi
                 </Link>
               </li>
               <li>
-                <Link href="#" className="hover:text-white transition-colors">
-                  Thiết bị vệ sinh
+                <Link
+                  href="/brands"
+                  className="hover:text-background transition-colors"
+                >
+                  Thương hiệu
                 </Link>
               </li>
               <li>
-                <Link href="#" className="hover:text-white transition-colors">
-                  Dụng cụ cầm tay
+                <Link
+                  href="/projects"
+                  className="hover:text-background transition-colors"
+                >
+                  Dự án
                 </Link>
               </li>
             </ul>
@@ -76,32 +88,31 @@ export default function Footer() {
           {/* Resources */}
           <div>
             <h4 className="mb-4 font-semibold text-primary text-xs decoration-primary/50 uppercase tracking-widest">
-              Tài nguyên
+              Chính sách
             </h4>
             <ul className="space-y-3 text-slate-400 text-sm">
               <li>
-                <Link href="#" className="hover:text-white transition-colors">
+                <Link
+                  href="#"
+                  className="hover:text-background transition-colors"
+                >
                   Chính sách đại lý
                 </Link>
               </li>
               <li>
-                <Link href="#" className="hover:text-white transition-colors">
+                <Link
+                  href="#"
+                  className="hover:text-background transition-colors"
+                >
                   Chính sách bảo hành & đổi trả
                 </Link>
               </li>
               <li>
-                <Link href="#" className="hover:text-white transition-colors">
+                <Link
+                  href="#"
+                  className="hover:text-background transition-colors"
+                >
                   Chính sách bảo mật
-                </Link>
-              </li>
-              <li>
-                <Link href="#" className="hover:text-white transition-colors">
-                  Tin tức & Sự kiện
-                </Link>
-              </li>
-              <li>
-                <Link href="#" className="hover:text-white transition-colors">
-                  Sitemap
                 </Link>
               </li>
             </ul>
@@ -114,12 +125,19 @@ export default function Footer() {
             </h4>
             <ul className="space-y-3 text-slate-400 text-sm">
               <li>
-                <Link href="#" className="hover:text-white transition-colors">
+                <Link
+                  href="https://www.facebook.com/Duyhoaltd/"
+                  target="_blank"
+                  className="hover:text-background transition-colors"
+                >
                   Facebook
                 </Link>
               </li>
               <li>
-                <Link href="#" className="hover:text-white transition-colors">
+                <Link
+                  href="https://zalo.me/0904683035"
+                  className="hover:text-background transition-colors"
+                >
                   Zalo OA
                 </Link>
               </li>
@@ -129,9 +147,7 @@ export default function Footer() {
 
         {/* BOTTOM ROW: Copyright */}
         <div className="flex md:flex-row flex-col justify-between items-center gap-4 p-8 text-slate-500 text-xs">
-          <p>
-            &copy; {new Date().getFullYear()} Công ty TNHH Thương Mại Duy Hoà
-          </p>
+          <p>&copy; {new Date().getFullYear()} Công ty TNHH TM Duy Hoà 68</p>
           <p>Thiết kế cho thị trường vật tư xây dựng</p>
         </div>
       </div>

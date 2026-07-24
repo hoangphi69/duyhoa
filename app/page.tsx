@@ -2,7 +2,7 @@
 
 import Footer from '@/components/footer';
 import ContactSection from '@/components/section-contact';
-import EcosystemSection from '@/components/section-ecosystem';
+import ProductsSection from '@/components/section-products';
 import MapSection from '@/components/section-map';
 import PartnersSection from '@/components/section-partners';
 import ReasonsSection from '@/components/section-reason';
@@ -12,11 +12,11 @@ import { ChevronRight, Phone } from 'lucide-react';
 export default function LandingPage() {
   return (
     <>
-      <div className="*:mx-auto *:lg:px-8 *:px-4 *:sm:px-6 *:container">
+      <div className="*:mx-auto *:sm:px-6 *:lg:px-8 *:px-4 *:container">
         <section className="relative flex flex-col justify-between py-10 md:py-20 min-h-[80vh]">
           <div className="z-10 relative content-center grow">
             <h1 className="font-heading text-foreground text-4xl sm:text-5xl md:text-6xl uppercase leading-[1.3] tracking-tight">
-              Nhà phân phối hàng đầu miền Bắc
+              Tổng kho phân phối chính hãng miền Bắc
             </h1>
 
             <div className="flex xl:flex-row flex-col gap-6 md:gap-8 pt-8">
@@ -87,7 +87,7 @@ export default function LandingPage() {
           </div>
         </section>
 
-        <EcosystemSection />
+        <ProductsSection />
 
         <MapSection />
 

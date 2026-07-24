@@ -45,13 +45,18 @@ export default function ContactSection() {
       <div className="grid grid-cols-1 lg:grid-cols-5 border-y">
         {/* Left Column */}
         <div className="flex flex-col lg:col-span-2 lg:border-r border-b lg:border-b-0">
-          <div className="py-10 min-h-48 lg:min-h-64 grow">
+          <div className="flex flex-col gap-4 py-10 min-h-48 lg:min-h-64 grow">
+            <div className="self-start bg-foreground p-1 px-2 font-mono text-primary uppercase tracking-widest">
+              contact
+            </div>
             <h2 className="font-heading text-foreground text-3xl sm:text-4xl leading-[1.3]">
               Để lại thông tin Duy Hoà gửi bảng giá ngay
             </h2>
           </div>
           <div className="bg-muted/50 px-8 py-10 border-t">
-            <h3 className="mb-8 text-lg uppercase">Quyền lợi đại lý mới</h3>
+            <h3 className="mb-8 font-mono font-semibold text-sm uppercase tracking-wider">
+              Quyền lợi đại lý mới
+            </h3>
 
             <ul className="space-y-6 text-sm">
               <li className="flex items-start gap-4">
@@ -93,7 +98,7 @@ export default function ContactSection() {
                 render={({ field, fieldState }) => (
                   <Field data-invalid={fieldState.invalid}>
                     <FieldLabel
-                      className="font-semibold"
+                      className="font-semibold uppercase tracking-wider"
                       htmlFor="contact-agency"
                     >
                       Tên cửa hàng
@@ -120,7 +125,7 @@ export default function ContactSection() {
                 render={({ field, fieldState }) => (
                   <Field data-invalid={fieldState.invalid}>
                     <FieldLabel
-                      className="font-semibold"
+                      className="font-semibold uppercase tracking-wider"
                       htmlFor="contact-phone"
                     >
                       Số điện thoại
@@ -148,7 +153,7 @@ export default function ContactSection() {
                 render={({ field, fieldState }) => (
                   <Field data-invalid={fieldState.invalid}>
                     <FieldLabel
-                      className="font-semibold"
+                      className="font-semibold uppercase tracking-wider"
                       htmlFor="contact-area"
                     >
                       Khu vực
@@ -187,7 +192,7 @@ export default function ContactSection() {
                       data-invalid={fieldState.invalid}
                       className="space-y-2"
                     >
-                      <FieldLabel className="font-semibold">
+                      <FieldLabel className="font-semibold uppercase tracking-wider">
                         Ngành hàng quan tâm
                       </FieldLabel>
                       <div className="gap-0 grid grid-cols-2 xl:grid-cols-4 bg-muted/20 border">
@@ -219,18 +224,13 @@ export default function ContactSection() {
               />
 
               {/* Submit Buttons */}
-              <div className="space-y-4 pt-4">
+              <div className="pt-4">
                 <Button
                   type="submit"
                   className="bg-primary hover:bg-primary/90 rounded-none w-full h-14 font-bold text-primary-foreground text-base"
                 >
                   Gửi thông tin nhận báo giá
                 </Button>
-
-                <div className="py-1 text-muted-foreground text-sm text-center">
-                  – hoặc nhắn nhanh qua –
-                </div>
-
                 <Button
                   type="button"
                   className="bg-[#0068FF] hover:bg-[#0054cc] rounded-none w-full h-14 font-bold text-white text-base transition-colors"

@@ -3,35 +3,50 @@ import { Marquee } from './marquee'; // Assuming you saved the new component her
 export default function BrandsSection() {
   // Using the image paths from your Ecosystem section
   const row1 = [
-    '/cadisun.png',
-    '/tien-phong.png',
-    '/inax.png',
-    '/makita.png',
-    '/panasonic.png',
-    '/tran-phu.png',
-    '/dekko.png',
-    '/toto.png',
+    '/brands/tran-phu.png',
+    '/brands/sino-vanlock-electric.png',
+    '/brands/rang-dong.png',
+    '/brands/panasonic.png',
+    '/brands/taesung.png',
+    '/brands/cadi-sun.png',
+    '/brands/tachicable.png',
+    '/brands/dobo.png',
+    '/brands/viet-han.png',
+    '/brands/nanoco.png',
+    '/brands/tien-phong.png',
   ];
 
   const row2 = [
-    '/bosch.png',
-    '/viglacera.png',
-    '/sino.png',
-    '/binh-minh.png',
-    '/dewalt.png',
-    '/rang-dong.png',
-    '/ariston.png',
-    '/hanil.png',
+    '/brands/dismy.png',
+    '/brands/levia.png',
+    '/brands/hathaco.png',
+    '/brands/taijaan.png',
+    '/brands/sino-plastic.png',
+    '/brands/kangaroo.png',
+    '/brands/inax.png',
+    '/brands/goodman.png',
+    '/brands/arc-jk.png',
+    '/brands/treslaz.png',
+    '/brands/jasic.png',
+    '/brands/senko.png',
+    '/brands/dck.png',
+    '/brands/vinawind.png',
+    '/brands/hukan.png',
   ];
 
   return (
     <section className="py-10 md:py-20 container">
       {/* Centered Header Area */}
-      <div className="flex flex-col items-center gap-4 mb-12 lg:mb-16 text-center">
-        <h2 className="font-heading text-foreground text-3xl sm:text-4xl">
-          Đối tác chiến lược
-        </h2>
-        <p className="max-w-[60ch] text-muted-foreground text-lg">
+      <div className="flex xl:flex-row flex-col justify-between gap-4 xl:gap-8 mb-12">
+        <div className="flex flex-col gap-4">
+          <div className="self-start bg-foreground p-1 px-2 font-mono text-primary uppercase tracking-widest">
+            partners
+          </div>
+          <h2 className="font-heading text-foreground text-3xl sm:text-4xl">
+            Đối tác chiến lược
+          </h2>
+        </div>
+        <p className="max-w-[33ch] text-muted-foreground text-lg">
           Hợp tác chặt chẽ cùng các thương hiệu hàng đầu, mang đến sản phẩm chất
           lượng chuẩn quốc tế cho mọi công trình.
         </p>
@@ -49,7 +64,7 @@ export default function BrandsSection() {
             {row1.map((brandSrc, i) => (
               <div
                 key={`r1-${i}`}
-                className="group relative flex justify-center items-center bg-muted/20 hover:bg-background border-border border-r min-w-50 sm:min-w-60 h-24 sm:h-32 transition-colors duration-300 cursor-pointer"
+                className="group relative flex justify-center items-center bg-muted/20 hover:bg-background p-4 border-border border-r min-w-50 sm:min-w-60 h-24 sm:h-32 transition-colors duration-300 cursor-pointer"
               >
                 <img
                   src={brandSrc}
@@ -67,7 +82,7 @@ export default function BrandsSection() {
             {row2.map((brandSrc, i) => (
               <div
                 key={`r2-${i}`}
-                className="group relative flex justify-center items-center bg-muted/20 hover:bg-background border-border border-r min-w-50 sm:min-w-60 h-24 sm:h-32 transition-colors duration-300 cursor-pointer"
+                className="group relative flex justify-center items-center bg-muted/20 hover:bg-background p-4 border-border border-r min-w-50 sm:min-w-60 h-24 sm:h-32 transition-colors duration-300 cursor-pointer"
               >
                 <img
                   src={brandSrc}

@@ -54,7 +54,7 @@ export default function Navbar() {
 
           {/* Desktop CTA */}
           <div className="hidden md:flex items-center gap-4">
-            <div className="flex items-center gap-2 font-medium text-foreground text-sm">
+            <div className="flex items-center gap-2 font-mono text-foreground text-sm">
               <Phone className="w-4 h-4 text-primary" />
               0904.683.035
             </div>
@@ -62,7 +62,7 @@ export default function Navbar() {
               href="/#contact-section"
               className={buttonVariants({ size: 'lg' })}
             >
-              <span className="uppercase">Trở thành Đại lý</span>
+              <span className="font-mono uppercase">Trở thành Đại lý</span>
             </Link>
           </div>
 

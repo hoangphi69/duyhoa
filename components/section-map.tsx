@@ -19,7 +19,7 @@ const decodeSVGText = (text: string | null) => {
   }
 };
 
-export default function VietnamMapSection() {
+export default function MapSection() {
   const [hoveredData, setHoveredData] = useState<{
     id: string;
     title: string;
@@ -53,11 +53,16 @@ export default function VietnamMapSection() {
 
   return (
     <section className="py-10 md:py-20">
-      <div className="flex xl:flex-row flex-col justify-between gap-4 xl:gap-8 xl:-mb-16">
-        <h2 className="font-heading text-foreground text-3xl sm:text-4xl">
-          Mạng lưới phân phối phủ khắp Miền Bắc
-        </h2>
-        <p className="max-w-[30ch] text-muted-foreground text-lg">
+      <div className="flex xl:flex-row flex-col justify-between gap-4 xl:gap-8">
+        <div className="flex flex-col gap-4">
+          <div className="self-start bg-foreground p-1 px-2 font-mono text-primary uppercase tracking-widest">
+            distribution
+          </div>
+          <h2 className="font-heading text-foreground text-3xl sm:text-4xl">
+            Mạng lưới phân phối phủ khắp Miền Bắc
+          </h2>
+        </div>
+        <p className="max-w-[33ch] text-muted-foreground text-lg">
           Với đội xe hùng hậu và tổng kho rộng lớn tại vị trí chiến lược, Duy
           Hoà đảm bảo thời gian giao hàng nhanh chóng nhất đến tay đại lý tại
           các tỉnh thành phía Bắc.

@@ -1,4 +1,4 @@
-import { ShieldCheck, BadgePercent, Map as MapIcon, Truck } from 'lucide-react';
+import { ShieldCheck, Truck, Percent, Package } from 'lucide-react';
 import {
   Card,
   CardHeader,
@@ -15,12 +15,12 @@ const reasons = [
   {
     title: 'Giá & Chiết khấu Tốt nhất',
     desc: 'Là nhà phân phối cấp 1 của nhiều thương hiệu lớn, chúng tôi mang đến bảng giá cạnh tranh và tỷ lệ chiết khấu hấp dẫn nhất khu vực.',
-    icon: BadgePercent,
+    icon: Percent,
   },
   {
     title: 'Kho hàng 2.000m² — Luôn Đủ Hàng',
     desc: 'Không lo đứt gãy nguồn cung. Năng lực lưu trữ lớn giúp chúng tôi đáp ứng ngay lập tức các đơn hàng quy mô từ nhỏ đến lớn.',
-    icon: MapIcon,
+    icon: Package,
   },
   {
     title: 'Giao Hàng Thần Tốc',
@@ -35,9 +35,14 @@ export default function ReasonsSection() {
       <div className="items-start gap-8 lg:gap-12 grid lg:grid-cols-3">
         {/* Left Column: Sticky Title & Subtitle */}
         <div className="lg:top-24 flex flex-col justify-between self-stretch gap-4 lg:col-span-1">
-          <h2 className="content-center lg:max-w-[15ch] font-heading text-foreground text-3xl sm:text-4xl leading-[1.3] grow">
-            Lý do Đại lý chọn Duy Hoà
-          </h2>
+          <div className="flex flex-col gap-4">
+            <div className="self-start bg-foreground p-1 px-2 font-mono text-primary uppercase tracking-widest">
+              privileges
+            </div>
+            <h2 className="lg:max-w-[15ch] font-heading text-foreground text-3xl sm:text-4xl leading-[1.3] grow">
+              Lý do đại lý chọn Duy Hoà
+            </h2>
+          </div>
           <p className="max-w-[35ch] text-muted-foreground text-lg">
             Chúng tôi không chỉ bán hàng, chúng tôi xây dựng sự thịnh vượng cùng
             đối tác.
@@ -63,7 +68,7 @@ export default function ReasonsSection() {
                     </span>
                   </div>
                   <div className="content-center px-6 sm:px-8 h-full">
-                    <reason.icon className="w-6 h-6 text-muted-foreground" />
+                    <reason.icon className="w-6 h-6 text-muted-foreground group-hover:text-primary transition-colors" />
                   </div>
                 </div>
 
@@ -81,7 +86,7 @@ export default function ReasonsSection() {
           </div>
 
           <div className="px-4 lg:px-8 py-4 border-y">
-            <div className="content-center grid grid-cols-3 text-muted-foreground tracking-widest">
+            <div className="content-center grid grid-cols-3 font-mono text-muted-foreground tracking-widest">
               <span className="text-xs uppercase">cam kết</span>
               <span className="text-xs uppercase">uy tín</span>
               <span className="text-xs text-right uppercase">chất lượng</span>
