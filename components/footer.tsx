@@ -4,7 +4,7 @@ import logo from '@/public/duyhoa.png';
 
 export default function Footer() {
   return (
-    <footer className="bg-[#0C1828] border-border border-t text-slate-300">
+    <footer className="bg-foreground border-border border-t text-slate-300">
       <div className="mx-auto container">
         {/* TOP ROW: 3 Columns with vertical dividers */}
         <div className="grid grid-cols-1 md:grid-cols-3 border-white/10 border-b">

@@ -54,7 +54,7 @@ export default function Navbar() {
 
           {/* Desktop CTA */}
           <div className="hidden md:flex items-center gap-4 font-mono">
-            <div className="flex items-center gap-2 text-foreground text-2xl">
+            <div className="flex items-center gap-2 text-foreground text-sm">
               <Phone className="w-4 h-4 text-primary" />
               0904.683.035
             </div>
@@ -116,7 +116,7 @@ export default function Navbar() {
 
             {/* Mobile Contact & CTA */}
             <div className="flex flex-col gap-4 pt-4 border-border border-t font-mono">
-              <div className="flex items-center gap-2 font-medium text-foreground text-base">
+              <div className="flex items-center gap-2 font-medium text-foreground">
                 <Phone className="w-5 h-5 text-primary" />
                 0904.683.035
               </div>
