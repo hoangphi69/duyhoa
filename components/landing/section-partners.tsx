@@ -1,4 +1,4 @@
-import { Marquee } from './marquee'; // Assuming you saved the new component here
+import { Marquee } from '@/components/marquee'; // Assuming you saved the new component here
 
 export default function BrandsSection() {
   // Using the image paths from your Ecosystem section
