@@ -1,9 +1,9 @@
+import ContactBubble from '@/components/contact-bubble';
+import Navbar from '@/components/navbar';
 import { cn } from '@/lib/utils';
 import type { Metadata } from 'next';
 import { Geist_Mono, Inter, Merriweather } from 'next/font/google';
 import './globals.css';
-import Navbar from '@/components/navbar';
-import ContactBubble from '@/components/contact-bubble';
 
 const merriweatherHeading = Merriweather({
   subsets: ['latin'],

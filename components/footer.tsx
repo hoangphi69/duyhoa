@@ -36,7 +36,7 @@ export default function Footer() {
               Liên hệ
             </h4>
             <div className="space-y-1 font-heading font-semibold text-background text-lg md:text-3xl">
-              <p className="">0904 683 035</p>
+              <p className="">0333.455.889</p>
               <p>duyhoa@gmail.com</p>
             </div>
           </div>
@@ -135,7 +135,7 @@ export default function Footer() {
               </li>
               <li>
                 <Link
-                  href="https://zalo.me/0904683035"
+                  href="https://zalo.me/0333455889"
                   className="hover:text-background transition-colors"
                 >
                   Zalo OA

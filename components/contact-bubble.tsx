@@ -36,18 +36,18 @@ export default function ContactBubble() {
       >
         {/* 1. Hotline (Pill Shape) */}
         <Link
-          href="tel:0904683035"
+          href="tel:0333455889"
           className="flex items-center gap-2 bg-primary shadow-lg hover:shadow-xl px-5 py-3 rounded-full text-primary-foreground transition-transform hover:-translate-x-1"
         >
           <Phone className="w-5 h-5" />
           <span className="font-mono text-base tracking-wide">
-            0904.683.035
+            0333.455.889
           </span>
         </Link>
 
         {/* 2. Zalo (Bubble) */}
         <Link
-          href="https://zalo.me/0904683035"
+          href="https://zalo.me/0333455889"
           target="_blank"
           rel="noreferrer"
           className="flex justify-center items-center bg-[#0068FF] shadow-lg hover:shadow-xl rounded-full w-14 h-14 text-white transition-transform hover:-translate-x-1"
