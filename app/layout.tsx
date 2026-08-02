@@ -4,6 +4,7 @@ import { cn } from '@/lib/utils';
 import type { Metadata } from 'next';
 import { Geist_Mono, Inter, Merriweather } from 'next/font/google';
 import './globals.css';
+import Footer from '@/components/footer';
 
 const merriweatherHeading = Merriweather({
   subsets: ['latin'],
@@ -43,6 +44,7 @@ export default function RootLayout({
         <Navbar />
         <main className="mx-auto w-full grow">{children}</main>
         <ContactBubble />
+        <Footer />
       </body>
     </html>
   );

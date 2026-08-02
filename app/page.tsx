@@ -1,6 +1,5 @@
 'use client';
 
-import Footer from '@/components/footer';
 import SupplyCapacitySection from '@/components/landing/section-capacity';
 import ContactSection from '@/components/landing/section-contact';
 import DistributionSection from '@/components/landing/section-distribution';
@@ -11,24 +10,20 @@ import StatisticsSection from '@/components/landing/section-statistics';
 
 export default function LandingPage() {
   return (
-    <>
-      <div className="*:mx-auto *:sm:px-6 *:lg:px-8 *:px-4 *:container">
-        <HeroSection />
+    <div className="*:mx-auto *:lg:px-8 *:px-4 *:sm:px-6 *:container">
+      <HeroSection />
 
-        <StatisticsSection />
+      <StatisticsSection />
 
-        <ProductsSection />
+      <ProductsSection />
 
-        <SupplyCapacitySection />
+      <SupplyCapacitySection />
 
-        <DistributionSection />
+      <DistributionSection />
 
-        <ReasonsSection />
+      <ReasonsSection />
 
-        <ContactSection />
-      </div>
-
-      <Footer />
-    </>
+      <ContactSection />
+    </div>
   );
 }

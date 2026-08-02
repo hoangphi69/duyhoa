@@ -51,7 +51,7 @@ export default function HeroSection() {
 
           {/* Full-width Image */}
           <img
-            src="https://picsum.photos/1920/900"
+            src="/hero-image.jpg"
             alt="hero image"
             className="z-10 relative drop-shadow-2xl w-full max-h-[600px] object-cover"
           />

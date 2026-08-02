@@ -102,7 +102,7 @@ export default function Navbar() {
                           {categories.map((cat, idx) => (
                             <div key={idx} className="flex flex-col gap-4">
                               <Link
-                                href={`/products?category=${encodeURIComponent(cat.title)}`}
+                                href={`/product?category=${encodeURIComponent(cat.title)}`}
                                 className="w-fit font-mono text-muted-foreground hover:text-primary text-xs uppercase tracking-widest transition-colors"
                               >
                                 {cat.title}
@@ -134,7 +134,7 @@ export default function Navbar() {
                         {/* Bottom Links (All Products & Pricing) */}
                         <div className="flex gap-12 mt-12 pt-6 border-border border-t">
                           <Link
-                            href="/products"
+                            href="/product"
                             className="group flex items-center gap-2 font-mono text-muted-foreground hover:text-primary text-xs uppercase tracking-wider transition-colors"
                           >
                             Tất cả sản phẩm
@@ -192,27 +192,12 @@ export default function Navbar() {
 
                 {/* 5. Tin tức */}
                 <NavigationMenuItem>
-                  <NavigationMenuTrigger>
+                  <NavigationMenuLink
+                    render={<Link href="/article" />}
+                    className={navigationMenuTriggerStyle()}
+                  >
                     <span className="uppercase">Tin tức</span>
-                  </NavigationMenuTrigger>
-                  <NavigationMenuContent>
-                    <ul className="flex flex-col p-2 w-56">
-                      {['Tin Duy Hoà', 'Sự kiện', 'Video', 'Kiến thức'].map(
-                        (item) => (
-                          <li key={item}>
-                            <NavigationMenuLink
-                              render={
-                                <Link href={`/news/${item.toLowerCase()}`} />
-                              }
-                              className="block hover:bg-primary p-3 text-sm transition-colors"
-                            >
-                              {item}
-                            </NavigationMenuLink>
-                          </li>
-                        ),
-                      )}
-                    </ul>
-                  </NavigationMenuContent>
+                  </NavigationMenuLink>
                 </NavigationMenuItem>
 
                 {/* 6. Liên hệ */}
@@ -340,7 +325,7 @@ export default function Navbar() {
               {openMobileDropdown === 'sanpham' && (
                 <div className="flex flex-col space-y-5 ml-2 pb-4 pl-4 border-primary/20 border-l-2">
                   <Link
-                    href="/products"
+                    href="/product"
                     onClick={closeMenu}
                     className="py-1 font-bold text-primary"
                   >
@@ -349,7 +334,7 @@ export default function Navbar() {
                   {categories.map((cat, i) => (
                     <div key={i} className="flex flex-col gap-2">
                       <Link
-                        href={`/products?category=${encodeURIComponent(cat.title)}`}
+                        href={`/product?category=${encodeURIComponent(cat.title)}`}
                         onClick={closeMenu}
                         className="w-fit font-mono text-muted-foreground hover:text-primary text-xs uppercase tracking-widest transition-colors"
                       >
@@ -382,36 +367,13 @@ export default function Navbar() {
             </Link>
 
             {/* Mobile: Tin tức */}
-            <div className="border-border/50 border-b">
-              <button
-                onClick={() => toggleMobileDropdown('tintuc')}
-                className="flex justify-between items-center py-3 w-full font-medium text-xl"
-              >
-                Tin tức
-                <ChevronDown
-                  className={cn(
-                    'w-5 h-5 transition-transform',
-                    openMobileDropdown === 'tintuc' && 'rotate-180',
-                  )}
-                />
-              </button>
-              {openMobileDropdown === 'tintuc' && (
-                <div className="flex flex-col space-y-3 ml-2 pb-4 pl-4 border-primary/20 border-l-2">
-                  {['Tin Duy Hoà', 'Sự kiện', 'Video', 'Kiến thức'].map(
-                    (item) => (
-                      <Link
-                        key={item}
-                        href={`/news/${item.toLowerCase()}`}
-                        onClick={closeMenu}
-                        className="py-1 text-muted-foreground text-lg"
-                      >
-                        {item}
-                      </Link>
-                    ),
-                  )}
-                </div>
-              )}
-            </div>
+            <Link
+              href="/article"
+              onClick={closeMenu}
+              className="py-3 border-border/50 border-b font-medium text-xl"
+            >
+              Tin tức
+            </Link>
 
             {/* Mobile: Liên hệ */}
             <div className="border-border/50 border-b">

@@ -11,6 +11,8 @@ import {
   Wrench,
   Check,
   X,
+  RotateCcw,
+  CheckCheck,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
@@ -93,10 +95,11 @@ export default function ProductsPage() {
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
   const [selectedBrands, setSelectedBrands] = useState<string[]>([]);
   const [isMobileFilterOpen, setIsMobileFilterOpen] = useState(false);
+  const [sortOption, setSortOption] = useState('Mới nhất');
 
-  // Filter Logic
+  // Filter & Sort Logic
   const filteredProducts = useMemo(() => {
-    return MOCK_PRODUCTS.filter((product) => {
+    let result = MOCK_PRODUCTS.filter((product) => {
       const matchesSearch = product.name
         .toLowerCase()
         .includes(searchQuery.toLowerCase());
@@ -107,7 +110,18 @@ export default function ProductsPage() {
 
       return matchesSearch && matchesTags && matchesBrands;
     });
-  }, [searchQuery, selectedTags, selectedBrands]);
+
+    // Apply Sorting
+    if (sortOption === 'Tên: A-Z') {
+      result = result.sort((a, b) => a.name.localeCompare(b.name));
+    } else if (sortOption === 'Tên: Z-A') {
+      result = result.sort((a, b) => b.name.localeCompare(a.name));
+    } else if (sortOption === 'Mới nhất') {
+      result = result.sort((a, b) => b.id - a.id);
+    }
+
+    return result;
+  }, [searchQuery, selectedTags, selectedBrands, sortOption]);
 
   // Chip Toggle Helpers
   const toggleChip = (
@@ -163,7 +177,7 @@ export default function ProductsPage() {
   };
 
   return (
-    <div className="pb-20 max-w-[100vw] min-h-screen overflow-hidden">
+    <div className="pb-20 max-w-[100vw] min-h-screen">
       {/* Page Header */}
       <header className="bg-muted/10 py-12 md:py-20 border-border border-b">
         <div className="mx-auto px-4 sm:px-6 lg:px-8 container">
@@ -204,7 +218,7 @@ export default function ProductsPage() {
           {/* LEFT COLUMN: Filters (Sidebar) */}
           <aside
             className={cn(
-              'lg:block flex flex-col bg-background h-fit',
+              'lg:block lg:top-20 lg:sticky flex flex-col bg-background lg:h-[calc(100vh-80px)] overflow-y-auto scrollbar-hide',
               isMobileFilterOpen ? 'block mb-px' : 'hidden',
             )}
           >
@@ -224,20 +238,14 @@ export default function ProductsPage() {
 
             {/* Categories & Tags Filter */}
             <div className="flex flex-col bg-background">
-              <div className="bg-muted/10 p-6 pb-2 border-border border-b">
-                <h3 className="font-mono text-muted-foreground text-sm uppercase tracking-widest">
+              <div className="bg-muted/10 p-6 pb-2">
+                <h3 className="border-border border-b font-mono text-muted-foreground text-sm uppercase tracking-widest">
                   Dòng sản phẩm
                 </h3>
               </div>
 
               {CATEGORIES_DATA.map((cat, idx) => (
-                <div
-                  key={cat.title}
-                  className={cn(
-                    'p-6 pt-4',
-                    idx !== 0 && 'border-t border-border/50',
-                  )}
-                >
+                <div key={cat.title} className="p-6 pt-4">
                   {/* Filter Group Header */}
                   <div className="flex justify-between items-center mb-4">
                     <div className="flex items-center gap-2 font-semibold text-foreground text-xs uppercase tracking-wider">
@@ -252,7 +260,7 @@ export default function ProductsPage() {
                         className="hover:bg-muted p-1 text-muted-foreground hover:text-primary transition-colors"
                         title="Chọn tất cả"
                       >
-                        <Check className="w-4 h-4" />
+                        <CheckCheck className="w-4 h-4" />
                       </button>
                       <button
                         onClick={() =>
@@ -261,7 +269,7 @@ export default function ProductsPage() {
                         className="hover:bg-muted p-1 text-muted-foreground hover:text-destructive transition-colors"
                         title="Xóa nhóm này"
                       >
-                        <X className="w-4 h-4" />
+                        <RotateCcw className="w-4 h-4" />
                       </button>
                     </div>
                   </div>
@@ -293,12 +301,12 @@ export default function ProductsPage() {
             </div>
 
             {/* Brands Filter */}
-            <div className="flex flex-col bg-background">
-              <div className="flex justify-between items-center bg-muted/10 p-6 pb-4 border-border/50 border-b">
-                <h3 className="font-mono text-muted-foreground text-sm uppercase tracking-widest">
+            <div className="flex flex-col bg-background grow">
+              <div className="relative flex justify-between items-center bg-muted/10 p-6 pb-4">
+                <h3 className="border-border border-b font-mono text-muted-foreground text-sm uppercase tracking-widest grow">
                   Thương hiệu
                 </h3>
-                <div className="flex items-center gap-2">
+                <div className="right-6 absolute flex items-center gap-2">
                   <button
                     onClick={() =>
                       addAll(BRANDS_DATA, selectedBrands, setSelectedBrands)
@@ -306,7 +314,7 @@ export default function ProductsPage() {
                     className="hover:bg-muted p-1 text-muted-foreground hover:text-primary transition-colors"
                     title="Chọn tất cả"
                   >
-                    <Check className="w-4 h-4" />
+                    <CheckCheck className="w-4 h-4" />
                   </button>
                   <button
                     onClick={() =>
@@ -315,7 +323,7 @@ export default function ProductsPage() {
                     className="hover:bg-muted p-1 text-muted-foreground hover:text-destructive transition-colors"
                     title="Xóa nhóm này"
                   >
-                    <X className="w-4 h-4" />
+                    <RotateCcw className="w-4 h-4" />
                   </button>
                 </div>
               </div>
@@ -343,17 +351,18 @@ export default function ProductsPage() {
             </div>
 
             {/* Filter Global Actions */}
-            <div className="bottom-0 sticky flex flex-col gap-3 bg-card p-6 border-border border-t">
+            <div className="bottom-0 sticky flex flex-col gap-3 bg-card mt-auto p-6 border-border border-t">
               <Button
                 onClick={() => {
                   setSelectedTags([]);
                   setSelectedBrands([]);
                   setSearchQuery('');
+                  setSortOption('Mới nhất');
                 }}
-                variant="outline"
+                variant="destructive"
                 className="rounded-none w-full h-12 font-mono uppercase tracking-wider"
               >
-                Xóa toàn bộ bộ lọc
+                Xoá toàn bộ bộ lọc
               </Button>
             </div>
           </aside>
@@ -361,7 +370,7 @@ export default function ProductsPage() {
           {/* RIGHT COLUMN: Product Grid (3 Columns on Desktop) */}
           <div className="gap-px grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 lg:col-span-3 bg-border h-fit">
             {/* Top Toolbar mapping into the grid */}
-            <div className="flex sm:flex-row flex-col justify-between items-start sm:items-center gap-4 col-span-1 sm:col-span-2 xl:col-span-3 bg-card p-4 sm:p-6">
+            <div className="top-20 z-10 sticky flex sm:flex-row flex-col justify-between items-start sm:items-center gap-4 col-span-1 sm:col-span-2 xl:col-span-3 bg-card p-4 sm:p-6 border-b">
               <span className="text-muted-foreground text-sm">
                 Tìm thấy{' '}
                 <span className="mx-1 font-medium text-foreground text-lg">
@@ -373,18 +382,22 @@ export default function ProductsPage() {
                 <span className="text-muted-foreground text-sm whitespace-nowrap">
                   Sắp xếp
                 </span>
-                <select className="bg-background px-3 border border-border focus:border-primary rounded-none focus:outline-none w-full sm:w-48 h-10 text-sm cursor-pointer">
-                  <option>Mới nhất</option>
-                  <option>Tên: A-Z</option>
-                  <option>Tên: Z-A</option>
+                <select
+                  value={sortOption}
+                  onChange={(e) => setSortOption(e.target.value)}
+                  className="bg-background px-3 border border-border focus:border-primary rounded-none focus:outline-none w-full sm:w-48 h-10 text-sm cursor-pointer"
+                >
+                  <option value="Mới nhất">Mới nhất</option>
+                  <option value="Tên: A-Z">Tên: A-Z</option>
+                  <option value="Tên: Z-A">Tên: Z-A</option>
                 </select>
               </div>
             </div>
 
             {/* Empty State */}
             {filteredProducts.length === 0 && (
-              <div className="flex flex-col justify-center items-center col-span-1 sm:col-span-2 xl:col-span-3 bg-card p-20 text-center">
-                <Search className="mb-4 w-12 h-12 text-muted-foreground/30" />
+              <div className="flex flex-col justify-center items-center col-span-1 sm:col-span-2 xl:col-span-3 p-20 text-center">
+                <Search className="mb-4 w-12 h-12" />
                 <h3 className="mb-2 font-heading text-2xl">
                   Không tìm thấy sản phẩm
                 </h3>
@@ -443,10 +456,10 @@ export default function ProductsPage() {
 
             {/* Pagination / Load More */}
             {filteredProducts.length > 0 && (
-              <div className="flex justify-center col-span-1 sm:col-span-2 xl:col-span-3 bg-card p-8 border-border border-t">
+              <div className="flex justify-center col-span-1 sm:col-span-2 xl:col-span-3 bg-card p-6 border-border border-t">
                 <Button
                   variant="outline"
-                  className="group hover:bg-primary px-8 rounded-none h-12 font-mono font-bold hover:text-primary-foreground uppercase tracking-widest transition-colors"
+                  className="group hover:bg-primary px-8 rounded-none h-12 font-mono hover:text-primary-foreground uppercase tracking-widest transition-colors"
                 >
                   Tải thêm sản phẩm
                 </Button>
