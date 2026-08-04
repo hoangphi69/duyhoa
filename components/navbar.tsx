@@ -15,6 +15,8 @@ import Link from 'next/link';
 import { useState } from 'react';
 import { categories } from './data';
 import { buttonVariants } from './ui/button';
+import Logo from '@/public/duyhoa.png';
+import Image from 'next/image';
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -40,9 +42,10 @@ export default function Navbar() {
         <div className="flex justify-between items-center h-20">
           {/* Logo Section */}
           <Link href="/" className="flex items-center h-full">
-            <img
-              src="/duyhoa.png"
+            <Image
+              src={Logo}
               alt="Duy Hoà"
+              priority
               className="w-auto h-15 object-contain"
             />
           </Link>

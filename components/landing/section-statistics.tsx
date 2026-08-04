@@ -34,11 +34,20 @@ export default function StatisticsSection() {
         <div className="gap-px grid grid-cols-2 h-full">
           {/* Featured Stat - Spans 2 columns */}
           <div className="flex flex-col justify-center gap-2 col-span-2 bg-card/80 px-6 md:px-8 py-8 md:py-12">
-            <span className="font-mono text-primary text-6xl md:text-7xl tracking-tighter">
-              6 thương hiệu
-            </span>
+            <div className="font-mono">
+              <span className="font-medium text-muted-foreground text-4xl md:text-5xl">
+                hơn{' '}
+              </span>
+              <span className="text-primary text-6xl md:text-7xl tracking-tighter">
+                120
+              </span>
+              <span className="font-medium text-muted-foreground text-4xl md:text-5xl">
+                {' '}
+                thương hiệu
+              </span>
+            </div>
             <span className="mt-4 font-medium text-muted-foreground text-sm sm:text-base leading-tight">
-              Uỷ quyền cấp 1 khu vực
+              được phân phối rộng rãi
             </span>
           </div>
 
@@ -59,7 +68,7 @@ export default function StatisticsSection() {
               desc: 'Phân phối chính hãng',
             },
             {
-              value: '12',
+              value: '20',
               unit: 'đầu xe',
               desc: 'Tổng tải trọng gần 60 tấn',
             },
@@ -70,7 +79,7 @@ export default function StatisticsSection() {
             >
               <span className="font-mono text-primary text-3xl md:text-4xl">
                 {stat.value}{' '}
-                <span className="font-medium text-muted-foreground/50 text-xl md:text-2xl">
+                <span className="font-medium text-muted-foreground text-xl md:text-2xl">
                   {stat.unit}
                 </span>
               </span>

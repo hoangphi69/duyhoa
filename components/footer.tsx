@@ -14,6 +14,7 @@ export default function Footer() {
             <Link href="/">
               <Image
                 src={logo}
+                priority
                 alt="Duy Hoà Logo"
                 className="w-full h-28 object-contain"
               />

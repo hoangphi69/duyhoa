@@ -4,29 +4,30 @@ import { PortableTextBlock } from 'sanity';
 interface BaseSanityDocument {
   _id: string;
   _createdAt: string;
+  _updatedAt: string;
+  _type: 'news' | 'event' | 'guide';
   title: string;
   slug: string;
   excerpt: string;
-  image: string;
+  imageUrl: string;
   content: PortableTextBlock[];
+  seoKeywords?: string[];
+  faqs?: { question: string; answer: string }[];
 }
 
-// 1. Type for News (Tin Duy Hoà)
 export interface News extends BaseSanityDocument {
   _type: 'news';
   publishedAt: string;
   isFeatured: boolean;
 }
 
-// 2. Type for Events (Sự kiện)
 export interface Event extends BaseSanityDocument {
   _type: 'event';
-  eventDate: string; // ISO Datetime string
+  eventDate: string;
   location: string;
 }
 
-// 3. Type for Guides (Kiến thức)
 export interface Guide extends BaseSanityDocument {
   _type: 'guide';
-  tags: string[]; // Updated to array of strings
+  tags: string[];
 }

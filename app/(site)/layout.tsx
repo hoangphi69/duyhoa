@@ -1,0 +1,18 @@
+import ContactBubble from '@/components/contact-bubble';
+import Footer from '@/components/footer';
+import Navbar from '@/components/navbar';
+
+export default function SiteLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  return (
+    <>
+      <Navbar />
+      <main className="mx-auto w-full grow">{children}</main>
+      <ContactBubble />
+      <Footer />
+    </>
+  );
+}

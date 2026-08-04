@@ -1,34 +1,34 @@
-import Link from 'next/link';
+import { calculateReadTime } from '@/lib/utils';
+import { client } from '@/sanity/lib/client';
+import { Event, Guide, News } from '@/types/sanity';
 import {
   ArrowRight,
   Calendar,
   Clock,
-  Newspaper,
-  PartyPopper,
   Lightbulb,
   MapPin,
+  Newspaper,
+  PartyPopper,
 } from 'lucide-react';
-import { client } from '@/sanity/lib/client';
 import { groq } from 'next-sanity';
-import { News, Event, Guide } from '@/types/sanity';
-import { calculateReadTime } from '@/lib/utils';
+import Link from 'next/link';
 
 // Fetch functions returning strict types
 async function getNews(): Promise<News[]> {
   return client.fetch(groq`*[_type == "news"] | order(publishedAt desc) {
-    _id, title, "slug": slug.current, publishedAt, isFeatured, excerpt, "image": image.asset->url
+    _id, title, "slug": slug.current, publishedAt, isFeatured, excerpt, "imageUrl": image.asset->url
   }`);
 }
 
 async function getEvents(): Promise<Event[]> {
   return client.fetch(groq`*[_type == "event"] | order(eventDate asc) {
-    _id, title, "slug": slug.current, eventDate, location, excerpt, "image": image.asset->url
+    _id, title, "slug": slug.current, eventDate, location, excerpt, "imageUrl": image.asset->url
   }`);
 }
 
 async function getGuides(): Promise<Guide[]> {
   return client.fetch(groq`*[_type == "guide"] | order(_createdAt desc) {
-    _id, title, "slug": slug.current, tag, readTime, excerpt, "image": image.asset->url
+    _id, title, "slug": slug.current, tags, readTime, excerpt, "imageUrl": image.asset->url
   }`);
 }
 
@@ -60,7 +60,7 @@ export default async function ArticlesPage() {
       {/* SECTION 1: TIN DUY HOÀ */}
       <section className="mx-auto mt-12 px-4 sm:px-6 lg:px-8 container">
         {/* Section Header */}
-        <div className="flex items-center gap-3 mb-6 pb-4 border-border border-b">
+        <div className="flex items-center gap-3 mb-4 pb-4">
           <div className="bg-primary p-2 border border-border text-primary-foreground">
             <Newspaper className="w-5 h-5" />
           </div>
@@ -83,9 +83,9 @@ export default async function ArticlesPage() {
                 {/* Inner Hover Glow */}
                 <div className="z-20 absolute inset-0 opacity-0 group-hover/card:opacity-100 shadow-[0_0_30px_-5px] shadow-primary/20 border border-primary transition-opacity duration-300 pointer-events-none" />
 
-                <div className="relative bg-muted/5 border-border border-b w-full aspect-video lg:aspect-[21/9] overflow-hidden">
+                <div className="relative bg-muted/5 border-border border-b w-full aspect-video lg:aspect-21/9 overflow-hidden">
                   <img
-                    src={post.image}
+                    src={post.imageUrl}
                     alt={post.title}
                     className="w-full h-full object-cover group-hover/card:scale-105 transition-transform duration-700"
                   />
@@ -127,7 +127,7 @@ export default async function ArticlesPage() {
 
                   <div className="relative bg-muted/5 border-border border-b w-full aspect-video overflow-hidden shrink-0">
                     <img
-                      src={post.image}
+                      src={post.imageUrl}
                       alt={post.title}
                       className="w-full h-full object-cover group-hover/card:scale-105 transition-transform duration-700"
                     />
@@ -153,8 +153,8 @@ export default async function ArticlesPage() {
         {/* View All News */}
         <div className="flex justify-end bg-card mt-px p-4 border border-border border-t-0">
           <Link
-            href="/news/tin-duy-hoa"
-            className="flex items-center gap-2 font-mono font-bold hover:text-primary text-xs uppercase tracking-widest transition-colors"
+            href="/article/tin-duy-hoa"
+            className="flex items-center gap-2 font-mono font-medium text-muted-foreground hover:text-foreground text-xs uppercase tracking-widest transition-colors"
           >
             Xem tất cả Tin Duy Hoà <ArrowRight className="w-4 h-4" />
           </Link>
@@ -164,7 +164,7 @@ export default async function ArticlesPage() {
       {/* SECTION 2: SỰ KIỆN */}
       <section className="mx-auto mt-20 px-4 sm:px-6 lg:px-8 container">
         {/* Section Header */}
-        <div className="flex items-center gap-3 mb-6 pb-4 border-border border-b">
+        <div className="flex items-center gap-3 mb-4 pb-4">
           <div className="bg-primary p-2 border border-border text-primary-foreground">
             <PartyPopper className="w-5 h-5" />
           </div>
@@ -177,7 +177,7 @@ export default async function ArticlesPage() {
         <div className="gap-px grid grid-cols-1 bg-border border border-border w-full">
           {events.map((event) => (
             <Link
-              href={`/events/${event.slug}`}
+              href={`/article/${event.slug}`}
               key={event._id}
               className="group/card relative flex md:flex-row flex-col bg-card hover:bg-muted/10 transition-colors duration-300"
             >
@@ -186,21 +186,23 @@ export default async function ArticlesPage() {
 
               {/* Date Block (Rigid Square) */}
               <div className="flex md:flex-col justify-center items-center gap-2 md:gap-0 bg-muted/10 group-hover/card:bg-primary p-6 border-border md:border-r border-b md:border-b-0 md:w-48 group-hover/card:text-primary-foreground transition-colors duration-300 shrink-0">
-                <span className="font-mono font-bold text-4xl md:text-5xl tracking-tighter">
-                  {event.eventDate.split('-')[2]}
-                </span>
-                <span className="opacity-80 mt-0 md:mt-2 font-mono text-xs uppercase tracking-widest">
-                  {event.eventDate.split('-')[1]}
-                </span>
+                {(() => {
+                  const date = new Date(event.eventDate);
+                  return (
+                    <>
+                      <span className="font-mono font-bold text-4xl md:text-5xl tracking-tighter">
+                        {date.getDate()}
+                      </span>
+                      <span className="opacity-80 mt-0 md:mt-2 font-mono text-xs uppercase tracking-widest">
+                        Tháng {date.getMonth() + 1} {date.getFullYear()}
+                      </span>
+                    </>
+                  );
+                })()}
               </div>
 
               {/* Event Info */}
               <div className="flex flex-col p-6 md:p-8 grow">
-                <div className="flex flex-wrap items-center gap-2 mb-4">
-                  <span className="flex items-center bg-background px-2 py-1 border border-border group-hover/card:border-primary/20 h-6 font-mono text-[10px] text-muted-foreground uppercase tracking-widest">
-                    Sự kiện sắp diễn ra
-                  </span>
-                </div>
                 <h3 className="mb-3 font-heading group-hover/card:text-primary text-2xl md:text-3xl leading-snug transition-colors">
                   {event.title}
                 </h3>
@@ -217,7 +219,7 @@ export default async function ArticlesPage() {
               {/* Event Image Thumbnail (Right side on large screens) */}
               <div className="hidden lg:block relative bg-muted/5 p-6 border-border border-l w-72 overflow-hidden shrink-0">
                 <img
-                  src={event.image}
+                  src={event.imageUrl}
                   alt={event.title}
                   className="opacity-80 group-hover/card:opacity-100 grayscale group-hover/card:grayscale-0 w-full h-full object-cover group-hover/card:scale-105 transition-transform duration-500"
                 />
@@ -229,8 +231,8 @@ export default async function ArticlesPage() {
         {/* View All Su Kien */}
         <div className="flex justify-end bg-card mt-px p-4 border border-border border-t-0">
           <Link
-            href="/news/su-kien"
-            className="flex items-center gap-2 font-mono font-bold hover:text-primary text-xs uppercase tracking-widest transition-colors"
+            href="/article/su-kien"
+            className="flex items-center gap-2 font-mono font-medium text-muted-foreground hover:text-foreground text-xs uppercase tracking-widest transition-colors"
           >
             Xem tất cả Sự kiện <ArrowRight className="w-4 h-4" />
           </Link>
@@ -240,7 +242,7 @@ export default async function ArticlesPage() {
       {/* SECTION 3: KIẾN THỨC */}
       <section className="mx-auto mt-20 mb-12 px-4 sm:px-6 lg:px-8 container">
         {/* Section Header */}
-        <div className="flex items-center gap-3 mb-6 pb-4 border-border border-b">
+        <div className="flex items-center gap-3 mb-4 pb-4">
           <div className="bg-primary p-2 border border-border text-primary-foreground">
             <Lightbulb className="w-5 h-5" />
           </div>
@@ -263,27 +265,30 @@ export default async function ArticlesPage() {
               {/* Image Area */}
               <div className="relative bg-muted/5 border-border border-b aspect-4/3 overflow-hidden">
                 <img
-                  src={guide.image}
+                  src={guide.imageUrl}
                   alt={guide.title}
                   className="w-full h-full object-cover group-hover/card:scale-105 transition-transform duration-500"
                 />
               </div>
 
               {/* Info Area */}
-              <div className="flex flex-col p-6 grow">
-                <div className="flex items-center gap-3 mb-4 font-mono text-[10px] text-muted-foreground group-hover/card:text-primary-foreground/80 uppercase tracking-widest transition-colors">
-                  <span className="bg-muted/30 group-hover/card:bg-transparent px-2 py-1 border border-border group-hover/card:border-primary-foreground/20">
-                    {guide.tags.join(', ')}
-                  </span>
-                  <span className="flex items-center gap-1">
-                    <Clock className="w-3 h-3" />{' '}
-                    {calculateReadTime(guide.content)}
-                  </span>
-                </div>
-
+              <div className="flex flex-col gap-4 p-6 grow">
                 <h3 className="font-heading group-hover/card:text-primary-foreground text-lg line-clamp-3 leading-snug transition-colors">
                   {guide.title}
                 </h3>
+
+                {guide.tags && guide.tags.length > 0 && (
+                  <div className="flex flex-wrap gap-2">
+                    {guide.tags.map((tag, idx) => (
+                      <span
+                        key={idx}
+                        className="bg-muted px-2 py-1 border border-border font-mono text-[10px] text-muted-foreground uppercase tracking-widest"
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                )}
 
                 <div className="flex items-center gap-1 mt-auto pt-6 font-mono font-bold text-primary group-hover/card:text-primary-foreground text-xs uppercase tracking-widest transition-colors">
                   Đọc bài viết{' '}
@@ -297,8 +302,8 @@ export default async function ArticlesPage() {
         {/* View All Kien thuc */}
         <div className="flex justify-center lg:justify-end bg-card mt-px p-4 border border-border border-t-0">
           <Link
-            href="/news/kien-thuc"
-            className="flex items-center gap-2 font-mono font-bold hover:text-primary text-xs uppercase tracking-widest transition-colors"
+            href="/article/kien-thuc"
+            className="flex items-center gap-2 font-mono font-medium text-muted-foreground hover:text-foreground text-xs uppercase tracking-widest transition-colors"
           >
             Đọc thêm cẩm nang <ArrowRight className="w-4 h-4" />
           </Link>

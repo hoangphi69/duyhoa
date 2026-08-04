@@ -1,4 +1,4 @@
-import { defineField, defineType } from 'sanity';
+import { defineArrayMember, defineField, defineType } from 'sanity';
 import { CalendarDays } from 'lucide-react';
 
 export default defineType({
@@ -19,6 +19,15 @@ export default defineType({
       type: 'slug',
       options: { source: 'title', maxLength: 96 },
       validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: 'seoKeywords',
+      title: 'Từ khoá SEO',
+      type: 'array',
+      of: [{ type: 'string' }],
+      options: {
+        layout: 'tags',
+      },
     }),
     defineField({
       name: 'eventDate',
@@ -49,7 +58,29 @@ export default defineType({
       name: 'content',
       title: 'Nội dung chi tiết',
       type: 'array',
-      of: [{ type: 'block' }],
+      of: [
+        { type: 'block' },
+        { type: 'image' },
+        defineArrayMember({
+          name: 'richTableBlock',
+          title: 'Bảng',
+          type: 'richTableBlock',
+        }),
+      ],
+    }),
+    defineField({
+      name: 'faqs',
+      title: 'Câu hỏi thường gặp (FAQs)',
+      type: 'array',
+      of: [
+        {
+          type: 'object',
+          fields: [
+            { name: 'question', title: 'Câu hỏi', type: 'string' },
+            { name: 'answer', title: 'Câu trả lời', type: 'text' },
+          ],
+        },
+      ],
     }),
   ],
 });

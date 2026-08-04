@@ -1,10 +1,7 @@
-import ContactBubble from '@/components/contact-bubble';
-import Navbar from '@/components/navbar';
 import { cn } from '@/lib/utils';
 import type { Metadata } from 'next';
 import { Geist_Mono, Inter, Merriweather } from 'next/font/google';
 import './globals.css';
-import Footer from '@/components/footer';
 
 const merriweatherHeading = Merriweather({
   subsets: ['latin'],
@@ -41,10 +38,7 @@ export default function RootLayout({
       <body
         className={`${inter.className} min-h-screen flex flex-col mx-auto selection:bg-primary selection:text-primary-foreground scroll-smooth`}
       >
-        <Navbar />
-        <main className="mx-auto w-full grow">{children}</main>
-        <ContactBubble />
-        <Footer />
+        {children}
       </body>
     </html>
   );

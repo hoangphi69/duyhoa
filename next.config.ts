@@ -15,6 +15,10 @@ const nextConfig: NextConfig = {
         as: '*.js',
       },
     },
+    resolveAlias: {
+      'react-compiler-runtime': 'react/compiler-runtime',
+      'react-compiler-runtime/*': 'react/compiler-runtime',
+    },
   },
 };
 

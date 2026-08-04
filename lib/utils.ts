@@ -28,3 +28,36 @@ export function calculateReadTime(blocks: PortableTextBlock[]): number {
 
   return readTime === 0 ? 1 : readTime;
 }
+
+// Generates a URL-safe slug from text (e.g., "Cách chọn dây" -> "cach-chon-day")
+export function slugify(text: string): string {
+  return text
+    .toString()
+    .toLowerCase()
+    .normalize('NFD') // Decompose accents
+    .replace(/[\u0300-\u036f]/g, '') // Remove accents
+    .replace(/[^a-z0-9 -]/g, '') // Remove invalid chars
+    .replace(/\s+/g, '-') // Collapse whitespace and replace by -
+    .replace(/-+/g, '-') // Collapse dashes
+    .trim();
+}
+
+// Extracts H2 and H3 blocks to build the ToC
+export function generateToC(blocks: PortableTextBlock[]) {
+  if (!blocks) return [];
+  return blocks
+    .filter(
+      (block) =>
+        block._type === 'block' && ['h2', 'h3'].includes(block.style as string),
+    )
+    .map((block) => {
+      // Safely extract text from the block's children
+      const text =
+        (block.children as any[])?.map((child) => child.text).join('') || '';
+      return {
+        id: slugify(text),
+        text,
+        level: block.style, // 'h2' or 'h3'
+      };
+    });
+}

@@ -17,7 +17,7 @@ export default function DistributionSection() {
       </div>
       <Map className="w-full h-full" />
       <p className="max-w-[33ch] text-muted-foreground text-lg">
-        12 đầu xe, phủ kín tam giác Quảng Ninh – Hải Phòng – Hải Dương
+        Gần 20 đầu xe, phủ kín tam giác Quảng Ninh – Hải Phòng – Hải Dương
       </p>
     </section>
   );
