@@ -1,8 +1,22 @@
 import { type SchemaTypeDefinition } from 'sanity';
-import newsType from './newsType';
-import eventType from './eventType';
-import guideType from './guideType';
+
+import newsType from './article/newsType';
+import eventType from './article/eventType';
+import guideType from './article/guideType';
+
+import category from './product/category';
+import subcategory from './product/subcategory';
+import brand from './product/brand';
+import product from './product/product';
 
 export const schema: { types: SchemaTypeDefinition[] } = {
-  types: [newsType, eventType, guideType],
+  types: [
+    category,
+    subcategory,
+    brand,
+    product,
+    newsType,
+    eventType,
+    guideType,
+  ],
 };

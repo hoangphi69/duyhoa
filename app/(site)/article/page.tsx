@@ -4,6 +4,7 @@ import { Event, Guide, News } from '@/types/sanity';
 import {
   ArrowRight,
   Calendar,
+  ChevronRight,
   Clock,
   Lightbulb,
   MapPin,
@@ -39,6 +40,19 @@ export default async function ArticlesPage() {
 
   return (
     <div className="bg-background pb-20 max-w-[100vw] min-h-screen overflow-x-hidden">
+      {/* Breadcrumb Header */}
+      <header className="bg-muted/10 py-6 border-border border-b">
+        <div className="mx-auto px-4 sm:px-6 lg:px-8 container">
+          <nav className="flex items-center gap-2 overflow-x-auto font-mono text-muted-foreground text-xs uppercase tracking-widest whitespace-nowrap scrollbar-hide">
+            <Link href="/" className="hover:text-primary transition-colors">
+              Trang chủ
+            </Link>
+            <ChevronRight className="w-3 h-3" />
+            <span className="font-bold text-foreground">Tin tức</span>
+          </nav>
+        </div>
+      </header>
+
       {/* Page Header */}
       <header className="bg-muted/10 py-12 md:py-20 border-border border-b">
         <div className="mx-auto px-4 sm:px-6 lg:px-8 container">
@@ -153,7 +167,7 @@ export default async function ArticlesPage() {
         {/* View All News */}
         <div className="flex justify-end bg-card mt-px p-4 border border-border border-t-0">
           <Link
-            href="/article/tin-duy-hoa"
+            href="/article/news"
             className="flex items-center gap-2 font-mono font-medium text-muted-foreground hover:text-foreground text-xs uppercase tracking-widest transition-colors"
           >
             Xem tất cả Tin Duy Hoà <ArrowRight className="w-4 h-4" />
@@ -231,7 +245,7 @@ export default async function ArticlesPage() {
         {/* View All Su Kien */}
         <div className="flex justify-end bg-card mt-px p-4 border border-border border-t-0">
           <Link
-            href="/article/su-kien"
+            href="/article/event"
             className="flex items-center gap-2 font-mono font-medium text-muted-foreground hover:text-foreground text-xs uppercase tracking-widest transition-colors"
           >
             Xem tất cả Sự kiện <ArrowRight className="w-4 h-4" />
@@ -302,10 +316,10 @@ export default async function ArticlesPage() {
         {/* View All Kien thuc */}
         <div className="flex justify-center lg:justify-end bg-card mt-px p-4 border border-border border-t-0">
           <Link
-            href="/article/kien-thuc"
+            href="/article/guide"
             className="flex items-center gap-2 font-mono font-medium text-muted-foreground hover:text-foreground text-xs uppercase tracking-widest transition-colors"
           >
-            Đọc thêm cẩm nang <ArrowRight className="w-4 h-4" />
+            Đọc thêm kiến thức <ArrowRight className="w-4 h-4" />
           </Link>
         </div>
       </section>

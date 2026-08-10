@@ -1,4 +1,5 @@
 import { clsx, type ClassValue } from 'clsx';
+import { Bath, Droplets, Package, Wrench, Zap } from 'lucide-react';
 import { PortableTextBlock } from 'sanity';
 import { twMerge } from 'tailwind-merge';
 
@@ -61,3 +62,25 @@ export function generateToC(blocks: PortableTextBlock[]) {
       };
     });
 }
+
+// --- Icon Mapper ---
+export const IconMapper = ({
+  name,
+  className,
+}: {
+  name: string;
+  className?: string;
+}) => {
+  switch (name) {
+    case 'Zap':
+      return <Zap className={className} />;
+    case 'Droplets':
+      return <Droplets className={className} />;
+    case 'Bath':
+      return <Bath className={className} />;
+    case 'Wrench':
+      return <Wrench className={className} />;
+    default:
+      return <Package className={className} />;
+  }
+};

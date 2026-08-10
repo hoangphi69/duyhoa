@@ -274,9 +274,9 @@ export default async function ArticleDetailPage({
               Trang chủ
             </Link>
             <ChevronRight className="w-3 h-3" />
-            <span className="hover:text-primary transition-colors cursor-default">
-              {displayCategory}
-            </span>
+            <Link href="/article" className="hover:text-primary transition-colors cursor-default">
+              Tin tức
+            </Link>
             <ChevronRight className="w-3 h-3" />
             <span className="max-w-50 sm:max-w-none font-bold text-foreground truncate">
               {article.title}
