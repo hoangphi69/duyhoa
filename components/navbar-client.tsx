@@ -109,7 +109,7 @@ export default function Navbar({
                           {categories.map((cat, idx) => (
                             <div key={idx} className="flex flex-col gap-4">
                               <Link
-                                href={`/product?category=${encodeURIComponent(cat.title)}`}
+                                href={`/product?category=${encodeURIComponent(cat.slug)}`}
                                 className="w-fit font-mono text-muted-foreground hover:text-primary text-xs uppercase tracking-widest transition-colors"
                               >
                                 {cat.title}
@@ -121,7 +121,7 @@ export default function Navbar({
                                     onMouseEnter={() => setActiveTag(tag)}
                                   >
                                     <Link
-                                      href={`/product?subcategory=${encodeURIComponent(tag.name)}`}
+                                      href={`/product?subcategory=${encodeURIComponent(tag.slug)}`}
                                       className={cn(
                                         'font-medium text-sm transition-colors',
                                         activeTag.name === tag.name
@@ -158,30 +158,31 @@ export default function Navbar({
                       </div>
 
                       {/* Right Column: Dynamic Featured Block based on Hovered Tag */}
-                      <div className="hidden lg:flex flex-col justify-between gap-3 bg-muted/20 p-6 border border-border w-[320px] shrink-0">
-                        <h3 className="font-heading text-2xl leading-tight">
-                          {activeTag.name}
-                        </h3>
+                      <div className="hidden lg:flex flex-col justify-between gap-3 bg-muted/20 border border-border w-[320px] shrink-0">
+                        <div className="space-x-3 p-6">
+                          <h3 className="font-heading text-2xl leading-tight">
+                            {activeTag.name}
+                          </h3>
 
-                        <p className="text-muted-foreground text-sm leading-relaxed">
-                          {activeTag.desc}
-                        </p>
-
-                        {/* Tag Specific Image */}
-                        <div className="flex justify-center items-center bg-background mt-8 h-40">
-                          <img
-                            src={activeTag.image}
-                            alt={activeTag.name}
-                            className="opacity-90 hover:opacity-100 grayscale hover:grayscale-0 w-full h-full object-cover transition-all duration-500"
-                          />
+                          <p className="text-muted-foreground text-sm leading-relaxed">
+                            {activeTag.desc}
+                          </p>
                         </div>
 
-                        <Link
-                          href={`/product?subcategory=${encodeURIComponent(activeTag.name)}`}
-                          className="mt-2 font-mono text-primary text-xs hover:underline underline-offset-4 uppercase tracking-wider"
-                        >
-                          Khám phá ngay
-                        </Link>
+                        {/* Tag Specific Image */}
+                        <div className="flex justify-center items-center bg-background mt-8 h-60">
+                          {activeTag.image ? (
+                            <img
+                              src={activeTag.image}
+                              alt={activeTag.name}
+                              className="bg-primary opacity-90 hover:opacity-100 grayscale hover:grayscale-0 w-full h-full object-cover transition-all duration-500"
+                            />
+                          ) : (
+                            <span className="font-mono text-xs uppercase">
+                              Đang cập nhật hình ảnh
+                            </span>
+                          )}
+                        </div>
                       </div>
                     </div>
                   </NavigationMenuContent>
@@ -377,7 +378,7 @@ export default function Navbar({
                   {categories.map((cat, i) => (
                     <div key={i} className="flex flex-col gap-2">
                       <Link
-                        href={`/product?category=${encodeURIComponent(cat.title)}`}
+                        href={`/product?category=${encodeURIComponent(cat.slug)}`}
                         onClick={closeMenu}
                         className="w-fit font-mono text-muted-foreground hover:text-primary text-xs uppercase tracking-widest transition-colors"
                       >
@@ -387,7 +388,7 @@ export default function Navbar({
                         {cat.tags.map((tag, tIdx) => (
                           <Link
                             key={tIdx}
-                            href={`/product?subcategory=${encodeURIComponent(tag.name)}`}
+                            href={`/product?subcategory=${encodeURIComponent(tag.slug)}`}
                             onClick={closeMenu}
                             className="py-1 text-foreground"
                           >

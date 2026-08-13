@@ -8,6 +8,7 @@ export interface CategoryData {
   desc: string;
   icon: string;
   image: string;
+  slug: string;
   brands: {
     name: string;
     logoUrl: string;
@@ -28,11 +29,12 @@ export default async function ProductsSection() {
   //    trùng với ID của Category hiện tại (^.^._id). Việc truy vấn Document Brand trực
   //    tiếp sẽ tự động loại bỏ trùng lặp (deduplicate).
   const categories = await client.fetch<CategoryData[]>(
-    groq`*[_type == "productCategory"] | order(title asc) {
+    groq`*[_type == "productCategory"] | order(orderRank) {
       _id,
       title,
       desc,
       icon,
+      "slug": slug.current,
       "image": image.asset->url,
       "subcategories": *[_type == "productSubcategory" && category._ref == ^._id] | order(name asc) {
         name,

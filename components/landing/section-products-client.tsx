@@ -1,18 +1,10 @@
 'use client';
 
-import { useRef } from 'react';
-import {
-  ChevronLeft,
-  ChevronRight,
-  Zap,
-  Droplets,
-  Bath,
-  Wrench,
-  Package,
-} from 'lucide-react';
-import Link from 'next/link';
-import { CategoryData } from './section-products';
 import { IconMapper } from '@/lib/utils';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
+import Link from 'next/link';
+import { useRef } from 'react';
+import { CategoryData } from './section-products';
 
 export default function ProductsSectionClient({
   categories,
@@ -93,7 +85,7 @@ export default function ProductsSectionClient({
                   />
                 ) : (
                   <div className="flex justify-center items-center bg-muted/10 w-full h-full font-mono text-muted-foreground text-xs uppercase tracking-widest">
-                    No Image
+                    Đang cập nhật hình ảnh
                   </div>
                 )}
                 <div className="absolute inset-0 bg-gradient-to-t from-background/50 to-transparent pointer-events-none" />
@@ -140,9 +132,9 @@ export default function ProductsSectionClient({
                 >
                   {cat.subcategories?.map((sub, sIdx) => (
                     <Link
-                      href={`/product?subcategory=${encodeURIComponent(sub.name)}`}
+                      href={`/product?subcategory=${encodeURIComponent(sub.slug)}`}
                       key={sIdx}
-                      className="group/card flex flex-col bg-background border border-border w-60 xl:w-[280px] h-80 cursor-pointer shrink-0"
+                      className="group/card flex flex-col bg-background border border-border w-60 xl:w-70 h-80 cursor-pointer shrink-0"
                     >
                       {/* Subcategory Image (Replaced Icon) */}
                       <div className="relative flex justify-center items-center bg-muted/5 border-border border-b overflow-hidden text-center grow">
@@ -162,7 +154,7 @@ export default function ProductsSectionClient({
                         )}
                       </div>
                       <div className="flex justify-between items-center bg-card px-4 border-border border-t h-16">
-                        <span className="mr-4 font-mono group-hover/card:text-primary text-xs truncate uppercase tracking-wider transition-colors">
+                        <span className="mr-4 font-medium group-hover/card:text-primary text-sm truncate tracking-wider transition-colors">
                           {sub.name}
                         </span>
                         <ChevronRight className="opacity-0 group-hover/card:opacity-100 w-4 h-4 text-primary transition-opacity shrink-0" />
@@ -176,19 +168,28 @@ export default function ProductsSectionClient({
               <div className="flex bg-background border-border border-t w-full h-16 overflow-hidden">
                 {/* Brands Container (Scrollable) */}
                 <div className="flex items-center gap-8 px-6 overflow-x-auto grow scrollbar-hide">
-                  {cat.brands?.map((brand, bIdx) => (
-                    <img
-                      key={bIdx}
-                      src={brand.logoUrl}
-                      alt="brand logo"
-                      className="opacity-50 group-hover:opacity-100 grayscale group-hover:grayscale-0 dark:invert h-6 object-contain transition-all duration-300 shrink-0"
-                    />
-                  ))}
+                  {cat.brands?.map((brand, bIdx) =>
+                    brand.logoUrl ? (
+                      <img
+                        key={bIdx}
+                        src={brand.logoUrl}
+                        alt="brand logo"
+                        className="opacity-50 group-hover:opacity-100 grayscale group-hover:grayscale-0 dark:invert h-6 object-contain transition-all duration-300 shrink-0"
+                      />
+                    ) : (
+                      <span
+                        className="font-mono text-muted-foreground group-hover:text-foreground text-xs uppercase transition-colors"
+                        key={bIdx}
+                      >
+                        {brand.name}
+                      </span>
+                    ),
+                  )}
                 </div>
 
                 {/* Category Link */}
                 <Link
-                  href={`/product?category=${encodeURIComponent(cat.title)}`}
+                  href={`/product?category=${encodeURIComponent(cat.slug)}`}
                   className="group/link flex items-center gap-2 bg-background hover:bg-primary opacity-0 group-hover:opacity-100 px-4 sm:px-6 border-border border-l h-full font-mono text-xs uppercase transition-all duration-300 shrink-0"
                 >
                   <span className="hidden sm:inline group-hover/link:text-primary-foreground transition-colors">

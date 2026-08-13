@@ -11,6 +11,7 @@ import {
   richTablePlugin,
   RichTablePastePlugin,
 } from 'sanity-plugin-rich-table';
+import { viVNLocale } from '@sanity/locale-vi-vn';
 
 // Go to https://www.sanity.io/docs/api-versioning to learn how API versioning works
 import { apiVersion, dataset, projectId } from './sanity/env';
@@ -31,13 +32,29 @@ export default defineConfig({
   projectId,
   dataset,
   // Add and edit the content schema in the './sanity/schemaTypes' folder
-  schema,
+  schema: {
+    ...schema,
+    templates: (prev) => [
+      ...prev,
+      {
+        id: 'subcategory-by-category',
+        title: 'Thêm phân loại mới',
+        schemaType: 'productSubcategory',
+        parameters: [{ name: 'categoryId', type: 'string' }],
+        // When the user clicks "Create", pre-fill the "category" reference field
+        value: (params: any) => ({
+          category: { _type: 'reference', _ref: params.categoryId },
+        }),
+      },
+    ],
+  },
   plugins: [
     structureTool({ structure }),
     // Vision is for querying with GROQ from inside the Studio
     // https://www.sanity.io/docs/the-vision-plugin
     visionTool({ defaultApiVersion: apiVersion }),
     richTablePlugin({ devConsoleHint: false }),
+    viVNLocale(),
   ],
   form: {
     components: {

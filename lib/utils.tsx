@@ -1,5 +1,5 @@
 import { clsx, type ClassValue } from 'clsx';
-import { Bath, Droplets, Package, Wrench, Zap } from 'lucide-react';
+import { Droplets, Package, Plug, Toilet, Wrench } from 'lucide-react';
 import { PortableTextBlock } from 'sanity';
 import { twMerge } from 'tailwind-merge';
 
@@ -72,15 +72,31 @@ export const IconMapper = ({
   className?: string;
 }) => {
   switch (name) {
-    case 'Zap':
-      return <Zap className={className} />;
+    case 'Plug':
+      return <Plug className={className} />;
     case 'Droplets':
       return <Droplets className={className} />;
-    case 'Bath':
-      return <Bath className={className} />;
+    case 'Toilet':
+      return <Toilet className={className} />;
     case 'Wrench':
       return <Wrench className={className} />;
     default:
       return <Package className={className} />;
+  }
+};
+
+// --- Ánh xạ màu sắc theo tên Icon thay vì tên Category ---
+export const getCategoryStyle = (iconName: string) => {
+  switch (iconName) {
+    case 'Plug':
+      return 'text-amber-500 bg-amber-500/10 border-amber-500/30';
+    case 'Droplets':
+      return 'text-blue-500 bg-blue-500/10 border-blue-500/30';
+    case 'Toilet':
+      return 'text-teal-500 bg-teal-500/10 border-teal-500/30';
+    case 'Wrench':
+      return 'text-rose-500 bg-rose-500/10 border-rose-500/30';
+    default:
+      return 'text-foreground bg-muted/10 border-border';
   }
 };

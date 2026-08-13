@@ -3,7 +3,7 @@ import { Award } from 'lucide-react';
 
 export default defineType({
   name: 'brand',
-  title: 'Thương hiệu (Brand)',
+  title: 'Thương hiệu',
   type: 'document',
   icon: Award,
   fields: [

@@ -5,6 +5,7 @@ import NavbarClient from './navbar-client';
 export interface NavbarCategory {
   title: string;
   icon: string;
+  slug: string;
   tags: {
     name: string;
     desc: string;
@@ -15,9 +16,10 @@ export interface NavbarCategory {
 
 export default async function Navbar() {
   const categories = await client.fetch<NavbarCategory[]>(
-    groq`*[_type == "productCategory"] | order(title asc) {
+    groq`*[_type == "productCategory"] | order(orderRank) {
       title,
       icon,
+      "slug": slug.current,
       "tags": *[_type == "productSubcategory" && references(^._id)] {
         name,
         desc,

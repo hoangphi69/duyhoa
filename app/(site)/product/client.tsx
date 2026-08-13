@@ -1,50 +1,36 @@
 'use client';
 
-import { useState, useMemo, useEffect } from 'react';
-import Link from 'next/link';
-import {
-  Filter,
-  Search,
-  Zap,
-  Droplets,
-  Bath,
-  Wrench,
-  Package,
-  CheckCheck,
-  RotateCcw,
-  ChevronRight,
-} from 'lucide-react';
-import { cn, IconMapper } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
-import { SanityProduct, SanityCategory } from './page';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { cn, getCategoryStyle, IconMapper } from '@/lib/utils';
+import { Check, ChevronRight, Filter, Search } from 'lucide-react';
+import Link from 'next/link';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
+import { SanityBrand, SanityCategory, SanityProduct } from './page';
 
-// --- Ánh xạ màu sắc theo tên Icon thay vì tên Category ---
-const getCategoryStyle = (iconName: string) => {
-  switch (iconName) {
-    case 'Zap':
-      return 'text-amber-500 bg-amber-500/10 border-amber-500/30';
-    case 'Droplets':
-      return 'text-blue-500 bg-blue-500/10 border-blue-500/30';
-    case 'Bath':
-      return 'text-teal-500 bg-teal-500/10 border-teal-500/30';
-    case 'Wrench':
-      return 'text-rose-500 bg-rose-500/10 border-rose-500/30';
-    default:
-      return 'text-foreground bg-muted/10 border-border';
-  }
-};
+const useIsomorphicLayoutEffect =
+  typeof window !== 'undefined' ? useLayoutEffect : useEffect;
 
 interface ProductsClientProps {
   initialProducts: SanityProduct[];
   categories: SanityCategory[];
-  brands: string[];
+  brands: SanityBrand[];
   initialFilters: {
     category: string;
     subcategory: string;
     brand: string;
   };
 }
+
+// "a,b,c" -> ["a","b","c"], handles null/empty safely.
+// Values here are always slugs, so commas in names/tags can never collide.
+const splitParam = (val?: string | null): string[] =>
+  val
+    ? val
+        .split(',')
+        .map((s) => s.trim())
+        .filter(Boolean)
+    : [];
 
 export default function ProductsClient({
   initialProducts,
@@ -53,64 +39,117 @@ export default function ProductsClient({
   initialFilters,
 }: ProductsClientProps) {
   const searchParams = useSearchParams();
+  const router = useRouter();
+  const pathname = usePathname();
+  const gridRef = useRef<HTMLDivElement>(null);
+  const isMounted = useRef(false);
 
-  // --- Initialize Filter State from URL Params ---
+  const isUrlDrivenUpdate = useRef(false);
+
+  // --- Initialize Filter State from URL Params (all slugs) ---
   const [selectedSubcategories, setSelectedSubcategories] = useState<string[]>(
     () => {
-      let initialSelected: string[] = [];
-      if (initialFilters.subcategory)
-        initialSelected.push(initialFilters.subcategory);
+      let initialSelected: string[] = splitParam(initialFilters.subcategory);
       if (initialFilters.category) {
-        const targetCategory = categories.find(
-          (c) => c.title === initialFilters.category,
-        );
-        if (targetCategory && targetCategory.tags) {
-          initialSelected = [
-            ...new Set([...initialSelected, ...targetCategory.tags]),
-          ];
-        }
+        splitParam(initialFilters.category).forEach((catSlug) => {
+          const targetCategory = categories.find((c) => c.slug === catSlug);
+          if (targetCategory && targetCategory.tags) {
+            initialSelected = [
+              ...new Set([
+                ...initialSelected,
+                ...targetCategory.tags.map((t) => t.slug),
+              ]),
+            ];
+          }
+        });
       }
       return initialSelected;
     },
   );
 
-  const [selectedBrands, setSelectedBrands] = useState<string[]>(() => {
-    return initialFilters.brand ? [initialFilters.brand] : [];
-  });
+  const [selectedBrands, setSelectedBrands] = useState<string[]>(() =>
+    splitParam(initialFilters.brand),
+  );
 
   const [searchQuery, setSearchQuery] = useState('');
   const [isMobileFilterOpen, setIsMobileFilterOpen] = useState(false);
   const [sortOption, setSortOption] = useState('Mới nhất');
 
+  // --- Sync FROM the URL (navbar links, back/forward navigation) ---
   useEffect(() => {
     const category = searchParams.get('category');
     const subcategory = searchParams.get('subcategory');
     const brand = searchParams.get('brand');
 
-    setSearchQuery(''); // Reset ô tìm kiếm khi chuyển danh mục từ Navbar
+    isUrlDrivenUpdate.current = true;
+    setSearchQuery('');
 
     if (!category && !subcategory && !brand) {
       setSelectedSubcategories([]);
       setSelectedBrands([]);
     } else {
-      let nextSelected: string[] = [];
-      if (subcategory) {
-        nextSelected.push(subcategory);
-      }
+      let nextSelected: string[] = splitParam(subcategory);
       if (category) {
-        const targetCategory = categories.find((c) => c.title === category);
-        if (targetCategory && targetCategory.tags) {
-          nextSelected = [
-            ...new Set([...nextSelected, ...targetCategory.tags]),
-          ];
-        }
+        splitParam(category).forEach((catSlug) => {
+          const targetCategory = categories.find((c) => c.slug === catSlug);
+          if (targetCategory && targetCategory.tags) {
+            nextSelected = [
+              ...new Set([
+                ...nextSelected,
+                ...targetCategory.tags.map((t) => t.slug),
+              ]),
+            ];
+          }
+        });
       }
       setSelectedSubcategories(nextSelected);
-      setSelectedBrands(brand ? [brand] : []);
+      setSelectedBrands(splitParam(brand));
     }
   }, [searchParams, categories]);
 
-  // Logic Lọc & Sắp xếp
+  // --- Layout Scroll Anchoring ---
+  // Locks the scroll position seamlessly before the browser paints the shrunk DOM
+  useIsomorphicLayoutEffect(() => {
+    if (!isMounted.current) {
+      isMounted.current = true;
+      return;
+    }
+
+    if (gridRef.current) {
+      const rect = gridRef.current.getBoundingClientRect();
+      // 80px is the sticky offset (`top-20`). If rect.top is < 80,
+      // the user has scrolled past the start of the sticky activation.
+      if (rect.top < 80) {
+        const absoluteTop = window.scrollY + rect.top;
+        // Instantly anchor the window back to the exact sticky point
+        window.scrollTo({ top: absoluteTop - 80 });
+      }
+    }
+  }, [selectedSubcategories, selectedBrands, sortOption]); // Excluded searchQuery to prevent jump while typing
+
+  // --- Sync TO the URL whenever the user changes filters ---
+  useEffect(() => {
+    if (isUrlDrivenUpdate.current) {
+      isUrlDrivenUpdate.current = false;
+      return;
+    }
+
+    const params = new URLSearchParams();
+    if (selectedSubcategories.length > 0) {
+      params.set('subcategory', selectedSubcategories.join(','));
+    }
+    if (selectedBrands.length > 0) {
+      params.set('brand', selectedBrands.join(','));
+    }
+
+    const query = params.toString();
+    router.replace(query ? `${pathname}?${query}` : pathname, {
+      scroll: false,
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedSubcategories, selectedBrands]);
+
+  // Logic Lọc & Sắp xếp — matched by slug, not by display name
   const filteredProducts = useMemo(() => {
     let result = initialProducts.filter((product) => {
       const matchesSearch = product.name
@@ -118,9 +157,10 @@ export default function ProductsClient({
         .includes(searchQuery.toLowerCase());
       const matchesSubcategories =
         selectedSubcategories.length === 0 ||
-        selectedSubcategories.includes(product.subcategory);
+        selectedSubcategories.includes(product.subcategorySlug);
       const matchesBrands =
-        selectedBrands.length === 0 || selectedBrands.includes(product.brand);
+        selectedBrands.length === 0 ||
+        selectedBrands.includes(product.brandSlug);
 
       return matchesSearch && matchesSubcategories && matchesBrands;
     });
@@ -142,7 +182,7 @@ export default function ProductsClient({
     sortOption,
   ]);
 
-  // Helpers xử lý Chip
+  // Helpers xử lý Chip — operate purely on slugs
   const toggleChip = (
     item: string,
     list: string[],
@@ -188,7 +228,6 @@ export default function ProductsClient({
         </div>
       </header>
 
-      {/* Page Header */}
       <header className="bg-muted/10 py-12 md:py-20 border-border border-b">
         <div className="mx-auto px-4 sm:px-6 lg:px-8 container">
           <div className="flex flex-col gap-4 max-w-3xl">
@@ -206,14 +245,13 @@ export default function ProductsClient({
         </div>
       </header>
 
-      {/* Main Content */}
       <section className="mx-auto mt-12 px-4 sm:px-6 lg:px-8 container">
-        {/* Mobile Filter Toggle */}
         <div className="lg:hidden flex justify-between items-center bg-card mb-6 p-4 border border-border">
           <span className="font-mono font-bold text-sm uppercase tracking-widest">
             Bộ lọc
           </span>
           <Button
+            type="button"
             variant="outline"
             className="rounded-none font-mono text-xs uppercase"
             onClick={() => setIsMobileFilterOpen(!isMobileFilterOpen)}
@@ -224,16 +262,13 @@ export default function ProductsClient({
           </Button>
         </div>
 
-        {/* The Blocky Grid Layout */}
         <div className="gap-px grid grid-cols-1 lg:grid-cols-4 bg-border border border-border w-full">
-          {/* LEFT COLUMN: Filters (Sidebar) */}
           <aside
             className={cn(
               'lg:block lg:top-20 lg:sticky flex flex-col bg-background lg:h-[calc(100vh-80px)] overflow-y-auto scrollbar-hide',
               isMobileFilterOpen ? 'block mb-px' : 'hidden',
             )}
           >
-            {/* Search Bar */}
             <div className="bg-card p-6">
               <div className="relative">
                 <Search className="top-1/2 left-3 absolute w-4 h-4 text-muted-foreground -translate-y-1/2" />
@@ -247,119 +282,155 @@ export default function ProductsClient({
               </div>
             </div>
 
-            {/* Categories & Tags Filter */}
             <div className="flex flex-col bg-background">
-              <div className="bg-muted/10 p-6 pb-2">
-                <h3 className="border-border border-b font-mono text-muted-foreground text-sm uppercase tracking-widest">
+              <div className="bg-muted/10 p-6 pb-4 border-border border-b">
+                <h3 className="text-muted-foreground text-sm uppercase tracking-widest">
                   Dòng sản phẩm
                 </h3>
               </div>
 
-              {categories.map((cat) => (
-                <div key={cat.title} className="p-6 pt-4">
-                  <div className="flex justify-between items-center mb-4">
-                    <div className="flex items-center gap-2 font-semibold text-foreground text-xs uppercase tracking-wider">
-                      <IconMapper
-                        name={cat.icon}
-                        className="w-4 h-4 text-primary"
-                      />
-                      {cat.title}
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <button
-                        onClick={() =>
-                          addAll(
-                            cat.tags,
-                            selectedSubcategories,
-                            setSelectedSubcategories,
-                          )
-                        }
-                        className="hover:bg-muted p-1 text-muted-foreground hover:text-primary transition-colors"
-                        title="Chọn tất cả"
-                      >
-                        <CheckCheck className="w-4 h-4" />
-                      </button>
-                      <button
-                        onClick={() =>
-                          removeAll(
-                            cat.tags,
-                            selectedSubcategories,
-                            setSelectedSubcategories,
-                          )
-                        }
-                        className="hover:bg-muted p-1 text-muted-foreground hover:text-destructive transition-colors"
-                        title="Xóa nhóm này"
-                      >
-                        <RotateCcw className="w-4 h-4" />
-                      </button>
-                    </div>
-                  </div>
+              {categories.map((cat) => {
+                const catTags = cat.tags.map((t) => t.slug);
+                const isAllSelected =
+                  catTags.length > 0 &&
+                  catTags.every((slug) => selectedSubcategories.includes(slug));
 
-                  <div className="flex flex-wrap gap-2">
-                    {cat.tags &&
-                      cat.tags.map((tag) => {
-                        const isSelected = selectedSubcategories.includes(tag);
-                        return (
-                          <button
-                            key={tag}
-                            onClick={() =>
-                              toggleChip(
-                                tag,
+                return (
+                  <div key={cat.slug} className="p-6 pt-4">
+                    <div className="flex justify-between items-center mb-4">
+                      <div className="flex items-center gap-2 font-semibold text-foreground text-xs uppercase tracking-wider">
+                        <IconMapper
+                          name={cat.icon}
+                          className="w-4 h-4 text-primary"
+                        />
+                        {cat.title}
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <button
+                          type="button"
+                          onClick={() => {
+                            if (isAllSelected) {
+                              removeAll(
+                                catTags,
                                 selectedSubcategories,
                                 setSelectedSubcategories,
-                              )
+                              );
+                            } else {
+                              addAll(
+                                catTags,
+                                selectedSubcategories,
+                                setSelectedSubcategories,
+                              );
                             }
-                            className={cn(
-                              'px-2 border h-6 font-mono text-[10px] sm:text-xs uppercase tracking-wider transition-colors',
-                              isSelected
-                                ? 'bg-primary border-primary text-primary-foreground'
-                                : 'bg-background border-border text-muted-foreground hover:border-primary hover:text-foreground',
-                            )}
-                          >
-                            {tag}
-                          </button>
-                        );
-                      })}
+                          }}
+                          className={cn(
+                            'flex justify-center items-center border border-primary w-4 h-4 transition-colors cursor-pointer',
+                            isAllSelected
+                              ? 'bg-primary text-primary-foreground'
+                              : 'bg-transparent text-transparent hover:bg-primary/10',
+                          )}
+                          title={
+                            isAllSelected ? 'Bỏ chọn tất cả' : 'Chọn tất cả'
+                          }
+                        >
+                          <Check className="w-3 h-3" />
+                        </button>
+                      </div>
+                    </div>
+
+                    <div className="flex flex-wrap gap-2">
+                      {cat.tags &&
+                        cat.tags.map((tag) => {
+                          const isSelected = selectedSubcategories.includes(
+                            tag.slug,
+                          );
+                          return (
+                            <button
+                              type="button"
+                              key={tag.slug}
+                              onClick={() =>
+                                toggleChip(
+                                  tag.slug,
+                                  selectedSubcategories,
+                                  setSelectedSubcategories,
+                                )
+                              }
+                              className={cn(
+                                'px-2 border h-6 font-mono text-[10px] sm:text-xs uppercase tracking-wider transition-colors',
+                                isSelected
+                                  ? 'bg-primary border-primary text-primary-foreground'
+                                  : 'bg-background border-border text-muted-foreground hover:border-primary hover:text-foreground',
+                              )}
+                            >
+                              {tag.name}
+                            </button>
+                          );
+                        })}
+                    </div>
                   </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
 
-            {/* Brands Filter */}
             <div className="flex flex-col bg-background grow">
-              <div className="relative flex justify-between items-center bg-muted/10 p-6 pb-4">
-                <h3 className="border-border border-b font-mono text-muted-foreground text-sm uppercase tracking-widest grow">
+              <div className="relative flex justify-between items-center bg-muted/10 p-6 pb-4 border-border border-b">
+                <h3 className="text-muted-foreground text-sm uppercase tracking-widest grow">
                   Thương hiệu
                 </h3>
                 <div className="right-6 absolute flex items-center gap-2">
-                  <button
-                    onClick={() =>
-                      addAll(brands, selectedBrands, setSelectedBrands)
-                    }
-                    className="hover:bg-muted p-1 text-muted-foreground hover:text-primary transition-colors"
-                    title="Chọn tất cả"
-                  >
-                    <CheckCheck className="w-4 h-4" />
-                  </button>
-                  <button
-                    onClick={() =>
-                      removeAll(brands, selectedBrands, setSelectedBrands)
-                    }
-                    className="hover:bg-muted p-1 text-muted-foreground hover:text-destructive transition-colors"
-                    title="Xóa nhóm này"
-                  >
-                    <RotateCcw className="w-4 h-4" />
-                  </button>
+                  {(() => {
+                    const allBrands = brands.map((b) => b.slug);
+                    const isAllBrandsSelected =
+                      allBrands.length > 0 &&
+                      allBrands.every((slug) => selectedBrands.includes(slug));
+
+                    return (
+                      <button
+                        type="button"
+                        onClick={() => {
+                          if (isAllBrandsSelected) {
+                            removeAll(
+                              allBrands,
+                              selectedBrands,
+                              setSelectedBrands,
+                            );
+                          } else {
+                            addAll(
+                              allBrands,
+                              selectedBrands,
+                              setSelectedBrands,
+                            );
+                          }
+                        }}
+                        className={cn(
+                          'flex justify-center items-center border border-primary w-4 h-4 transition-colors cursor-pointer',
+                          isAllBrandsSelected
+                            ? 'bg-primary text-primary-foreground'
+                            : 'bg-transparent text-transparent hover:bg-primary/10',
+                        )}
+                        title={
+                          isAllBrandsSelected ? 'Bỏ chọn tất cả' : 'Chọn tất cả'
+                        }
+                      >
+                        <Check className="w-3 h-3" />
+                      </button>
+                    );
+                  })()}
                 </div>
               </div>
               <div className="flex flex-wrap gap-2 p-6">
                 {brands.map((brand) => {
-                  const isSelected = selectedBrands.includes(brand);
+                  const isSelected = selectedBrands.includes(brand.slug);
                   return (
                     <button
-                      key={brand}
+                      type="button"
+                      key={brand.slug}
                       onClick={() =>
-                        toggleChip(brand, selectedBrands, setSelectedBrands)
+                        toggleChip(
+                          brand.slug,
+                          selectedBrands,
+                          setSelectedBrands,
+                        )
                       }
                       className={cn(
                         'px-2 border h-6 font-mono text-[10px] sm:text-xs uppercase tracking-widest transition-colors',
@@ -368,16 +439,16 @@ export default function ProductsClient({
                           : 'bg-background border-border text-muted-foreground hover:border-primary hover:text-foreground',
                       )}
                     >
-                      {brand}
+                      {brand.name}
                     </button>
                   );
                 })}
               </div>
             </div>
 
-            {/* Filter Global Actions */}
             <div className="bottom-0 sticky flex flex-col gap-3 bg-card mt-auto p-6 border-border border-t">
               <Button
+                type="button"
                 onClick={() => {
                   setSelectedSubcategories([]);
                   setSelectedBrands([]);
@@ -393,7 +464,10 @@ export default function ProductsClient({
           </aside>
 
           {/* RIGHT COLUMN: Product Grid */}
-          <div className="gap-px grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 lg:col-span-3 bg-border h-fit">
+          <div
+            ref={gridRef}
+            className="gap-px grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 lg:col-span-3 bg-border h-fit"
+          >
             <div className="top-20 z-10 sticky flex sm:flex-row flex-col justify-between items-start sm:items-center gap-4 col-span-1 sm:col-span-2 xl:col-span-3 bg-card p-4 sm:p-6 border-b">
               <span className="text-muted-foreground text-sm">
                 Tìm thấy{' '}
@@ -419,7 +493,7 @@ export default function ProductsClient({
             </div>
 
             {filteredProducts.length === 0 && (
-              <div className="flex flex-col justify-center items-center col-span-1 sm:col-span-2 xl:col-span-3 bg-card p-20 text-center">
+              <div className="flex flex-col justify-center items-center col-span-1 sm:col-span-2 xl:col-span-3 p-20 text-center">
                 <Search className="mb-4 w-12 h-12 text-muted-foreground/30" />
                 <h3 className="mb-2 font-heading text-2xl">
                   Không tìm thấy sản phẩm
@@ -431,9 +505,8 @@ export default function ProductsClient({
             )}
 
             {filteredProducts.map((product) => {
-              // Tìm Category gốc để xác định Icon áp dụng
               const catData = categories.find(
-                (c) => c.title === product.category,
+                (c) => c.slug === product.categorySlug,
               );
               const iconStr = catData?.icon || 'Package';
 
@@ -444,17 +517,21 @@ export default function ProductsClient({
                   className="group/card relative flex flex-col bg-card hover:bg-primary transition-colors duration-300"
                 >
                   <div className="relative bg-muted/5 border-border border-b aspect-square overflow-hidden">
-                    {product.image && (
+                    {product.image ? (
                       <img
                         src={product.image}
                         alt={product.name}
                         className="w-full h-full object-cover group-hover/card:scale-105 transition-transform duration-500"
                       />
+                    ) : (
+                      <div className="flex justify-center items-center bg-muted/10 w-full h-full font-mono text-muted-foreground text-xs uppercase tracking-widest">
+                        Đang cập nhật hình ảnh
+                      </div>
                     )}
                   </div>
 
                   <div className="flex flex-col justify-between p-6 grow">
-                    <h3 className="mb-6 min-h-12 font-heading group-hover/card:text-primary-foreground text-lg line-clamp-2 leading-snug transition-colors">
+                    <h3 className="mb-6 min-h-12 font-heading text-lg line-clamp-2 leading-snug transition-colors">
                       {product.name}
                     </h3>
 
@@ -464,7 +541,7 @@ export default function ProductsClient({
                         className={cn(
                           'flex justify-center items-center gap-2 px-2 border h-6 transition-colors',
                           getCategoryStyle(iconStr),
-                          'group-hover/card:border-primary-foreground/20 group-hover/card:bg-primary-foreground/10 group-hover/card:text-primary-foreground',
+                          'group-hover/card:bg-card',
                           'font-mono text-[10px] uppercase tracking-widest',
                         )}
                       >
@@ -472,7 +549,7 @@ export default function ProductsClient({
                         {product.subcategory}
                       </span>
 
-                      <span className="flex items-center bg-muted/30 group-hover/card:bg-transparent px-2 border border-border group-hover/card:border-primary-foreground/20 h-6 font-mono text-[10px] text-muted-foreground group-hover/card:text-primary-foreground/80 uppercase tracking-widest transition-colors">
+                      <span className="flex items-center bg-muted/30 group-hover/card:bg-muted px-2 border border-border group-hover/card:border-primary-foreground/20 h-6 font-mono text-[10px] text-muted-foreground group-hover/card:text-primary-foreground/80 uppercase tracking-widest transition-colors">
                         {product.brand}
                       </span>
                     </div>
@@ -480,17 +557,6 @@ export default function ProductsClient({
                 </Link>
               );
             })}
-
-            {filteredProducts.length > 0 && (
-              <div className="flex justify-center col-span-1 sm:col-span-2 xl:col-span-3 bg-card p-6 border-border border-t">
-                <Button
-                  variant="outline"
-                  className="group hover:bg-primary px-8 rounded-none h-12 font-mono hover:text-primary-foreground uppercase tracking-widest transition-colors"
-                >
-                  Tải thêm sản phẩm
-                </Button>
-              </div>
-            )}
           </div>
         </div>
       </section>
