@@ -78,7 +78,7 @@ export default function Navbar({
                       <li>
                         <NavigationMenuLink
                           render={<Link href="/about" />}
-                          className="block hover:bg-primary p-3 text-sm transition-colors"
+                          className="hover:bg-background p-3 font-medium text-foreground hover:text-primary text-sm transition-colors"
                         >
                           Về Duy Hoà
                         </NavigationMenuLink>
@@ -86,7 +86,7 @@ export default function Navbar({
                       <li>
                         <NavigationMenuLink
                           render={<Link href="/projects" />}
-                          className="block hover:bg-primary p-3 text-sm transition-colors"
+                          className="hover:bg-background p-3 font-medium text-foreground hover:text-primary text-sm transition-colors"
                         >
                           Dự án
                         </NavigationMenuLink>
@@ -126,7 +126,7 @@ export default function Navbar({
                                         'font-medium text-sm transition-colors',
                                         activeTag.name === tag.name
                                           ? 'text-primary'
-                                          : 'text-foreground hover:text-foreground',
+                                          : 'text-foreground',
                                       )}
                                     >
                                       {tag.name}
@@ -207,7 +207,7 @@ export default function Navbar({
                       <li>
                         <NavigationMenuLink
                           render={<Link href="/article/news" />}
-                          className="block hover:bg-primary p-3 text-sm transition-colors"
+                          className="hover:bg-background p-3 font-medium text-foreground hover:text-primary text-sm transition-colors"
                         >
                           Tin Duy Hoà
                         </NavigationMenuLink>
@@ -215,7 +215,7 @@ export default function Navbar({
                       <li>
                         <NavigationMenuLink
                           render={<Link href="/article/event" />}
-                          className="block hover:bg-primary p-3 text-sm transition-colors"
+                          className="hover:bg-background p-3 font-medium text-foreground hover:text-primary text-sm transition-colors"
                         >
                           Sự kiện
                         </NavigationMenuLink>
@@ -223,10 +223,21 @@ export default function Navbar({
                       <li>
                         <NavigationMenuLink
                           render={<Link href="/article/guide" />}
-                          className="block hover:bg-primary p-3 text-sm transition-colors"
+                          className="hover:bg-background p-3 font-medium text-foreground hover:text-primary text-sm transition-colors"
                         >
                           Kiến thức
                         </NavigationMenuLink>
+                      </li>
+                      <li>
+                        <Link
+                          href="/article"
+                          className="group flex items-center gap-2 hover:bg-background mt-2 p-3 pt-6 border-t font-medium text-muted-foreground hover:text-primary transition-colors"
+                        >
+                          <span className="font-mono text-xs uppercase tracking-wider transition-colors">
+                            Tất cả tin tức
+                          </span>
+                          <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+                        </Link>
                       </li>
                     </ul>
                   </NavigationMenuContent>
@@ -242,7 +253,7 @@ export default function Navbar({
                       <li>
                         <NavigationMenuLink
                           render={<Link href="/contact/agency" />}
-                          className="block hover:bg-primary p-3 text-sm transition-colors"
+                          className="hover:bg-background p-3 font-medium text-foreground hover:text-primary text-sm transition-colors"
                         >
                           Đại lý
                         </NavigationMenuLink>
@@ -250,7 +261,7 @@ export default function Navbar({
                       <li>
                         <NavigationMenuLink
                           render={<Link href="/contact/project" />}
-                          className="block hover:bg-primary p-3 text-sm transition-colors"
+                          className="hover:bg-background p-3 font-medium text-foreground hover:text-primary text-sm transition-colors"
                         >
                           Dự án
                         </NavigationMenuLink>

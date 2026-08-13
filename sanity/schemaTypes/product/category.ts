@@ -27,8 +27,14 @@ export default defineType({
       rows: 3,
     }),
     defineField({
+      name: 'image',
+      title: 'Hình ảnh',
+      type: 'image',
+      options: { hotspot: true },
+    }),
+    defineField({
       name: 'icon',
-      title: 'Tên Icon (Lucide)',
+      title: 'Tên Icon (Lucide icon)',
       type: 'string',
       description: 'Ví dụ: Zap, Droplets, Bath, Wrench',
     }),

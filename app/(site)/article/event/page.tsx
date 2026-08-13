@@ -51,7 +51,7 @@ export default async function EventsPage({
       emptyIcon={<PartyPopper className="w-12 h-12" />}
       currentPage={currentPage}
       totalPages={totalPages}
-      paginationPath="/article/su-kien"
+      paginationPath="/article/event"
     >
       {events.map((event) => (
         <EventCard key={event._id} event={event} />

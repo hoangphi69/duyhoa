@@ -30,9 +30,11 @@ async function getPaginatedGuides(
 export default async function GuidesPage({
   searchParams,
 }: {
-  searchParams: { page?: string };
+  searchParams: Promise<{ page?: string }>;
 }) {
-  const currentPage = Number(searchParams.page) || 1;
+  const resolvedSearchParams = await searchParams;
+  const currentPage = Number(resolvedSearchParams.page) || 1;
+
   const { guides, total } = await getPaginatedGuides(currentPage);
   const totalPages = Math.ceil(total / ITEMS_PER_PAGE);
 
@@ -52,7 +54,7 @@ export default async function GuidesPage({
       emptyIcon={<Lightbulb className="w-12 h-12" />}
       currentPage={currentPage}
       totalPages={totalPages}
-      paginationPath="/article/kien-thuc"
+      paginationPath="/article/guide"
     >
       {guides.map((guide) => (
         <GuideCard

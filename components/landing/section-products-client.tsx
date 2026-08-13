@@ -37,7 +37,7 @@ export default function ProductsSectionClient({
   return (
     <section className="py-10 md:py-20 max-w-[100vw] overflow-hidden">
       {/* Header Area */}
-      <div className="flex xl:flex-row flex-col justify-between gap-4 xl:gap-8 mx-auto mb-12 px-4 sm:px-6 lg:px-8 container">
+      <div className="flex xl:flex-row flex-col justify-between gap-4 xl:gap-8 mx-auto mb-12 container">
         <div className="flex flex-col gap-4">
           <div className="self-start bg-foreground p-1 px-2 font-mono text-primary text-xs uppercase tracking-widest">
             product lines
@@ -53,7 +53,7 @@ export default function ProductsSectionClient({
       </div>
 
       {/* Blocky Vertical List */}
-      <div className="flex flex-col mx-auto px-4 sm:px-6 lg:px-8 container">
+      <div className="flex flex-col mx-auto container">
         {categories.map((cat, idx) => (
           <div
             key={idx}

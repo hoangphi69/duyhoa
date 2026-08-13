@@ -16,19 +16,19 @@ import Link from 'next/link';
 
 // Fetch functions returning strict types
 async function getNews(): Promise<News[]> {
-  return client.fetch(groq`*[_type == "news"] | order(publishedAt desc) {
+  return client.fetch(groq`*[_type == "news"] | order(publishedAt desc) [0...3] {
     _id, title, "slug": slug.current, publishedAt, isFeatured, excerpt, "imageUrl": image.asset->url
   }`);
 }
 
 async function getEvents(): Promise<Event[]> {
-  return client.fetch(groq`*[_type == "event"] | order(eventDate asc) {
+  return client.fetch(groq`*[_type == "event"] | order(eventDate asc) [0...4] {
     _id, title, "slug": slug.current, eventDate, location, excerpt, "imageUrl": image.asset->url
   }`);
 }
 
 async function getGuides(): Promise<Guide[]> {
-  return client.fetch(groq`*[_type == "guide"] | order(_createdAt desc) {
+  return client.fetch(groq`*[_type == "guide"] | order(_createdAt desc) [0...4] {
     _id, title, "slug": slug.current, tags, readTime, excerpt, "imageUrl": image.asset->url
   }`);
 }

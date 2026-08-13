@@ -12,6 +12,7 @@ import {
   Package,
   CheckCheck,
   RotateCcw,
+  ChevronRight,
 } from 'lucide-react';
 import { cn, IconMapper } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
@@ -175,6 +176,18 @@ export default function ProductsClient({
 
   return (
     <div className="pb-20 max-w-[100vw] min-h-screen">
+      <header className="bg-muted/10 py-6 border-border border-b">
+        <div className="mx-auto px-4 sm:px-6 lg:px-8 container">
+          <nav className="flex items-center gap-2 overflow-x-auto font-mono text-muted-foreground text-xs uppercase tracking-widest whitespace-nowrap scrollbar-hide">
+            <Link href="/" className="hover:text-primary transition-colors">
+              Trang chủ
+            </Link>
+            <ChevronRight className="w-3 h-3" />
+            <span className="font-bold text-foreground">Sản phẩm</span>
+          </nav>
+        </div>
+      </header>
+
       {/* Page Header */}
       <header className="bg-muted/10 py-12 md:py-20 border-border border-b">
         <div className="mx-auto px-4 sm:px-6 lg:px-8 container">
