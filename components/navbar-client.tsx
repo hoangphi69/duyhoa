@@ -9,7 +9,7 @@ import {
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
 } from '@/components/ui/navigation-menu';
-import { cn } from '@/lib/utils';
+import { cn, formatPhoneNumber } from '@/lib/utils';
 import Logo from '@/public/duyhoa.png';
 import { ArrowRight, ChevronDown, Menu, Phone, X } from 'lucide-react';
 import Image from 'next/image';
@@ -17,6 +17,7 @@ import Link from 'next/link';
 import { useState } from 'react';
 import { NavbarCategory } from './navbar';
 import { buttonVariants } from './ui/button';
+import { siteConfig } from '@/config/site';
 
 export default function Navbar({
   categories,
@@ -110,7 +111,7 @@ export default function Navbar({
                             <div key={idx} className="flex flex-col gap-4">
                               <Link
                                 href={`/product?category=${encodeURIComponent(cat.slug)}`}
-                                className="w-fit font-mono text-muted-foreground hover:text-primary text-xs uppercase tracking-widest transition-colors"
+                                className="w-fit font-mono text-muted-foreground hover:text-foreground text-xs uppercase tracking-widest transition-colors"
                               >
                                 {cat.title}
                               </Link>
@@ -142,14 +143,14 @@ export default function Navbar({
                         <div className="flex gap-12 mt-12 pt-6 border-border border-t">
                           <Link
                             href="/product"
-                            className="group flex items-center gap-2 font-mono text-muted-foreground hover:text-primary text-xs uppercase tracking-wider transition-colors"
+                            className="group flex items-center gap-2 font-mono text-muted-foreground hover:text-foreground text-xs uppercase tracking-wider transition-colors"
                           >
                             Tất cả sản phẩm
                             <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
                           </Link>
                           <Link
-                            href="/pricing"
-                            className="group flex items-center gap-2 font-mono text-muted-foreground hover:text-primary text-xs uppercase tracking-wider transition-colors"
+                            href="/catalogue"
+                            className="group flex items-center gap-2 font-mono text-muted-foreground hover:text-foreground text-xs uppercase tracking-wider transition-colors"
                           >
                             Xem bảng giá
                             <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
@@ -178,8 +179,8 @@ export default function Navbar({
                               className="bg-primary opacity-90 hover:opacity-100 grayscale hover:grayscale-0 w-full h-full object-cover transition-all duration-500"
                             />
                           ) : (
-                            <span className="font-mono text-xs uppercase">
-                              Đang cập nhật hình ảnh
+                            <span className="font-mono text-muted-foreground text-xs uppercase">
+                              Đang cập nhật
                             </span>
                           )}
                         </div>
@@ -191,7 +192,7 @@ export default function Navbar({
                 {/* 4. Bảng giá */}
                 <NavigationMenuItem>
                   <NavigationMenuLink
-                    render={<Link href="/pricing" />}
+                    render={<Link href="/catalogue" />}
                     className={navigationMenuTriggerStyle()}
                   >
                     <span className="uppercase">Bảng giá</span>
@@ -232,7 +233,7 @@ export default function Navbar({
                       <li>
                         <Link
                           href="/article"
-                          className="group flex items-center gap-2 hover:bg-background mt-2 p-3 pt-6 border-t font-medium text-muted-foreground hover:text-primary transition-colors"
+                          className="group flex items-center gap-2 hover:bg-background mt-2 p-3 pt-6 border-t font-medium text-muted-foreground hover:text-foreground transition-colors"
                         >
                           <span className="font-mono text-xs uppercase tracking-wider transition-colors">
                             Tất cả tin tức
@@ -278,10 +279,10 @@ export default function Navbar({
           <div className="hidden md:flex items-center gap-4 font-mono shrink-0">
             <div className="flex items-center gap-2 text-foreground text-sm">
               <Phone className="w-4 h-4 text-primary" />
-              0333.455.889
+              {formatPhoneNumber(siteConfig.contact.hotline)}
             </div>
             <Link
-              href="/#contact-section"
+              href="/contact/agency"
               className={buttonVariants({
                 size: 'lg',
                 className: 'rounded-none',
@@ -403,7 +404,7 @@ export default function Navbar({
             </div>
 
             <Link
-              href="/pricing"
+              href="/catalogue"
               onClick={closeMenu}
               className="py-3 border-border/50 border-b font-medium text-xl"
             >
@@ -457,10 +458,10 @@ export default function Navbar({
             <div className="flex flex-col gap-4 pt-6 pb-12 font-mono">
               <div className="flex justify-center items-center gap-2 font-medium text-foreground">
                 <Phone className="w-5 h-5 text-primary" />
-                0333.455.889
+                {formatPhoneNumber(siteConfig.contact.hotline)}
               </div>
               <Link
-                href="/#contact-section"
+                href="/contact/agency"
                 className={buttonVariants({
                   size: 'lg',
                   className: 'w-full rounded-none',

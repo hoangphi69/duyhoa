@@ -41,7 +41,7 @@ export default async function GuidesPage({
   return (
     <ArticleListLayout
       breadcrumbName="Kiến thức"
-      categoryName="Kiến thức & Cẩm nang"
+      categoryName="articles"
       categoryIcon={<Lightbulb className="w-4 h-4" />}
       title={
         <>
@@ -49,7 +49,7 @@ export default async function GuidesPage({
         </>
       }
       description="Các bài viết tối ưu, chia sẻ kinh nghiệm lựa chọn thiết bị, hướng dẫn thi công và bóc tách dự toán vật tư chuẩn xác."
-      gridClassName="grid-cols-1 sm:grid-cols-2 lg:grid-cols-4" // Guides use a 4-column grid
+      gridClassName="grid-cols-1 sm:grid-cols-2 lg:grid-cols-3" // Guides use a 4-column grid
       isEmpty={guides.length === 0}
       emptyIcon={<Lightbulb className="w-12 h-12" />}
       currentPage={currentPage}

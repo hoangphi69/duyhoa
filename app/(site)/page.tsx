@@ -1,5 +1,4 @@
 import SupplyCapacitySection from '@/components/landing/section-capacity';
-import ContactSection from '@/components/landing/section-contact';
 import DistributionSection from '@/components/landing/section-distribution';
 import HeroSection from '@/components/landing/section-hero';
 import ProductsSection from '@/components/landing/section-products';
@@ -8,7 +7,7 @@ import StatisticsSection from '@/components/landing/section-statistics';
 
 export default function LandingPage() {
   return (
-    <div className="*:mx-auto *:sm:px-6 *:lg:px-8 *:px-4 *:container">
+    <div className="*:mx-auto *:px-4 *:sm:px-6 *:lg:px-8 *:container">
       <HeroSection />
 
       <StatisticsSection />
@@ -20,8 +19,6 @@ export default function LandingPage() {
       <DistributionSection />
 
       <ReasonsSection />
-
-      <ContactSection />
     </div>
   );
 }

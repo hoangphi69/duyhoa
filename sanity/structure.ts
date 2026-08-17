@@ -1,4 +1,4 @@
-import { FolderTree, Layers, Pencil, Tag, Tags } from 'lucide-react';
+import { Building, FolderTree, Layers, Pencil, Tag, Tags } from 'lucide-react';
 import type { StructureResolver } from 'sanity/structure';
 import { apiVersion } from './env';
 import { orderableDocumentListDeskItem } from '@sanity/orderable-document-list';
@@ -6,13 +6,13 @@ import { orderableDocumentListDeskItem } from '@sanity/orderable-document-list';
 // https://www.sanity.io/docs/structure-builder-cheat-sheet
 export const structure: StructureResolver = (S, context) =>
   S.list()
-    .title('Quản lý hệ thống')
+    .title('Quản lý nội dung')
     .items([
       // 1) Danh mục chính — kéo thả sắp xếp toàn cục
       orderableDocumentListDeskItem({
         type: 'productCategory',
-        title: 'Danh mục chính',
         icon: Layers,
+        title: 'Danh mục chính',
         S,
         context,
       }),
@@ -28,8 +28,16 @@ export const structure: StructureResolver = (S, context) =>
       // 3. Show all other document types while hiding the default Category/Subcategory lists
       ...S.documentTypeListItems().filter(
         (listItem) =>
-          !['productCategory', 'productSubcategory'].includes(
+          !['productCategory', 'productSubcategory', 'project'].includes(
             listItem.getId() as string,
           ),
       ),
+
+      orderableDocumentListDeskItem({
+        type: 'project',
+        title: 'Dự án',
+        icon: Building,
+        S,
+        context,
+      }),
     ]);

@@ -85,7 +85,7 @@ export default function ProductsSectionClient({
                   />
                 ) : (
                   <div className="flex justify-center items-center bg-muted/10 w-full h-full font-mono text-muted-foreground text-xs uppercase tracking-widest">
-                    Đang cập nhật hình ảnh
+                    Đang cập nhật
                   </div>
                 )}
                 <div className="absolute inset-0 bg-gradient-to-t from-background/50 to-transparent pointer-events-none" />
@@ -145,7 +145,7 @@ export default function ProductsSectionClient({
                             className="w-full h-full object-cover group-hover/card:scale-105 transition-transform duration-500"
                           />
                         ) : (
-                          <div className="flex justify-center items-center border border-border border-dashed rounded-full w-24 h-24 group-hover/card:scale-110 transition-transform duration-500">
+                          <div className="flex justify-center items-center border border-muted-foreground border-dashed rounded-full w-24 h-24 group-hover/card:scale-110 transition-transform duration-500">
                             <IconMapper
                               name={cat.icon}
                               className="w-8 h-8 text-muted-foreground/50"

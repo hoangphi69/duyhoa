@@ -54,6 +54,7 @@ export default async function ProductsPage({
         "subcategory": subcategory->name,
         "subcategorySlug": subcategory->slug.current,
         "category": subcategory->category->title,
+        "categoryIcon": subcategory->category->icon,
         "categorySlug": subcategory->category->slug.current,
         "image": images[0].asset->url
       }`,

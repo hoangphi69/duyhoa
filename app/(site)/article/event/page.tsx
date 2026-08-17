@@ -38,7 +38,7 @@ export default async function EventsPage({
   return (
     <ArticleListLayout
       breadcrumbName="Sự kiện"
-      categoryName="Sự kiện & Hội nghị"
+      categoryName="articles"
       categoryIcon={<PartyPopper className="w-4 h-4" />}
       title={
         <>

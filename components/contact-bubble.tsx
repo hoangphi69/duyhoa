@@ -3,9 +3,10 @@
 import { useState } from 'react';
 import { MessageCircle, Phone, X } from 'lucide-react';
 import Link from 'next/link';
-import { cn } from '@/lib/utils';
+import { cn, formatPhoneNumber } from '@/lib/utils';
 import Facebook from '@/public/facebook.svg';
 import Zalo from '@/public/zalo.svg';
+import { siteConfig } from '@/config/site';
 
 export default function ContactBubble() {
   const [isOpen, setIsOpen] = useState(false);
@@ -36,18 +37,18 @@ export default function ContactBubble() {
       >
         {/* 1. Hotline (Pill Shape) */}
         <Link
-          href="tel:0333455889"
+          href={`tel:${siteConfig.contact.hotline}`}
           className="flex items-center gap-2 bg-primary shadow-lg hover:shadow-xl px-5 py-3 rounded-full text-primary-foreground transition-transform hover:-translate-x-1"
         >
           <Phone className="w-5 h-5" />
           <span className="font-mono text-base tracking-wide">
-            0333.455.889
+            {formatPhoneNumber(siteConfig.contact.hotline)}
           </span>
         </Link>
 
         {/* 2. Zalo (Bubble) */}
         <Link
-          href="https://zalo.me/0333455889"
+          href={siteConfig.links.social[1].href}
           target="_blank"
           rel="noreferrer"
           className="flex justify-center items-center bg-[#0068FF] shadow-lg hover:shadow-xl rounded-full w-14 h-14 text-white transition-transform hover:-translate-x-1"
@@ -59,7 +60,7 @@ export default function ContactBubble() {
 
         {/* 3. Facebook Fanpage (Bubble) */}
         <Link
-          href="https://facebook.com"
+          href={siteConfig.links.social[0].href}
           target="_blank"
           rel="noreferrer"
           className="flex justify-center items-center bg-[#0866FF] shadow-lg hover:shadow-xl rounded-full w-14 h-14 text-white transition-transform hover:-translate-x-1"

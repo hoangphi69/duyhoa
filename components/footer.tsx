@@ -1,157 +1,162 @@
+'use client';
+
+import { siteConfig } from '@/config/site';
+import { ArrowRight } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import logo from '@/public/duyhoa.png';
+import { formatPhoneNumber } from '@/lib/utils';
 
 export default function Footer() {
+  const pathname = usePathname();
+
+  // Ẩn khối này nếu đang ở các trang liên hệ
+  const isContactPage = pathname?.startsWith('/contact');
+
   return (
-    <footer className="bg-foreground border-border border-t text-slate-300">
-      <div className="mx-auto container">
-        {/* TOP ROW: 3 Columns with vertical dividers */}
-        <div className="grid grid-cols-1 md:grid-cols-3 border-white/10 border-b">
-          {/* Col 1: Logo & Contact */}
-          <div className="flex flex-col place-content-center p-8 md:p-12 border-white/10 md:border-r border-b md:border-b-0">
-            {/* Logo in the first grid item */}
-            <Link href="/">
-              <Image
-                src={logo}
-                priority
-                alt="Duy Hoà Logo"
-                className="w-full h-28 object-contain"
-              />
+    <>
+      {/* Khối CTA sẽ tự động quản lý trạng thái hiển thị của nó */}
+      {!isContactPage && (
+        <section className="mx-auto px-4 sm:px-6 lg:px-8 container">
+          <div className="flex md:flex-row flex-col justify-between items-center gap-6 bg-primary my-20 p-8 md:p-12 border border-border text-foreground">
+            <div className="flex flex-col gap-2">
+              <h3 className="font-heading font-bold text-2xl md:text-3xl tracking-tight">
+                Cần tư vấn vật tư cho công trình?
+              </h3>
+              <p className="opacity-90">
+                Liên hệ ngay để nhận báo giá đại lý tốt nhất khu vực Quảng Ninh
+                - Hải Phòng - Hải Dương.
+              </p>
+            </div>
+            <Link
+              href="/contact/agency"
+              className="flex items-center gap-2 bg-background hover:bg-muted px-8 py-4 border border-background font-mono font-medium text-foreground text-sm uppercase tracking-wide transition-colors shrink-0"
+            >
+              Liên hệ ngay <ArrowRight className="w-4 h-4" />
             </Link>
           </div>
+        </section>
+      )}
 
-          {/* Col 2: Warehouse Address */}
-          <div className="flex flex-col p-8 md:p-12 border-white/10 md:border-r border-b md:border-b-0">
-            <h4 className="mt-auto md:mt-0 mb-4 font-semibold text-primary text-xs uppercase tracking-widest">
-              Địa chỉ tổng kho
-            </h4>
-            <div className="space-y-1 font-heading font-semibold text-background text-lg md:text-3xl">
-              <p>Số 351, Tổ 2 Khu Hợp Thành, Phường Yên Tử, Quảng Ninh</p>
+      {/* Main Footer */}
+      <footer className="z-10 relative bg-foreground pt-16 pb-8 border-border border-t text-background/90">
+        <div className="mx-auto px-4 sm:px-6 lg:px-8 container">
+          {/* Top Section */}
+          <div className="gap-10 lg:gap-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 pb-12">
+            {/* Brand Column */}
+            <div className="flex flex-col md:col-span-2">
+              <div className="flex items-center gap-6 mb-4">
+                <Link href="/">
+                  <Image
+                    src={logo}
+                    priority
+                    alt="Duy Hoà Logo"
+                    className="w-full h-28 object-contain"
+                  />
+                </Link>
+              </div>
+              <p className="mb-5 max-w-md font-heading font-semibold text-background/65 text-base">
+                Nhà phân phối uỷ quyền cấp 1 vật tư ngành Điện, Nước, Thiết bị
+                vệ sinh và Dụng cụ cầm tay.
+              </p>
+              <div className="mt-4 font-mono text-background/60 text-xs leading-relaxed">
+                <div>{siteConfig.contact.address}</div>
+                <div className="mt-1">{siteConfig.contact.workingHours}</div>
+                <div className="mt-1">
+                  Hotline. {formatPhoneNumber(siteConfig.contact.hotline)}
+                </div>
+                <div className="mt-1">Email. {siteConfig.contact.email}</div>
+              </div>
             </div>
-          </div>
 
-          {/* Col 3: Opening Times */}
-          <div className="flex flex-col p-8 md:p-12">
-            <h4 className="mt-auto md:mt-0 mb-4 font-semibold text-primary text-xs uppercase tracking-widest">
-              Liên hệ
-            </h4>
-            <div className="space-y-1 font-heading font-semibold text-background text-lg md:text-3xl">
-              <p className="">0333.455.889</p>
-              <p>duyhoa@gmail.com</p>
+            {/* Sitemap Column */}
+            <div className="flex flex-col">
+              <div className="mb-4 font-mono text-primary text-xs uppercase tracking-widest">
+                Liên kết
+              </div>
+              <nav className="flex flex-col gap-2">
+                {siteConfig.links.sitemap.map((link, idx) => (
+                  <Link
+                    key={idx}
+                    href={link.href}
+                    className="font-semibold text-background/75 hover:text-primary transition-colors"
+                  >
+                    {link.name}
+                  </Link>
+                ))}
+              </nav>
             </div>
-          </div>
-        </div>
 
-        {/* MIDDLE ROW: 4 Columns (No vertical dividers) */}
-        <div className="gap-y-8 grid grid-cols-2 md:grid-cols-3 p-8 md:p-12 border-white/10 border-b">
-          {/* Categories */}
-          <div>
-            <h4 className="mb-4 font-semibold text-primary text-xs decoration-primary/50 uppercase tracking-widest">
-              Liên kết
-            </h4>
-            <ul className="space-y-3 text-slate-400 text-sm">
-              <li>
-                <Link
-                  href="/"
-                  className="hover:text-background transition-colors"
-                >
-                  Trang chủ
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/about"
-                  className="hover:text-background transition-colors"
-                >
-                  Về chúng tôi
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/brands"
-                  className="hover:text-background transition-colors"
-                >
-                  Thương hiệu
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/projects"
-                  className="hover:text-background transition-colors"
-                >
-                  Dự án
-                </Link>
-              </li>
-            </ul>
-          </div>
+            {/* Contact Column */}
+            <div className="flex flex-col">
+              <div className="mb-4 font-mono text-primary text-xs uppercase tracking-widest">
+                Liên hệ
+              </div>
+              <nav className="flex flex-col gap-3 mb-5">
+                {siteConfig.links.contact.map((link, idx) => (
+                  <Link
+                    key={idx}
+                    href={link.href}
+                    className="font-semibold text-background/75 hover:text-primary transition-colors"
+                  >
+                    {link.name}
+                  </Link>
+                ))}
+              </nav>
+            </div>
 
-          {/* Resources */}
-          <div>
-            <h4 className="mb-4 font-semibold text-primary text-xs decoration-primary/50 uppercase tracking-widest">
-              Chính sách
-            </h4>
-            <ul className="space-y-3 text-slate-400 text-sm">
-              <li>
+            {/* Follow Column */}
+            <div className="flex flex-col">
+              <div className="mb-4 font-mono text-primary text-xs uppercase tracking-widest">
+                Theo dõi chúng tôi
+              </div>
+              <nav className="flex flex-col gap-3 mb-5">
                 <Link
-                  href="#"
-                  className="hover:text-background transition-colors"
-                >
-                  Chính sách đại lý
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="#"
-                  className="hover:text-background transition-colors"
-                >
-                  Chính sách bảo hành & đổi trả
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="#"
-                  className="hover:text-background transition-colors"
-                >
-                  Chính sách bảo mật
-                </Link>
-              </li>
-            </ul>
-          </div>
-
-          {/* Follow Us */}
-          <div>
-            <h4 className="mb-4 font-semibold text-primary text-xs decoration-primary/50 uppercase tracking-widest">
-              Theo dõi chúng tôi
-            </h4>
-            <ul className="space-y-3 text-slate-400 text-sm">
-              <li>
-                <Link
-                  href="https://www.facebook.com/Duyhoaltd/"
+                  href={siteConfig.links.social[0].href}
                   target="_blank"
-                  className="hover:text-background transition-colors"
+                  className="font-semibold text-background/75 hover:text-primary transition-colors"
                 >
                   Facebook
                 </Link>
-              </li>
-              <li>
                 <Link
-                  href="https://zalo.me/0333455889"
-                  className="hover:text-background transition-colors"
+                  href={siteConfig.links.social[1].href}
+                  className="font-semibold text-background/75 hover:text-primary transition-colors"
                 >
                   Zalo OA
                 </Link>
-              </li>
-            </ul>
+              </nav>
+            </div>
+          </div>
+
+          {/* Bottom Section */}
+          <div className="flex md:flex-row flex-col justify-between items-center gap-4 pt-6 border-background/15 border-t font-mono text-background/50 text-xs tracking-wider">
+            <div className="uppercase">
+              &copy; {new Date().getFullYear()} Công ty TNHH Thương mại Duy Hoà
+              68
+            </div>
+
+            <div className="flex sm:flex-row flex-col items-center gap-4">
+              <div className="flex items-center gap-2">
+                {siteConfig.links.legal.map((link, idx) => (
+                  <span key={idx} className="flex items-center gap-2">
+                    <Link
+                      href={link.href}
+                      className="hover:text-primary uppercase transition-colors"
+                    >
+                      {link.name}
+                    </Link>
+                    {idx < siteConfig.links.legal.length - 1 && <span>·</span>}
+                  </span>
+                ))}
+              </div>
+              <div className="px-3 py-1 border border-background/25 uppercase tracking-widest">
+                REV. 08.2026
+              </div>
+            </div>
           </div>
         </div>
-
-        {/* BOTTOM ROW: Copyright */}
-        <div className="flex md:flex-row flex-col justify-between items-center gap-4 p-8 text-slate-500 text-xs">
-          <p>&copy; {new Date().getFullYear()} Công ty TNHH TM Duy Hoà 68</p>
-          <p>Thiết kế cho thị trường vật tư xây dựng</p>
-        </div>
-      </div>
-    </footer>
+      </footer>
+    </>
   );
 }

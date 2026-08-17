@@ -7,7 +7,7 @@ import * as LucideIcons from 'lucide-react';
 
 export default defineType({
   name: 'productCategory',
-  title: 'Danh mục chính (Category)',
+  title: 'Danh mục chính',
   type: 'document',
   icon: LucideIcons.Layers,
   orderings: [orderRankOrdering],

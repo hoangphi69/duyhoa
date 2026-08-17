@@ -15,7 +15,7 @@ export function ProductGallery({ images, brand }: ProductGalleryProps) {
     return (
       <div className="flex justify-center items-center bg-muted/10 border-border border-b w-full h-full aspect-square">
         <span className="font-mono text-muted-foreground text-xs uppercase tracking-widest">
-          Đang cập nhật hình ảnh
+          Đang cập nhật
         </span>
       </div>
     );

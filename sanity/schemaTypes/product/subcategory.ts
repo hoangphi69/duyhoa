@@ -8,7 +8,7 @@ import * as LucideIcons from 'lucide-react';
 
 export default defineType({
   name: 'productSubcategory',
-  title: 'Phân loại (Subcategory)',
+  title: 'Phân loại con',
   type: 'document',
   icon: Tags,
   orderings: [orderRankOrdering],

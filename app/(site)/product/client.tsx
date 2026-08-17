@@ -7,6 +7,7 @@ import Link from 'next/link';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { SanityBrand, SanityCategory, SanityProduct } from './page';
+import { ProductCard } from '@/components/product/card-product';
 
 const useIsomorphicLayoutEffect =
   typeof window !== 'undefined' ? useLayoutEffect : useEffect;
@@ -216,6 +217,7 @@ export default function ProductsClient({
 
   return (
     <div className="pb-20 max-w-[100vw] min-h-screen">
+      {/* Breadcrumb Header */}
       <header className="bg-muted/10 py-6 border-border border-b">
         <div className="mx-auto px-4 sm:px-6 lg:px-8 container">
           <nav className="flex items-center gap-2 overflow-x-auto font-mono text-muted-foreground text-xs uppercase tracking-widest whitespace-nowrap scrollbar-hide">
@@ -223,7 +225,7 @@ export default function ProductsClient({
               Trang chủ
             </Link>
             <ChevronRight className="w-3 h-3" />
-            <span className="font-bold text-foreground">Sản phẩm</span>
+            <span className="font-semibold text-foreground">Sản phẩm</span>
           </nav>
         </div>
       </header>
@@ -232,7 +234,7 @@ export default function ProductsClient({
         <div className="mx-auto px-4 sm:px-6 lg:px-8 container">
           <div className="flex flex-col gap-4 max-w-3xl">
             <div className="self-start bg-foreground p-1 px-2 font-mono text-primary text-xs uppercase tracking-widest">
-              explore products
+              products
             </div>
             <h1 className="font-heading text-4xl sm:text-5xl md:text-6xl uppercase leading-[1.1] tracking-tight">
               Hệ sinh thái <br /> Vật tư toàn diện
@@ -468,7 +470,7 @@ export default function ProductsClient({
             ref={gridRef}
             className="gap-px grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 lg:col-span-3 bg-border h-fit"
           >
-            <div className="top-20 z-10 sticky flex sm:flex-row flex-col justify-between items-start sm:items-center gap-4 col-span-1 sm:col-span-2 xl:col-span-3 bg-card p-4 sm:p-6 border-b">
+            <div className="top-20 z-20 sticky flex sm:flex-row flex-col justify-between items-start sm:items-center gap-4 col-span-1 sm:col-span-2 xl:col-span-3 bg-card p-4 sm:p-6 border-b">
               <span className="text-muted-foreground text-sm">
                 Tìm thấy{' '}
                 <span className="mx-1 font-medium text-foreground text-lg">
@@ -504,59 +506,9 @@ export default function ProductsClient({
               </div>
             )}
 
-            {filteredProducts.map((product) => {
-              const catData = categories.find(
-                (c) => c.slug === product.categorySlug,
-              );
-              const iconStr = catData?.icon || 'Package';
-
-              return (
-                <Link
-                  href={`/product/${product.slug}`}
-                  key={product._id}
-                  className="group/card relative flex flex-col bg-card hover:bg-primary transition-colors duration-300"
-                >
-                  <div className="relative bg-muted/5 border-border border-b aspect-square overflow-hidden">
-                    {product.image ? (
-                      <img
-                        src={product.image}
-                        alt={product.name}
-                        className="w-full h-full object-cover group-hover/card:scale-105 transition-transform duration-500"
-                      />
-                    ) : (
-                      <div className="flex justify-center items-center bg-muted/10 w-full h-full font-mono text-muted-foreground text-xs uppercase tracking-widest">
-                        Đang cập nhật hình ảnh
-                      </div>
-                    )}
-                  </div>
-
-                  <div className="flex flex-col justify-between p-6 grow">
-                    <h3 className="mb-6 min-h-12 font-heading text-lg line-clamp-2 leading-snug transition-colors">
-                      {product.name}
-                    </h3>
-
-                    <div className="flex flex-wrap items-center gap-2 mt-auto">
-                      <span
-                        title={product.category}
-                        className={cn(
-                          'flex justify-center items-center gap-2 px-2 border h-6 transition-colors',
-                          getCategoryStyle(iconStr),
-                          'group-hover/card:bg-card',
-                          'font-mono text-[10px] uppercase tracking-widest',
-                        )}
-                      >
-                        <IconMapper name={iconStr} className="w-3.5 h-3.5" />
-                        {product.subcategory}
-                      </span>
-
-                      <span className="flex items-center bg-muted/30 group-hover/card:bg-muted px-2 border border-border group-hover/card:border-primary-foreground/20 h-6 font-mono text-[10px] text-muted-foreground group-hover/card:text-primary-foreground/80 uppercase tracking-widest transition-colors">
-                        {product.brand}
-                      </span>
-                    </div>
-                  </div>
-                </Link>
-              );
-            })}
+            {filteredProducts.map((product) => (
+              <ProductCard key={product._id} product={product} />
+            ))}
           </div>
         </div>
       </section>

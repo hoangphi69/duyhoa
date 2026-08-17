@@ -58,7 +58,7 @@ export function generateToC(blocks: PortableTextBlock[]) {
       return {
         id: slugify(text),
         text,
-        level: block.style, // 'h2' or 'h3'
+        level: block.style as string, // 'h2' or 'h3'
       };
     });
 }
@@ -89,7 +89,7 @@ export const IconMapper = ({
 export const getCategoryStyle = (iconName: string) => {
   switch (iconName) {
     case 'Plug':
-      return 'text-amber-500 bg-amber-500/10 border-amber-500/30';
+      return 'text-amber-600 bg-amber-500/10 border-amber-500/30';
     case 'Droplets':
       return 'text-blue-500 bg-blue-500/10 border-blue-500/30';
     case 'Toilet':
@@ -99,4 +99,23 @@ export const getCategoryStyle = (iconName: string) => {
     default:
       return 'text-foreground bg-muted/10 border-border';
   }
+};
+
+// Formats a phone number to the 'XXXX.XXX.XXX' format.
+// Expects a 10-digit number (common for mobile numbers).
+export const formatPhoneNumber = (
+  phone: string | number | null | undefined,
+): string => {
+  if (!phone) return '';
+
+  // Remove all non-numeric characters (e.g., spaces, dashes, existing dots)
+  const cleaned = phone.toString().replace(/\D/g, '');
+
+  // Check if it's exactly 10 digits
+  if (cleaned.length === 10) {
+    return cleaned.replace(/(\d{4})(\d{3})(\d{3})/, '$1.$2.$3');
+  }
+
+  // Fallback: return the cleaned number if it doesn't match the expected 10 digits
+  return cleaned;
 };

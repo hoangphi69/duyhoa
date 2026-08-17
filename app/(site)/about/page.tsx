@@ -280,7 +280,7 @@ export default function AboutPage() {
               Trang chủ
             </Link>
             <ChevronRight className="w-3 h-3" />
-            <span className="font-bold text-foreground">Về Chúng Tôi</span>
+            <span className="font-semibold text-foreground">Về Chúng Tôi</span>
           </nav>
         </div>
       </header>
@@ -289,7 +289,7 @@ export default function AboutPage() {
       <section className="mx-auto mt-12 md:mt-16 px-4 sm:px-6 lg:px-8 container">
         <div className="flex flex-col gap-6 max-w-4xl">
           <div className="self-start bg-foreground p-1 px-2 font-mono text-primary text-xs uppercase tracking-widest">
-            Giới thiệu
+            about
           </div>
           <h1 className="font-heading text-4xl sm:text-5xl md:text-6xl uppercase leading-[1.15] tracking-tight">
             Về Duy Hoà 68 — nhà phân phối uỷ quyền cấp 1 vật tư điện nước tại

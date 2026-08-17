@@ -38,7 +38,7 @@ export default async function NewsArticlesPage({
   return (
     <ArticleListLayout
       breadcrumbName="Tin Duy Hoà"
-      categoryName="Tin Duy Hoà"
+      categoryName="articles"
       categoryIcon={<Newspaper className="w-4 h-4" />}
       title={
         <>

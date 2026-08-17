@@ -49,7 +49,9 @@ export function ArticleListLayout({
               Tin tức
             </Link>
             <ChevronRight className="w-3 h-3" />
-            <span className="font-bold text-foreground">{breadcrumbName}</span>
+            <span className="font-semibold text-foreground">
+              {breadcrumbName}
+            </span>
           </nav>
         </div>
       </header>
@@ -59,9 +61,6 @@ export function ArticleListLayout({
         <div className="mx-auto px-4 sm:px-6 lg:px-8 container">
           <div className="flex flex-col gap-4 max-w-3xl">
             <div className="flex items-center self-start gap-2 bg-foreground p-1 px-2 font-mono text-primary text-xs uppercase tracking-widest">
-              <span className="flex justify-center items-center w-4 h-4">
-                {categoryIcon}
-              </span>
               {categoryName}
             </div>
             <h1 className="font-heading text-4xl sm:text-5xl md:text-6xl uppercase leading-[1.1] tracking-tight">
@@ -104,7 +103,7 @@ export function ArticleListLayout({
             {currentPage > 1 ? (
               <Link
                 href={`${paginationPath}?page=${currentPage - 1}`}
-                className="flex items-center gap-2 font-mono font-bold hover:text-primary text-xs uppercase tracking-widest transition-colors"
+                className="flex items-center gap-2 font-mono font-medium hover:text-primary text-xs uppercase tracking-widest transition-colors"
               >
                 <ChevronLeft className="w-4 h-4" /> Trang trước
               </Link>
@@ -119,7 +118,7 @@ export function ArticleListLayout({
             {currentPage < totalPages ? (
               <Link
                 href={`${paginationPath}?page=${currentPage + 1}`}
-                className="flex items-center gap-2 font-mono font-bold hover:text-primary text-xs uppercase tracking-widest transition-colors"
+                className="flex items-center gap-2 font-mono font-medium hover:text-primary text-xs uppercase tracking-widest transition-colors"
               >
                 Trang tiếp <ChevronRight className="w-4 h-4" />
               </Link>
