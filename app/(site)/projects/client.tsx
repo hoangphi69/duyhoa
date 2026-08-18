@@ -1,10 +1,10 @@
 'use client';
 
-import { useState } from 'react';
-import { ChevronRight, Loader2 } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import { Breadcrumbs } from '@/components/breadcrumb';
 import { ProjectCard, ProjectDoc } from '@/components/project/card-project';
-import Link from 'next/link';
+import { Button } from '@/components/ui/button';
+import { Loader2 } from 'lucide-react';
+import { useState } from 'react';
 
 interface ProjectsClientProps {
   featuredProjects: ProjectDoc[];
@@ -38,18 +38,7 @@ export function ProjectsClient({
 
   return (
     <div className="bg-background pb-20 max-w-[100vw] min-h-screen overflow-x-hidden">
-      {/* Breadcrumb Header */}
-      <header className="bg-muted/10 py-6 border-border border-b">
-        <div className="mx-auto px-4 sm:px-6 lg:px-8 container">
-          <nav className="flex items-center gap-2 overflow-x-auto font-mono text-muted-foreground text-xs uppercase tracking-widest whitespace-nowrap scrollbar-hide">
-            <Link href="/" className="hover:text-primary transition-colors">
-              Trang chủ
-            </Link>
-            <ChevronRight className="w-3 h-3" />
-            <span className="font-semibold text-foreground">Dự án</span>
-          </nav>
-        </div>
-      </header>
+      <Breadcrumbs items={[{ name: 'Dự án', href: '/projects' }]} />
 
       {/* Page Header */}
       <header className="bg-muted/10 py-12 md:py-20 border-border border-b">

@@ -1,8 +1,18 @@
-import { Button } from '@/components/ui/button';
-import { calculateReadTime, generateToC, slugify } from '@/lib/utils';
+import { EventCard } from '@/components/article/card-event';
+import { GuideCard } from '@/components/article/card-guide';
+import { NewsCard } from '@/components/article/card-news';
+import { TableOfContents } from '@/components/article/table-of-contents';
+import { Breadcrumbs } from '@/components/breadcrumb';
+import { FAQJsonLd } from '@/components/seo/JsonLd';
+import { siteConfig } from '@/config/site';
+import {
+  calculateReadTime,
+  createMetadata,
+  generateToC,
+  slugify,
+} from '@/lib/utils';
 import { client } from '@/sanity/lib/client';
 import { Event, Guide, News } from '@/types/sanity';
-import { groq } from 'next-sanity';
 import {
   PortableText,
   PortableTextBlock,
@@ -17,11 +27,8 @@ import {
   User,
 } from 'lucide-react';
 import { Metadata, ResolvingMetadata } from 'next';
+import { groq } from 'next-sanity';
 import Link from 'next/link';
-import { TableOfContents } from '@/components/article/table-of-contents';
-import { NewsCard } from '@/components/article/card-news';
-import { EventCard } from '@/components/article/card-event';
-import { GuideCard } from '@/components/article/card-guide';
 
 type ArticleType = News | Event | Guide;
 
@@ -64,44 +71,24 @@ async function getRelatedArticles(
 }
 
 // --- DYNAMIC METADATA ---
-export async function generateMetadata(
-  { params }: { params: Promise<{ slug: string }> | { slug: string } },
-  parent: ResolvingMetadata,
-): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }> | { slug: string };
+}): Promise<Metadata> {
   const resolvedParams = await params;
   const article = await getArticle(resolvedParams.slug);
 
   if (!article) return { title: 'Bài viết không tồn tại | Duy Hoà 68' };
 
-  return {
-    title: `${article.title} | Duy Hoà 68`,
+  return createMetadata({
+    title: article.title,
     description: article.excerpt,
-    keywords: article.seoKeywords || [],
-    openGraph: {
-      title: article.title,
-      description: article.excerpt,
-      url: `https://duyhoa.vn/article/${article.slug}`,
-      siteName: 'Duy Hoà 68',
-      images: article.imageUrl
-        ? [
-            {
-              url: article.imageUrl,
-              width: 1200,
-              height: 630,
-              alt: article.title,
-            },
-          ]
-        : [],
-      locale: 'vi_VN',
-      type: 'article',
-      publishedTime:
-        article._type === 'news'
-          ? (article as News).publishedAt
-          : article._createdAt,
-      modifiedTime: article._updatedAt,
-      authors: ['Đội ngũ Duy Hoà'],
-    },
-  };
+    path: `/article/${article.slug}`,
+    keywords: article.seoKeywords,
+    image: article.imageUrl ?? '/og/og-article.jpg',
+    type: 'article',
+  });
 }
 
 // --- CUSTOM PORTABLE TEXT COMPONENTS ---
@@ -217,37 +204,37 @@ export default async function ArticleDetailPage({
 
   const hasFaqs = !!(article.faqs && article.faqs.length > 0);
 
-  // JSON-LD logic remains unchanged...
+  // JSON-LD
   const articleJsonLd = {
-    /* ... omitted for brevity, keep your original implementation ... */
+    '@context': 'https://schema.org',
+    '@type': article._type === 'news' ? 'NewsArticle' : 'Article',
+    headline: article.title,
+    image: article.imageUrl,
+    datePublished:
+      article._type === 'news' ? article.publishedAt : article._createdAt,
+    dateModified: article._updatedAt,
+    author: { '@type': 'Organization', name: 'Đội ngũ Duy Hoà' },
+    publisher: { '@id': `${siteConfig.url}/#organization` },
+    description: article.excerpt,
   };
-  const faqJsonLd = hasFaqs ? {/* ... omitted for brevity ... */} : null;
 
   return (
     <div className="bg-background pb-20 max-w-[100vw] min-h-screen overflow-x-clip scroll-smooth">
-      {/* ... keep JSON-LD scripts ... */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
+      />
+      {article.faqs && article.faqs.length > 0 && (
+        <FAQJsonLd faqs={article.faqs} />
+      )}
 
       {/* Breadcrumbs */}
-      <header className="bg-muted/10 py-6 border-border border-b">
-        <div className="mx-auto px-4 sm:px-6 lg:px-8 container">
-          <nav className="flex items-center gap-2 overflow-x-auto font-mono text-muted-foreground text-xs uppercase tracking-widest whitespace-nowrap scrollbar-hide">
-            <Link href="/" className="hover:text-primary transition-colors">
-              Trang chủ
-            </Link>
-            <ChevronRight className="w-3 h-3" />
-            <Link
-              href="/article"
-              className="hover:text-primary transition-colors"
-            >
-              Tin tức
-            </Link>
-            <ChevronRight className="w-3 h-3" />
-            <span className="max-w-50 sm:max-w-none font-medium text-foreground truncate">
-              {article.title}
-            </span>
-          </nav>
-        </div>
-      </header>
+      <Breadcrumbs
+        items={[
+          { name: 'Tin tức', href: '/article' },
+          { name: article.title, href: `/article/${article.slug}` },
+        ]}
+      />
 
       <main className="mx-auto mt-12 md:mt-16 px-4 sm:px-6 lg:px-8 container">
         {/* Article Header (Title, Meta, Image) */}

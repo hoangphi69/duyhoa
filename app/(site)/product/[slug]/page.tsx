@@ -1,28 +1,21 @@
-import Link from 'next/link';
-import { notFound } from 'next/navigation';
-import { Metadata, ResolvingMetadata } from 'next';
-import { client } from '@/sanity/lib/client';
-import { groq } from 'next-sanity';
-import {
-  ChevronRight,
-  MessageCircle,
-  FileText,
-  ShieldCheck,
-  Truck,
-  Package,
-  Check,
-  ArrowRight,
-} from 'lucide-react';
+import { Breadcrumbs } from '@/components/breadcrumb';
+import { ProductCard } from '@/components/product/card-product';
 import { Button } from '@/components/ui/button';
-import { ProductGallery } from './product-gallery';
+import { siteConfig } from '@/config/site';
 import {
   cn,
+  createMetadata,
   formatPhoneNumber,
   getCategoryStyle,
   IconMapper,
 } from '@/lib/utils';
-import { ProductCard } from '@/components/product/card-product';
-import { siteConfig } from '@/config/site';
+import { client } from '@/sanity/lib/client';
+import { ArrowRight, Check, Package, ShieldCheck, Truck } from 'lucide-react';
+import { Metadata } from 'next';
+import { groq } from 'next-sanity';
+import Link from 'next/link';
+import { notFound } from 'next/navigation';
+import { ProductGallery } from './product-gallery';
 
 // --- DATA FETCHING ---
 async function getProduct(slug: string) {
@@ -64,31 +57,31 @@ async function getRelatedProducts(
 }
 
 // --- DYNAMIC METADATA GENERATION ---
-export async function generateMetadata(
-  { params }: { params: Promise<{ slug: string }> | { slug: string } },
-  parent: ResolvingMetadata,
-): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }> | { slug: string };
+}): Promise<Metadata> {
   const resolvedParams = await params;
   const product = await getProduct(resolvedParams.slug);
-  if (!product) return {};
 
-  return {
-    title: `${product.name} | Duy Hoà 68`,
+  if (!product) return { title: 'Sản phẩm không tồn tại | Duy Hoà 68' };
+
+  return createMetadata({
+    title: product.name,
     description:
       product.description?.substring(0, 160) ||
       `Sản phẩm ${product.name} chính hãng từ ${product.brand}`,
-    openGraph: {
-      title: product.name,
-      description: product.description?.substring(0, 160),
-      url: `https://duyhoa.vn/product/${product.slug}`,
-      siteName: 'Duy Hoà 68',
-      images: product.images
-        ? [{ url: product.images[0], width: 800, height: 800 }]
-        : [],
-      locale: 'vi_VN',
-      type: 'website',
-    },
-  };
+    path: `/article/${product.slug}`,
+    keywords: [
+      product.name,
+      product.brand,
+      product.category,
+      product.subcategory,
+    ],
+    image: '/og/og-product.jpg',
+    type: 'website',
+  });
 }
 
 export default async function ProductDetailPage({
@@ -137,27 +130,12 @@ export default async function ProductDetailPage({
         dangerouslySetInnerHTML={{ __html: JSON.stringify(productJsonLd) }}
       />
 
-      {/* Breadcrumb Header */}
-      <header className="bg-muted/5 border-border border-b">
-        <div className="mx-auto px-4 sm:px-6 lg:px-8 py-6 container">
-          <nav className="flex items-center gap-2 overflow-x-auto font-mono text-muted-foreground text-xs uppercase tracking-widest whitespace-nowrap scrollbar-hide">
-            <Link href="/" className="hover:text-primary transition-colors">
-              Trang chủ
-            </Link>
-            <ChevronRight className="w-3 h-3" />
-            <Link
-              href="/product"
-              className="hover:text-primary transition-colors"
-            >
-              Sản phẩm
-            </Link>
-            <ChevronRight className="w-3 h-3" />
-            <span className="font-semibold text-foreground">
-              {product.name}
-            </span>
-          </nav>
-        </div>
-      </header>
+      <Breadcrumbs
+        items={[
+          { name: 'Sản phẩm', href: '/product' },
+          { name: product.name, href: `/product/${product.slug}` },
+        ]}
+      />
 
       <main className="mx-auto mt-8 px-4 sm:px-6 lg:px-8 container">
         {/* Main Hero Bento Grid */}

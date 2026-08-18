@@ -1,10 +1,10 @@
+import { ArticleListLayout } from '@/components/article/article-layout';
+import { GuideCard } from '@/components/article/card-guide';
+import { calculateReadTime, createMetadata } from '@/lib/utils';
 import { client } from '@/sanity/lib/client';
 import { Guide } from '@/types/sanity';
 import { Lightbulb } from 'lucide-react';
 import { groq } from 'next-sanity';
-import { ArticleListLayout } from '@/components/article/article-layout';
-import { GuideCard } from '@/components/article/card-guide';
-import { calculateReadTime } from '@/lib/utils'; // The helper we built earlier
 
 const ITEMS_PER_PAGE = 8;
 
@@ -27,6 +27,21 @@ async function getPaginatedGuides(
   return { guides, total };
 }
 
+export const metadata = createMetadata({
+  title: 'Cẩm nang kỹ thuật & Kiến thức ngành',
+  description:
+    'Kiến thức chuyên môn chọn dây cáp, ống nước, thiết bị vệ sinh và kinh nghiệm mở cửa hàng vật liệu điện nước — tổng hợp bởi đội ngũ kỹ thuật Duy Hoà 68.',
+  path: '/article/guide',
+  keywords: [
+    'kiến thức điện nước',
+    'cách chọn dây cáp điện',
+    'kinh nghiệm mở cửa hàng vật liệu điện nước',
+    'hướng dẫn lắp đặt thiết bị vệ sinh',
+    'cẩm nang vật tư công trình',
+  ],
+  image: '/og/og-guide.jpg',
+});
+
 export default async function GuidesPage({
   searchParams,
 }: {
@@ -42,7 +57,6 @@ export default async function GuidesPage({
     <ArticleListLayout
       breadcrumbName="Kiến thức"
       categoryName="articles"
-      categoryIcon={<Lightbulb className="w-4 h-4" />}
       title={
         <>
           Cẩm nang Vật tư & <br /> Hướng dẫn Kỹ thuật

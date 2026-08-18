@@ -1,9 +1,10 @@
+import { ArticleListLayout } from '@/components/article/article-layout';
+import { NewsCard } from '@/components/article/card-news';
+import { createMetadata } from '@/lib/utils';
 import { client } from '@/sanity/lib/client';
 import { News } from '@/types/sanity';
 import { Newspaper } from 'lucide-react';
 import { groq } from 'next-sanity';
-import { ArticleListLayout } from '@/components/article/article-layout';
-import { NewsCard } from '@/components/article/card-news';
 
 const ITEMS_PER_PAGE = 9;
 
@@ -26,6 +27,20 @@ async function getPaginatedNews(
   return { news, total };
 }
 
+export const metadata = createMetadata({
+  title: 'Tin tức Duy Hoà & Thị trường vật liệu',
+  description:
+    'Cập nhật tin tức nội bộ Duy Hoà 68, biến động thị trường vật liệu xây dựng, chính sách giá mới và thông tin ngành điện nước, thiết bị vệ sinh.',
+  path: '/article/news',
+  keywords: [
+    'tin tức Duy Hoà 68',
+    'tin tức thị trường điện nước',
+    'báo giá vật liệu xây dựng',
+    'tin tức ngành thiết bị vệ sinh',
+  ],
+  image: '/og/og-news.jpg',
+});
+
 export default async function NewsArticlesPage({
   searchParams,
 }: {
@@ -39,7 +54,6 @@ export default async function NewsArticlesPage({
     <ArticleListLayout
       breadcrumbName="Tin Duy Hoà"
       categoryName="articles"
-      categoryIcon={<Newspaper className="w-4 h-4" />}
       title={
         <>
           Cập nhật nội bộ & <br /> Hoạt động đối tác

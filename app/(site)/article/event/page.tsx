@@ -1,9 +1,10 @@
+import { ArticleListLayout } from '@/components/article/article-layout';
+import { EventCard } from '@/components/article/card-event';
+import { createMetadata } from '@/lib/utils';
 import { client } from '@/sanity/lib/client';
 import { Event } from '@/types/sanity';
 import { PartyPopper } from 'lucide-react';
 import { groq } from 'next-sanity';
-import { ArticleListLayout } from '@/components/article/article-layout';
-import { EventCard } from '@/components/article/card-event';
 
 const ITEMS_PER_PAGE = 5;
 
@@ -26,6 +27,21 @@ async function getPaginatedEvents(
   return { events, total };
 }
 
+export const metadata = createMetadata({
+  title: 'Sự kiện & Hội nghị khách hàng',
+  description:
+    'Lịch trình các sự kiện, hội nghị tri ân khách hàng, lễ ra mắt sản phẩm và hoạt động đào tạo đại lý từ nhà phân phối Duy Hoà 68.',
+  path: '/article/event',
+  keywords: [
+    'sự kiện Duy Hoà 68',
+    'hội nghị khách hàng điện nước',
+    'sự kiện ngành vật liệu xây dựng',
+    'hội thảo thiết bị vệ sinh',
+    'đào tạo đại lý',
+  ],
+  image: '/og/og-event.jpg',
+});
+
 export default async function EventsPage({
   searchParams,
 }: {
@@ -39,7 +55,6 @@ export default async function EventsPage({
     <ArticleListLayout
       breadcrumbName="Sự kiện"
       categoryName="articles"
-      categoryIcon={<PartyPopper className="w-4 h-4" />}
       title={
         <>
           Lịch Trình Sự Kiện & <br /> Gắn Kết Đối Tác

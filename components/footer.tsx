@@ -5,7 +5,7 @@ import { ArrowRight } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import logo from '@/public/duyhoa.png';
+import logo from '@/public/duyhoa-text.png';
 import { formatPhoneNumber } from '@/lib/utils';
 
 export default function Footer() {
@@ -57,8 +57,7 @@ export default function Footer() {
                 </Link>
               </div>
               <p className="mb-5 max-w-md font-heading font-semibold text-background/65 text-base">
-                Nhà phân phối uỷ quyền cấp 1 vật tư ngành Điện, Nước, Thiết bị
-                vệ sinh và Dụng cụ cầm tay.
+                {siteConfig.brand.positioning}
               </p>
               <div className="mt-4 font-mono text-background/60 text-xs leading-relaxed">
                 <div>{siteConfig.contact.address}</div>

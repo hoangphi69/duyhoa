@@ -1,5 +1,7 @@
+import { siteConfig } from '@/config/site';
 import { clsx, type ClassValue } from 'clsx';
 import { Droplets, Package, Plug, Toilet, Wrench } from 'lucide-react';
+import { Metadata } from 'next';
 import { PortableTextBlock } from 'sanity';
 import { twMerge } from 'tailwind-merge';
 
@@ -119,3 +121,46 @@ export const formatPhoneNumber = (
   // Fallback: return the cleaned number if it doesn't match the expected 10 digits
   return cleaned;
 };
+
+type PageMetaInput = {
+  title: string;
+  description: string;
+  path: string;
+  keywords?: string[];
+  image?: string;
+  noIndex?: boolean;
+  type?: 'website' | 'article';
+};
+
+export function createMetadata({
+  title,
+  description,
+  path,
+  keywords,
+  image = '/og/og-default.jpg',
+  noIndex = false,
+  type = 'website',
+}: PageMetaInput): Metadata {
+  return {
+    title,
+    description,
+    keywords,
+    alternates: { canonical: path },
+    openGraph: {
+      type,
+      locale: siteConfig.locale,
+      url: path,
+      title: `${title} | ${siteConfig.brand.shortName}`,
+      description,
+      siteName: siteConfig.brand.fullName,
+      images: [{ url: image, width: 1200, height: 630, alt: title }],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: `${title} | ${siteConfig.brand.shortName}`,
+      description,
+      images: [image],
+    },
+    ...(noIndex && { robots: { index: false, follow: true } }),
+  };
+}

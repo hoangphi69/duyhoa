@@ -1,13 +1,13 @@
 'use client';
 
-import { useState } from 'react';
-import Link from 'next/link';
-import { ChevronRight, FileText, FileX } from 'lucide-react';
-import { cn } from '@/lib/utils';
+import { Breadcrumbs } from '@/components/breadcrumb';
 import {
   CatalogueCard,
   CatalogueDoc,
 } from '@/components/product/card-catalogue';
+import { cn } from '@/lib/utils';
+import { FileX } from 'lucide-react';
+import { useState } from 'react';
 
 interface CatalogueClientProps {
   initialData: CatalogueDoc[];
@@ -29,18 +29,7 @@ export function CatalogueClient({
 
   return (
     <div className="bg-background pb-20 max-w-[100vw] min-h-screen overflow-x-hidden">
-      {/* Breadcrumb Header */}
-      <header className="bg-muted/10 py-6 border-border border-b">
-        <div className="mx-auto px-4 sm:px-6 lg:px-8 container">
-          <nav className="flex items-center gap-2 overflow-x-auto font-mono text-muted-foreground text-xs uppercase tracking-widest whitespace-nowrap scrollbar-hide">
-            <Link href="/" className="hover:text-primary transition-colors">
-              Trang chủ
-            </Link>
-            <ChevronRight className="w-3 h-3" />
-            <span className="font-semibold text-foreground">Bảng giá</span>
-          </nav>
-        </div>
-      </header>
+      <Breadcrumbs items={[{ name: 'Bảng giá', href: '/catalogue' }]} />
 
       {/* Page Header */}
       <section className="bg-muted/10 py-12 md:py-20 border-border border-b">

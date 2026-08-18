@@ -1,22 +1,18 @@
-'use client';
-
-import Link from 'next/link';
+import { Breadcrumbs } from '@/components/breadcrumb';
+import { FAQJsonLd } from '@/components/seo/JsonLd';
+import { createMetadata } from '@/lib/utils';
 import {
   Building2,
-  MapPin,
-  Truck,
-  ShieldCheck,
-  Factory,
   CalendarDays,
-  Zap,
   Droplets,
-  Bath,
-  Wrench,
-  ChevronRight,
+  Factory,
   Info,
+  MapPin,
+  ShieldCheck,
+  Truck,
+  Wrench,
+  Zap,
 } from 'lucide-react';
-import { cn } from '@/lib/utils';
-import { Button } from '@/components/ui/button';
 
 // --- Extracted Data from Source ---
 const COMPANY_INFO = [
@@ -137,54 +133,81 @@ const TIMELINE = [
 
 const FAQS = [
   {
-    q: 'Duy Hoà 68 là công ty gì?',
-    a: 'Công ty TNHH Thương mại Duy Hoà 68 là nhà phân phối uỷ quyền cấp 1 vật tư ngành Điện, Nước, Thiết bị vệ sinh và Dụng cụ cầm tay, có tổng kho tại thành phố Uông Bí, tỉnh Quảng Ninh. Duy Hoà 68 hoạt động 15 năm, vận hành kho 6.000m² sàn và đội xe gần 20 chiếc. Duy Hoà 68 cấp vật tư cho dự án, công trình và phân phối cho khoảng 1.500 cửa hàng bán lẻ tại Quảng Ninh, Hải Phòng, Hải Dương.',
+    question: 'Duy Hoà 68 là công ty gì?',
+    answer:
+      'Công ty TNHH Thương mại Duy Hoà 68 là nhà phân phối uỷ quyền cấp 1 vật tư ngành Điện, Nước, Thiết bị vệ sinh và Dụng cụ cầm tay, có tổng kho tại thành phố Uông Bí, tỉnh Quảng Ninh. Duy Hoà 68 hoạt động 15 năm, vận hành kho 6.000m² sàn và đội xe gần 20 chiếc. Duy Hoà 68 cấp vật tư cho dự án, công trình và phân phối cho khoảng 1.500 cửa hàng bán lẻ tại Quảng Ninh, Hải Phòng, Hải Dương.',
   },
   {
-    q: 'Duy Hoà 68 là nhà phân phối cấp 1 của những hãng nào?',
-    a: 'Duy Hoà 68 là nhà phân phối uỷ quyền cấp 1 khu vực của năm thương hiệu: Trần Phú, Cadisun, Rạng Đông, Senko và Vinawind. Bản scan giấy chứng nhận uỷ quyền được công bố tại mục Thương hiệu uỷ quyền trên website của Duy Hoà 68.',
+    question: 'Duy Hoà 68 là nhà phân phối cấp 1 của những hãng nào?',
+    answer:
+      'Duy Hoà 68 là nhà phân phối uỷ quyền cấp 1 khu vực của năm thương hiệu: Trần Phú, Cadisun, Rạng Đông, Senko và Vinawind. Bản scan giấy chứng nhận uỷ quyền được công bố tại mục Thương hiệu uỷ quyền trên website của Duy Hoà 68.',
   },
   {
-    q: 'Duy Hoà 68 cấp vật tư cho công trình ở những khu vực nào?',
-    a: 'Duy Hoà 68 cấp vật tư cho công trình tại Quảng Ninh, Hải Phòng, Hải Dương và các tỉnh miền Bắc bằng phương tiện của công ty, giao tận chân công trình. Với công trình ngoài miền Bắc, Duy Hoà 68 điều phối hàng trực tiếp từ nhà máy của hãng đến chân công trình theo hợp đồng phân phối cấp 1. Mọi lô hàng đều kèm hoá đơn VAT và chứng từ CO/CQ chính hãng.',
+    question: 'Duy Hoà 68 cấp vật tư cho công trình ở những khu vực nào?',
+    answer:
+      'Duy Hoà 68 cấp vật tư cho công trình tại Quảng Ninh, Hải Phòng, Hải Dương và các tỉnh miền Bắc bằng phương tiện của công ty, giao tận chân công trình. Với công trình ngoài miền Bắc, Duy Hoà 68 điều phối hàng trực tiếp từ nhà máy của hãng đến chân công trình theo hợp đồng phân phối cấp 1. Mọi lô hàng đều kèm hoá đơn VAT và chứng từ CO/CQ chính hãng.',
   },
   {
-    q: 'Duy Hoà 68 giao hàng cho đại lý như thế nào?',
-    a: 'Duy Hoà 68 vận hành các tuyến xe giao hàng theo lộ trình cố định hằng tuần tại Quảng Ninh, Hải Phòng và Hải Dương. Đại lý biết trước ngày xe đến khu vực mình để chủ động kế hoạch nhập hàng. Toàn bộ tuyến do đội xe của Duy Hoà 68 thực hiện, xuất phát từ tổng kho tại Uông Bí; các đơn hàng nhỏ và lẻ được giao trong ngày bằng đội EC Van và xe thị trường.',
+    question: 'Duy Hoà 68 giao hàng cho đại lý như thế nào?',
+    answer:
+      'Duy Hoà 68 vận hành các tuyến xe giao hàng theo lộ trình cố định hằng tuần tại Quảng Ninh, Hải Phòng và Hải Dương. Đại lý biết trước ngày xe đến khu vực mình để chủ động kế hoạch nhập hàng. Toàn bộ tuyến do đội xe của Duy Hoà 68 thực hiện, xuất phát từ tổng kho tại Uông Bí; các đơn hàng nhỏ và lẻ được giao trong ngày bằng đội EC Van và xe thị trường.',
   },
   {
-    q: 'Mua sỉ dây điện Trần Phú, Cadisun tại Quảng Ninh ở đâu?',
-    a: 'Duy Hoà 68 là nhà phân phối uỷ quyền cấp 1 của Trần Phú và Cadisun tại Quảng Ninh, nhập hàng trực tiếp từ nhà máy và có tổng kho tại thành phố Uông Bí. Cửa hàng lấy hàng kinh doanh được áp dụng giá đại lý theo sản lượng, kèm đầy đủ chứng từ CO/CQ và hoá đơn VAT.',
+    question: 'Mua sỉ dây điện Trần Phú, Cadisun tại Quảng Ninh ở đâu?',
+    answer:
+      'Duy Hoà 68 là nhà phân phối uỷ quyền cấp 1 của Trần Phú và Cadisun tại Quảng Ninh, nhập hàng trực tiếp từ nhà máy và có tổng kho tại thành phố Uông Bí. Cửa hàng lấy hàng kinh doanh được áp dụng giá đại lý theo sản lượng, kèm đầy đủ chứng từ CO/CQ và hoá đơn VAT.',
   },
   {
-    q: 'Mua sỉ dây điện Trần Phú, Cadisun tại Hải Phòng ở đâu?',
-    a: 'Duy Hoà 68 là nhà phân phối uỷ quyền cấp 1 của Trần Phú và Cadisun, có tuyến xe giao hàng cố định hằng tuần bao phủ khu vực Hải Phòng. Cửa hàng tại Hải Phòng liên hệ hotline của Duy Hoà 68 để nhận giá đại lý và lịch tuyến xe của khu vực.',
+    question: 'Mua sỉ dây điện Trần Phú, Cadisun tại Hải Phòng ở đâu?',
+    answer:
+      'Duy Hoà 68 là nhà phân phối uỷ quyền cấp 1 của Trần Phú và Cadisun, có tuyến xe giao hàng cố định hằng tuần bao phủ khu vực Hải Phòng. Cửa hàng tại Hải Phòng liên hệ hotline của Duy Hoà 68 để nhận giá đại lý và lịch tuyến xe của khu vực.',
   },
   {
-    q: 'Mua sỉ vật tư điện nước tại Hải Dương ở đâu?',
-    a: 'Duy Hoà 68 phân phối ống nước, dây cáp điện, thiết bị điện – chiếu sáng và thiết bị vệ sinh tại Hải Dương thông qua tuyến xe giao hàng cố định hằng tuần. Cửa hàng tại Hải Dương đặt hàng qua hotline hoặc Zalo và nhận hàng tận cửa hàng.',
+    question: 'Mua sỉ vật tư điện nước tại Hải Dương ở đâu?',
+    answer:
+      'Duy Hoà 68 phân phối ống nước, dây cáp điện, thiết bị điện – chiếu sáng và thiết bị vệ sinh tại Hải Dương thông qua tuyến xe giao hàng cố định hằng tuần. Cửa hàng tại Hải Dương đặt hàng qua hotline hoặc Zalo và nhận hàng tận cửa hàng.',
   },
   {
-    q: 'Mua ống nước Tiền Phong giá đại lý ở Quảng Ninh ở đâu?',
-    a: 'Duy Hoà 68 phân phối ống và phụ kiện Tiền Phong gồm các dòng uPVC, PPR, HDPE tại Quảng Ninh, Hải Phòng và Hải Dương. Cửa hàng lấy hàng kinh doanh liên hệ hotline hoặc đăng ký trên website của Duy Hoà 68 để nhận báo giá đại lý.',
+    question: 'Mua ống nước Tiền Phong giá đại lý ở Quảng Ninh ở đâu?',
+    answer:
+      'Duy Hoà 68 phân phối ống và phụ kiện Tiền Phong gồm các dòng uPVC, PPR, HDPE tại Quảng Ninh, Hải Phòng và Hải Dương. Cửa hàng lấy hàng kinh doanh liên hệ hotline hoặc đăng ký trên website của Duy Hoà 68 để nhận báo giá đại lý.',
   },
   {
-    q: 'Làm thế nào để trở thành đại lý của Duy Hoà 68?',
-    a: 'Cửa hàng vật liệu xây dựng và điện nước tại Quảng Ninh, Hải Phòng, Hải Dương đăng ký làm đại lý qua biểu mẫu trên website hoặc gọi trực tiếp hotline của Duy Hoà 68. Cán bộ quản lý tuyến sẽ liên hệ trong 2 giờ làm việc để trao đổi về chính sách giá, hạn mức công nợ và lịch tuyến xe giao hàng.',
+    question: 'Làm thế nào để trở thành đại lý của Duy Hoà 68?',
+    answer:
+      'Cửa hàng vật liệu xây dựng và điện nước tại Quảng Ninh, Hải Phòng, Hải Dương đăng ký làm đại lý qua biểu mẫu trên website hoặc gọi trực tiếp hotline của Duy Hoà 68. Cán bộ quản lý tuyến sẽ liên hệ trong 2 giờ làm việc để trao đổi về chính sách giá, hạn mức công nợ và lịch tuyến xe giao hàng.',
   },
   {
-    q: 'Duy Hoà 68 có chính sách công nợ cho đại lý không?',
-    a: 'Duy Hoà 68 cấp hạn mức công nợ cho đại lý dựa trên sản lượng nhập hàng và lịch sử thanh toán, và xét lại hạn mức định kỳ. Nhà thầu và đơn vị thi công có chính sách công nợ riêng, trao đổi theo từng hợp đồng.',
+    question: 'Duy Hoà 68 có chính sách công nợ cho đại lý không?',
+    answer:
+      'Duy Hoà 68 cấp hạn mức công nợ cho đại lý dựa trên sản lượng nhập hàng và lịch sử thanh toán, và xét lại hạn mức định kỳ. Nhà thầu và đơn vị thi công có chính sách công nợ riêng, trao đổi theo từng hợp đồng.',
   },
   {
-    q: 'Duy Hoà 68 có xuất hoá đơn VAT không?',
-    a: 'Duy Hoà 68 xuất hoá đơn VAT cho mọi đơn hàng, mang tên pháp nhân Công ty TNHH Thương mại Duy Hoà 68. Duy Hoà 68 cũng bàn giao chứng chỉ chất lượng xuất xưởng CO/CQ chính hãng kèm từng lô hàng.',
+    question: 'Duy Hoà 68 có xuất hoá đơn VAT không?',
+    answer:
+      'Duy Hoà 68 xuất hoá đơn VAT cho mọi đơn hàng, mang tên pháp nhân Công ty TNHH Thương mại Duy Hoà 68. Duy Hoà 68 cũng bàn giao chứng chỉ chất lượng xuất xưởng CO/CQ chính hãng kèm từng lô hàng.',
   },
   {
-    q: 'Xem bảng giá của Duy Hoà 68 ở đâu?',
-    a: 'Duy Hoà 68 công bố bảng giá niêm yết của từng hãng tại mục Bảng giá trên website, cập nhật hằng tháng và có bản PDF tải về. Giá đại lý phụ thuộc sản lượng và ngành hàng, được báo riêng sau khi cửa hàng để lại thông tin liên hệ.',
+    question: 'Xem bảng giá của Duy Hoà 68 ở đâu?',
+    answer:
+      'Duy Hoà 68 công bố bảng giá niêm yết của từng hãng tại mục Bảng giá trên website, cập nhật hằng tháng và có bản PDF tải về. Giá đại lý phụ thuộc sản lượng và ngành hàng, được báo riêng sau khi cửa hàng để lại thông tin liên hệ.',
   },
 ];
+
+export const metadata = createMetadata({
+  title: 'Giới thiệu Duy Hoà 68',
+  description:
+    'Thành lập năm 2015 tại Uông Bí, Duy Hoà 68 là nhà phân phối cấp 1 thiết bị điện – nước – vệ sinh với tổng kho 6.000m², gần 20 đầu xe và khoảng 1.500 cửa hàng đối tác.',
+  path: '/about',
+  keywords: [
+    'giới thiệu Duy Hoà 68',
+    'công ty TNHH Thương mại Duy Hoà 68',
+    'nhà phân phối vật liệu điện nước Quảng Ninh',
+    'tổng kho vật tư điện nước Uông Bí',
+    'năng lực cung ứng vật tư điện nước',
+  ],
+  image: '/og/og-about.jpg',
+});
 
 export default function AboutPage() {
   // JSON-LD Generation
@@ -247,19 +270,6 @@ export default function AboutPage() {
     ],
   };
 
-  const faqJsonLd = {
-    '@context': 'https://schema.org',
-    '@type': 'FAQPage',
-    mainEntity: FAQS.map((faq) => ({
-      '@type': 'Question',
-      name: faq.q,
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: faq.a,
-      },
-    })),
-  };
-
   return (
     <div className="bg-background pb-20 max-w-[100vw] min-h-screen overflow-x-hidden">
       {/* Inject JSON-LD */}
@@ -267,23 +277,9 @@ export default function AboutPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
-      />
+      <FAQJsonLd faqs={FAQS} />
 
-      {/* Breadcrumb Header */}
-      <header className="bg-muted/10 py-6 border-border border-b">
-        <div className="mx-auto px-4 sm:px-6 lg:px-8 container">
-          <nav className="flex items-center gap-2 overflow-x-auto font-mono text-muted-foreground text-xs uppercase tracking-widest whitespace-nowrap scrollbar-hide">
-            <Link href="/" className="hover:text-primary transition-colors">
-              Trang chủ
-            </Link>
-            <ChevronRight className="w-3 h-3" />
-            <span className="font-semibold text-foreground">Về Chúng Tôi</span>
-          </nav>
-        </div>
-      </header>
+      <Breadcrumbs items={[{ name: 'Về chúng tôi', href: '/about' }]} />
 
       {/* Hero Section */}
       <section className="mx-auto mt-12 md:mt-16 px-4 sm:px-6 lg:px-8 container">
@@ -606,9 +602,11 @@ export default function AboutPage() {
                 key={idx}
                 className="flex flex-col gap-4 bg-card hover:bg-muted/10 p-8 transition-colors"
               >
-                <h4 className="font-heading text-xl leading-snug">{faq.q}</h4>
+                <h4 className="font-heading text-xl leading-snug">
+                  {faq.question}
+                </h4>
                 <p className="mt-auto pt-4 border-border border-t text-muted-foreground text-sm leading-relaxed">
-                  {faq.a}
+                  {faq.answer}
                 </p>
               </div>
             ))}

@@ -1,21 +1,15 @@
-import { calculateReadTime } from '@/lib/utils';
+import { calculateReadTime, createMetadata } from '@/lib/utils';
 import { client } from '@/sanity/lib/client';
 import { Event, Guide, News } from '@/types/sanity';
-import {
-  ArrowRight,
-  ChevronRight,
-  Lightbulb,
-  Mail,
-  Newspaper,
-  PartyPopper,
-} from 'lucide-react';
+import { ArrowRight, Lightbulb, Mail, PartyPopper } from 'lucide-react';
 import { groq } from 'next-sanity';
 import Link from 'next/link';
 
 // Adjust this import path to match where you saved the refactored card components
-import { NewsCard } from '@/components/article/card-news';
 import { EventCard } from '@/components/article/card-event';
 import { GuideCard } from '@/components/article/card-guide';
+import { NewsCard } from '@/components/article/card-news';
+import { Breadcrumbs } from '@/components/breadcrumb';
 
 // Fetch functions returning strict types
 async function getNews(): Promise<News[]> {
@@ -36,6 +30,21 @@ async function getGuides(): Promise<Guide[]> {
   }`);
 }
 
+export const metadata = createMetadata({
+  title: 'Tin tức, Sự kiện & Cẩm nang ngành điện nước',
+  description:
+    'Cập nhật thông tin mới nhất về thị trường vật liệu xây dựng, chuỗi sự kiện đối tác và chia sẻ cẩm nang kỹ thuật vật tư toàn diện từ Duy Hoà 68.',
+  path: '/article',
+  keywords: [
+    'tin tức vật liệu xây dựng',
+    'sự kiện ngành điện nước',
+    'cẩm nang kỹ thuật',
+    'kiến thức điện nước',
+    'tin tức Duy Hoà 68',
+  ],
+  image: '/og/og-article.jpg',
+});
+
 export default async function ArticlesPage() {
   const news = await getNews();
   const events = await getEvents();
@@ -43,18 +52,7 @@ export default async function ArticlesPage() {
 
   return (
     <div className="bg-background pb-20 max-w-[100vw] min-h-screen overflow-x-hidden">
-      {/* Breadcrumb Header */}
-      <header className="bg-muted/10 py-6 border-border border-b">
-        <div className="mx-auto px-4 sm:px-6 lg:px-8 container">
-          <nav className="flex items-center gap-2 overflow-x-auto font-mono text-muted-foreground text-xs uppercase tracking-widest whitespace-nowrap scrollbar-hide">
-            <Link href="/" className="hover:text-primary transition-colors">
-              Trang chủ
-            </Link>
-            <ChevronRight className="w-3 h-3" />
-            <span className="font-semibold text-foreground">Tin tức</span>
-          </nav>
-        </div>
-      </header>
+      <Breadcrumbs items={[{ name: 'Tin tức', href: '/article' }]} />
 
       {/* Page Header */}
       <header className="bg-muted/10 py-12 md:py-20 border-border border-b">

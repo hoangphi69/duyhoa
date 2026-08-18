@@ -1,14 +1,8 @@
-import {
-  BadgePercent,
-  ChevronRight,
-  Megaphone,
-  ShieldCheck,
-  Truck,
-} from 'lucide-react';
-import Link from 'next/link';
-import AgencyForm from './form';
+import { Breadcrumbs } from '@/components/breadcrumb';
 import { siteConfig } from '@/config/site';
-import { formatPhoneNumber } from '@/lib/utils';
+import { createMetadata, formatPhoneNumber } from '@/lib/utils';
+import { BadgePercent, Megaphone, ShieldCheck, Truck } from 'lucide-react';
+import AgencyForm from './form';
 
 const AGENCY_PRIVILEGES = [
   {
@@ -33,23 +27,27 @@ const AGENCY_PRIVILEGES = [
   },
 ];
 
+export const metadata = createMetadata({
+  title: 'Đăng ký làm đại lý',
+  description:
+    'Đăng ký hợp tác làm đại lý thiết bị điện – nước – vệ sinh tại Quảng Ninh, Hải Phòng, Hải Dương: giá tận gốc từ nhà phân phối cấp 1, giao hàng theo tuyến cố định.',
+  path: '/contact/agency',
+  keywords: [
+    'đăng ký đại lý thiết bị điện',
+    'tìm nhà phân phối vật liệu điện nước',
+    'mở cửa hàng điện nước',
+    'lấy hàng tận gốc nhà phân phối cấp 1',
+    'chính sách đại lý Duy Hoà 68',
+  ],
+  image: '/og/og-agency.jpg',
+});
+
 export default function AgencyContactPage() {
   return (
     <div className="bg-background pb-20 min-h-screen overflow-x-hidden">
-      {/* Breadcrumb Header */}
-      <header className="bg-muted/10 py-6 border-border border-b">
-        <div className="mx-auto px-4 sm:px-6 lg:px-8 container">
-          <nav className="flex items-center gap-2 overflow-x-auto font-mono text-muted-foreground text-xs uppercase tracking-widest whitespace-nowrap scrollbar-hide">
-            <Link href="/" className="hover:text-primary transition-colors">
-              Trang chủ
-            </Link>
-            <ChevronRight className="w-3 h-3" />
-            <span className="font-semibold text-foreground">
-              Đăng ký Đại lý
-            </span>
-          </nav>
-        </div>
-      </header>
+      <Breadcrumbs
+        items={[{ name: 'Đăng ký đại lý', href: '/contact/agency' }]}
+      />
 
       {/* Page Header */}
       <section className="bg-muted/10 py-12 md:py-20 border-border border-b">

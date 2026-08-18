@@ -4,8 +4,8 @@ import { useState } from 'react';
 import { MessageCircle, Phone, X } from 'lucide-react';
 import Link from 'next/link';
 import { cn, formatPhoneNumber } from '@/lib/utils';
-import Facebook from '@/public/facebook.svg';
-import Zalo from '@/public/zalo.svg';
+import Facebook from '@/public/brands/facebook.svg';
+import Zalo from '@/public/brands/zalo.svg';
 import { siteConfig } from '@/config/site';
 
 export default function ContactBubble() {

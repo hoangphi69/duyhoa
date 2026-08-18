@@ -1,8 +1,7 @@
-import { ArrowRight, ChevronRight, MessageCircle } from 'lucide-react';
-import Link from 'next/link';
-import ProjectForm from './form';
+import { Breadcrumbs } from '@/components/breadcrumb';
 import { siteConfig } from '@/config/site';
-import { formatPhoneNumber } from '@/lib/utils';
+import { createMetadata, formatPhoneNumber } from '@/lib/utils';
+import ProjectForm from './form';
 
 const PROJECT_PROCESS_STEPS = [
   {
@@ -27,21 +26,27 @@ const PROJECT_PROCESS_STEPS = [
   },
 ];
 
+export const metadata = createMetadata({
+  title: 'Liên hệ báo giá dự án',
+  description:
+    'Gửi khối lượng vật tư điện – nước để nhận báo giá dự án từ Duy Hoà 68. Hỗ trợ bóc tách khối lượng, hàng chính hãng có CO/CQ, giao theo tiến độ thi công.',
+  path: '/contact/project',
+  keywords: [
+    'báo giá vật tư dự án',
+    'báo giá ống nước công trình',
+    'nhà thầu mua vật tư điện nước',
+    'cung cấp vật tư theo tiến độ',
+    'CO CQ vật tư điện nước',
+  ],
+  image: '/og/og-project-contact.jpg',
+});
+
 export default function ProjectContactPage() {
   return (
     <div className="bg-background pb-20 min-h-screen overflow-x-hidden">
-      {/* Breadcrumb Header */}
-      <header className="bg-muted/10 py-6 border-border border-b">
-        <div className="mx-auto px-4 sm:px-6 lg:px-8 container">
-          <nav className="flex items-center gap-2 overflow-x-auto font-mono text-muted-foreground text-xs uppercase tracking-widest whitespace-nowrap scrollbar-hide">
-            <Link href="/" className="hover:text-primary transition-colors">
-              Trang chủ
-            </Link>
-            <ChevronRight className="w-3 h-3" />
-            <span className="font-semibold text-foreground">Báo giá Dự án</span>
-          </nav>
-        </div>
-      </header>
+      <Breadcrumbs
+        items={[{ name: 'Báo giá dự án', href: '/contact/project' }]}
+      />
 
       {/* Page Header */}
       <section className="bg-muted/10 py-12 md:py-20 border-border border-b">

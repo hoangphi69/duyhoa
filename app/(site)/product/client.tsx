@@ -1,13 +1,13 @@
 'use client';
 
+import { Breadcrumbs } from '@/components/breadcrumb';
+import { ProductCard } from '@/components/product/card-product';
 import { Button } from '@/components/ui/button';
-import { cn, getCategoryStyle, IconMapper } from '@/lib/utils';
-import { Check, ChevronRight, Filter, Search } from 'lucide-react';
-import Link from 'next/link';
+import { cn, IconMapper } from '@/lib/utils';
+import { Check, Filter, Search } from 'lucide-react';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { SanityBrand, SanityCategory, SanityProduct } from './page';
-import { ProductCard } from '@/components/product/card-product';
 
 const useIsomorphicLayoutEffect =
   typeof window !== 'undefined' ? useLayoutEffect : useEffect;
@@ -217,18 +217,7 @@ export default function ProductsClient({
 
   return (
     <div className="pb-20 max-w-[100vw] min-h-screen">
-      {/* Breadcrumb Header */}
-      <header className="bg-muted/10 py-6 border-border border-b">
-        <div className="mx-auto px-4 sm:px-6 lg:px-8 container">
-          <nav className="flex items-center gap-2 overflow-x-auto font-mono text-muted-foreground text-xs uppercase tracking-widest whitespace-nowrap scrollbar-hide">
-            <Link href="/" className="hover:text-primary transition-colors">
-              Trang chủ
-            </Link>
-            <ChevronRight className="w-3 h-3" />
-            <span className="font-semibold text-foreground">Sản phẩm</span>
-          </nav>
-        </div>
-      </header>
+      <Breadcrumbs items={[{ name: 'Sản phẩm', href: '/product' }]} />
 
       <header className="bg-muted/10 py-12 md:py-20 border-border border-b">
         <div className="mx-auto px-4 sm:px-6 lg:px-8 container">

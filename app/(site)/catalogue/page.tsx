@@ -1,7 +1,8 @@
+import { CatalogueDoc } from '@/components/product/card-catalogue';
+import { createMetadata } from '@/lib/utils';
 import { client } from '@/sanity/lib/client';
 import { groq } from 'next-sanity';
 import { CatalogueClient } from './client';
-import { CatalogueDoc } from '@/components/product/card-catalogue';
 
 // Updated GROQ query to target "catalogue" and pull category->icon
 const dataQuery = groq`{
@@ -17,6 +18,21 @@ const dataQuery = groq`{
     dateUpdated
   }
 }`;
+
+export const metadata = createMetadata({
+  title: 'Bảng giá & Catalogue',
+  description:
+    'Tra cứu và tải bảng giá niêm yết, catalogue mới nhất của các hãng do Duy Hoà 68 phân phối. Giá đại lý và chiết khấu theo sản lượng liên hệ trực tiếp.',
+  path: '/catalogue',
+  keywords: [
+    'bảng giá thiết bị điện',
+    'bảng giá ống nước Tiền Phong',
+    'catalogue thiết bị vệ sinh',
+    'báo giá vật tư điện nước',
+    'bảng giá đại lý',
+  ],
+  image: '/og/og-catalogue.jpg',
+});
 
 export default async function CataloguePage() {
   const data = await client.fetch<{ catalogues: CatalogueDoc[] }>(

@@ -1,3 +1,4 @@
+import { createMetadata } from '@/lib/utils';
 import { client } from '@/sanity/lib/client';
 import { groq } from 'next-sanity';
 import ProductsClient from './client';
@@ -31,6 +32,23 @@ export interface SanityBrand {
   name: string;
   slug: string;
 }
+
+export const metadata = createMetadata({
+  title: 'Danh mục sản phẩm điện – nước – vệ sinh',
+  description:
+    'Dây cáp điện, thiết bị chiếu sáng, ống nhựa và phụ kiện, thiết bị vệ sinh, dụng cụ cầm tay chính hãng: Trần Phú, Cadisun, Rạng Đông, Tiền Phong, Panasonic, Inax…',
+  path: '/product',
+  keywords: [
+    'danh mục thiết bị điện',
+    'ống nhựa và phụ kiện',
+    'thiết bị vệ sinh chính hãng',
+    'dây cáp điện Trần Phú Cadisun',
+    'đèn LED Rạng Đông',
+    'ống nhựa Tiền Phong PPR HDPE',
+    'quạt Senko Vinawind',
+  ],
+  image: '/og/og-product.jpg',
+});
 
 export default async function ProductsPage({
   searchParams,

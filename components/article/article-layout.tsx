@@ -1,11 +1,11 @@
-import Link from 'next/link';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
+import Link from 'next/link';
 import { ReactNode } from 'react';
+import { Breadcrumbs } from '../breadcrumb';
 
 interface ArticleListLayoutProps {
   breadcrumbName: string;
-  categoryIcon: ReactNode;
   categoryName: string;
   title: ReactNode;
   description: string;
@@ -20,7 +20,6 @@ interface ArticleListLayoutProps {
 
 export function ArticleListLayout({
   breadcrumbName,
-  categoryIcon,
   categoryName,
   title,
   description,
@@ -34,27 +33,12 @@ export function ArticleListLayout({
 }: ArticleListLayoutProps) {
   return (
     <div className="bg-background pb-20 max-w-[100vw] min-h-screen overflow-x-hidden">
-      {/* Breadcrumb Header */}
-      <header className="bg-muted/10 py-6 border-border border-b">
-        <div className="mx-auto px-4 sm:px-6 lg:px-8 container">
-          <nav className="flex items-center gap-2 overflow-x-auto font-mono text-muted-foreground text-xs uppercase tracking-widest whitespace-nowrap scrollbar-hide">
-            <Link href="/" className="hover:text-primary transition-colors">
-              Trang chủ
-            </Link>
-            <ChevronRight className="w-3 h-3" />
-            <Link
-              href="/article"
-              className="hover:text-primary transition-colors"
-            >
-              Tin tức
-            </Link>
-            <ChevronRight className="w-3 h-3" />
-            <span className="font-semibold text-foreground">
-              {breadcrumbName}
-            </span>
-          </nav>
-        </div>
-      </header>
+      <Breadcrumbs
+        items={[
+          { name: 'Tin tức', href: '/article' },
+          { name: breadcrumbName, href: paginationPath },
+        ]}
+      />
 
       {/* Page Header */}
       <section className="bg-muted/10 py-12 md:py-20 border-border border-b">

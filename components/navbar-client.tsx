@@ -10,7 +10,7 @@ import {
   navigationMenuTriggerStyle,
 } from '@/components/ui/navigation-menu';
 import { cn, formatPhoneNumber } from '@/lib/utils';
-import Logo from '@/public/duyhoa.png';
+import Logo from '@/public/duyhoa-text.png';
 import { ArrowRight, ChevronDown, Menu, Phone, X } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
