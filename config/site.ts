@@ -16,7 +16,7 @@ export const siteConfig = {
       'Tổng kho phân phối thiết bị điện – nước – vệ sinh chính hãng tại Quảng Ninh, Hải Phòng, Hải Dương.',
     foundedYear: 2015,
     taxCode: '5701765729',
-    logo: '/duyhoa-text.png',
+    logo: '/duyhoa-logo.png',
     colors: {
       primary: '#FFB202', // vàng thương hiệu
       secondary: '#0B1F3A', // navy thương hiệu
