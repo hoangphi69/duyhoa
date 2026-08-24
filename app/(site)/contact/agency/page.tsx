@@ -39,7 +39,7 @@ export const metadata = createMetadata({
     'lấy hàng tận gốc nhà phân phối cấp 1',
     'chính sách đại lý Duy Hoà 68',
   ],
-  image: '/og/og-agency.jpg',
+  // image: '/og/og-agency.png',
 });
 
 export default function AgencyContactPage() {

@@ -206,7 +206,7 @@ export const metadata = createMetadata({
     'tổng kho vật tư điện nước Uông Bí',
     'năng lực cung ứng vật tư điện nước',
   ],
-  image: '/og/og-about.jpg',
+  // image: '/og/og-about.png',
 });
 
 export default function AboutPage() {

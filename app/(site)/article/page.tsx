@@ -42,7 +42,7 @@ export const metadata = createMetadata({
     'kiến thức điện nước',
     'tin tức Duy Hoà 68',
   ],
-  image: '/og/og-article.jpg',
+  // image: '/og/og-article.png',
 });
 
 export default async function ArticlesPage() {

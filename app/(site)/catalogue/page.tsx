@@ -31,7 +31,7 @@ export const metadata = createMetadata({
     'báo giá vật tư điện nước',
     'bảng giá đại lý',
   ],
-  image: '/og/og-catalogue.jpg',
+  // image: '/og/og-catalogue.png',
 });
 
 export default async function CataloguePage() {

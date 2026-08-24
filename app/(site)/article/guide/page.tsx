@@ -39,7 +39,7 @@ export const metadata = createMetadata({
     'hướng dẫn lắp đặt thiết bị vệ sinh',
     'cẩm nang vật tư công trình',
   ],
-  image: '/og/og-guide.jpg',
+  // image: '/og/og-guide.png',
 });
 
 export default async function GuidesPage({

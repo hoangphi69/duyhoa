@@ -38,7 +38,7 @@ export const metadata = createMetadata({
     'báo giá vật liệu xây dựng',
     'tin tức ngành thiết bị vệ sinh',
   ],
-  image: '/og/og-news.jpg',
+  // image: '/og/og-news.png',
 });
 
 export default async function NewsArticlesPage({

@@ -10,7 +10,7 @@ export function OrganizationJsonLd() {
     alternateName: siteConfig.brand.shortName,
     url: siteConfig.url,
     logo: `${siteConfig.url}${siteConfig.brand.logo}`,
-    image: `${siteConfig.url}/og/og-default.jpg`,
+    image: `${siteConfig.url}/og/og-default.png`,
     description: siteConfig.brand.description,
     slogan: siteConfig.brand.slogan,
     foundingDate: String(siteConfig.brand.foundedYear),

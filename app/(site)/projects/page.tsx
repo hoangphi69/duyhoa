@@ -26,7 +26,7 @@ export const metadata = createMetadata({
     'giao hàng tận chân công trình',
     'vật tư xây dựng Quảng Ninh Hải Phòng',
   ],
-  image: '/og/og-projects.jpg',
+  // image: '/og/og-projects.png',
 });
 
 export default async function ProjectsPage() {

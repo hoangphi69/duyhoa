@@ -86,7 +86,7 @@ export async function generateMetadata({
     description: article.excerpt,
     path: `/article/${article.slug}`,
     keywords: article.seoKeywords,
-    image: article.imageUrl ?? '/og/og-article.jpg',
+    // image: article.imageUrl ?? '/og/og-article.png',
     type: 'article',
   });
 }

@@ -38,7 +38,7 @@ export const metadata = createMetadata({
     'cung cấp vật tư theo tiến độ',
     'CO CQ vật tư điện nước',
   ],
-  image: '/og/og-project-contact.jpg',
+  // image: '/og/og-project-contact.png',
 });
 
 export default function ProjectContactPage() {

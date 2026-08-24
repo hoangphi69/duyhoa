@@ -47,7 +47,7 @@ export const metadata = createMetadata({
     'ống nhựa Tiền Phong PPR HDPE',
     'quạt Senko Vinawind',
   ],
-  image: '/og/og-product.jpg',
+  // image: '/og/og-product.png',
 });
 
 export default async function ProductsPage({

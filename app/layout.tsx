@@ -67,7 +67,7 @@ export const metadata: Metadata = {
     siteName: siteConfig.brand.fullName,
     images: [
       {
-        url: '/og/og-default.jpg', // 1200x630, đặt trong /public/og/
+        url: '/og/og-default.png',
         width: 1200,
         height: 630,
         alt: `${siteConfig.brand.fullName} – ${siteConfig.brand.positioning}`,
@@ -80,7 +80,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: `${siteConfig.brand.shortName} – ${siteConfig.brand.positioning}`,
     description: siteConfig.brand.shortDescription,
-    images: ['/og/og-default.jpg'],
+    images: ['/og/og-default.png'],
   },
 
   // Điều khiển index & snippet (quan trọng cho SEO/GEO)

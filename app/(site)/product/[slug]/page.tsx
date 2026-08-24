@@ -79,7 +79,7 @@ export async function generateMetadata({
       product.category,
       product.subcategory,
     ],
-    image: '/og/og-product.jpg',
+    // image: '/og/og-product.png',
     type: 'website',
   });
 }

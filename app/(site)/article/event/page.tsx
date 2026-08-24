@@ -39,7 +39,7 @@ export const metadata = createMetadata({
     'hội thảo thiết bị vệ sinh',
     'đào tạo đại lý',
   ],
-  image: '/og/og-event.jpg',
+  // image: '/og/og-event.png',
 });
 
 export default async function EventsPage({

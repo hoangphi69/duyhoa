@@ -137,7 +137,7 @@ export function createMetadata({
   description,
   path,
   keywords,
-  image = '/og/og-default.jpg',
+  image = '/og/og-default.png',
   noIndex = false,
   type = 'website',
 }: PageMetaInput): Metadata {
