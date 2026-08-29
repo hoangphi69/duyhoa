@@ -1,47 +1,20 @@
 import { EventCard } from '@/components/article/card-event';
 import { GuideCard } from '@/components/article/card-guide';
 import { NewsCard } from '@/components/article/card-news';
+import { components } from '@/components/article/portable-text-components';
 import { TableOfContents } from '@/components/article/table-of-contents';
 import { Breadcrumbs } from '@/components/breadcrumb';
 import { FAQJsonLd } from '@/components/seo/JsonLd';
 import { siteConfig } from '@/config/site';
-import {
-  calculateReadTime,
-  createMetadata,
-  generateToC,
-  slugify,
-} from '@/lib/utils';
+import { calculateReadTime, createMetadata, generateToC } from '@/lib/utils';
 import { client } from '@/sanity/lib/client';
 import { Event, Guide, News } from '@/types/sanity';
-import {
-  PortableText,
-  PortableTextBlock,
-  PortableTextComponents,
-} from '@portabletext/react';
-import {
-  Calendar,
-  CalendarDays,
-  ChevronRight,
-  Clock,
-  MapPin,
-  User,
-} from 'lucide-react';
-import { Metadata, ResolvingMetadata } from 'next';
+import { PortableText } from '@portabletext/react';
+import { Calendar, CalendarDays, Clock, MapPin, User } from 'lucide-react';
+import { Metadata } from 'next';
 import { groq } from 'next-sanity';
-import Link from 'next/link';
 
 type ArticleType = News | Event | Guide;
-
-// (Keep your RichTable types here...)
-type RichTableCell = { _key: string; content: PortableTextBlock[] };
-type RichTableRow = { _key: string; cells: RichTableCell[] };
-type RichTableColumnHeader = { _key: string; cellIndex: number; title: string };
-type RichTableBlockValue = {
-  columnHeaders?: RichTableColumnHeader[];
-  hasColumnTitles?: boolean;
-  hasRowTitles?: boolean;
-  rows: RichTableRow[];
-};
 
 // --- FETCH DATA ---
 async function getArticle(slug: string): Promise<ArticleType | null> {
@@ -90,74 +63,6 @@ export async function generateMetadata({
     type: 'article',
   });
 }
-
-// --- CUSTOM PORTABLE TEXT COMPONENTS ---
-const portableTextComponents: PortableTextComponents = {
-  block: {
-    h2: ({ value, children }) => {
-      const text = (value.children as any[]).map((c) => c.text).join('');
-      return (
-        <h2 id={slugify(text)} className="scroll-mt-24">
-          {children}
-        </h2>
-      );
-    },
-    h3: ({ value, children }) => {
-      const text = (value.children as any[]).map((c) => c.text).join('');
-      return (
-        <h3 id={slugify(text)} className="scroll-mt-24">
-          {children}
-        </h3>
-      );
-    },
-  },
-  types: {
-    richTableBlock: ({ value }) => {
-      const table = value as RichTableBlockValue;
-      const sortedHeaders = table.hasColumnTitles
-        ? [...(table.columnHeaders ?? [])].sort(
-            (a, b) => a.cellIndex - b.cellIndex,
-          )
-        : [];
-
-      return (
-        <div className="my-8 overflow-x-auto">
-          <table>
-            {sortedHeaders.length > 0 && (
-              <thead>
-                <tr>
-                  {sortedHeaders.map((header) => (
-                    <th key={header._key} className="text-left">
-                      {header.title}
-                    </th>
-                  ))}
-                </tr>
-              </thead>
-            )}
-            <tbody>
-              {table.rows?.map((row) => (
-                <tr key={row._key}>
-                  {row.cells?.map((cell, cellIdx) => {
-                    const isRowHeader = table.hasRowTitles && cellIdx === 0;
-                    return isRowHeader ? (
-                      <th key={cell._key} scope="row" className="text-left">
-                        <PortableText value={cell.content} />
-                      </th>
-                    ) : (
-                      <td key={cell._key}>
-                        <PortableText value={cell.content} />
-                      </td>
-                    );
-                  })}
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      );
-    },
-  },
-};
 
 export default async function ArticleDetailPage({
   params,
@@ -276,7 +181,7 @@ export default async function ArticleDetailPage({
           )}
         </div>
 
-        <div className="relative bg-muted/5 mb-12 border-border border-y w-full aspect-video md:aspect-[16/5] overflow-hidden">
+        <div className="relative bg-muted/5 mb-12 border-border border-y w-full aspect-video md:aspect-16/5 overflow-hidden">
           {article.imageUrl ? (
             <img
               src={article.imageUrl}
@@ -316,10 +221,10 @@ export default async function ArticleDetailPage({
               </div>
             )}
 
-            <div className="prose-tr:even:bg-muted/30 max-w-none prose-headings:font-heading prose">
+            <div className="prose-tr:even:bg-muted/30 max-w-none prose-headings:font-heading prose-figcaption:italic prose">
               <PortableText
                 value={article.content || []}
-                components={portableTextComponents}
+                components={components}
               />
             </div>
 

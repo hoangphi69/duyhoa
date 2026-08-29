@@ -1,5 +1,6 @@
-import { defineField, defineType } from 'sanity';
 import { Package } from 'lucide-react';
+import { defineArrayMember, defineField, defineType } from 'sanity';
+import { SpecsInput } from '../../components/SpecsInput';
 
 export default defineType({
   name: 'product',
@@ -57,8 +58,32 @@ export default defineType({
     defineField({
       name: 'description',
       title: 'Mô tả chi tiết',
-      type: 'text',
-      rows: 6,
+      type: 'array',
+      of: [
+        { type: 'block' },
+        {
+          type: 'image',
+          fields: [
+            {
+              name: 'alt',
+              type: 'string',
+              title: 'Alt (cải thiện SEO)',
+              description: 'Chữ thay thế khi hình ảnh lỗi',
+              options: { isHighlighted: true },
+            },
+            {
+              name: 'caption',
+              type: 'string',
+              title: 'Chú thích',
+            },
+          ],
+        },
+        defineArrayMember({
+          name: 'richTableBlock',
+          title: 'Bảng',
+          type: 'richTableBlock',
+        }),
+      ],
     }),
     defineField({
       name: 'specs',
@@ -73,6 +98,7 @@ export default defineType({
           ],
         },
       ],
+      components: { input: SpecsInput },
     }),
   ],
   preview: {

@@ -6,7 +6,7 @@ import { siteConfig } from '@/config/site';
 
 export default function ContactBubble() {
   return (
-    <div className="md:top-3/4 right-0 bottom-4 md:bottom-auto z-50 fixed flex flex-row md:flex-col shadow-2xl md:-translate-y-1/2">
+    <div className="md:top-3/4 right-0 bottom-4 md:bottom-auto z-50 fixed flex flex-row md:flex-col md:-translate-y-1/2">
       {/* Hotline */}
       <Link
         href={`tel:${siteConfig.contact.hotline}`}

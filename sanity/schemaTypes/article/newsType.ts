@@ -1,5 +1,6 @@
 import { defineArrayMember, defineField, defineType } from 'sanity';
 import { Newspaper } from 'lucide-react';
+import { QnAInput } from '@/sanity/components/QnAInput';
 
 export default defineType({
   name: 'news',
@@ -60,7 +61,23 @@ export default defineType({
       type: 'array',
       of: [
         { type: 'block' },
-        { type: 'image' },
+        {
+          type: 'image',
+          fields: [
+            {
+              name: 'alt',
+              type: 'string',
+              title: 'Alt (cải thiện SEO)',
+              description: 'Chữ thay thế khi hình ảnh lỗi',
+              options: { isHighlighted: true },
+            },
+            {
+              name: 'caption',
+              type: 'string',
+              title: 'Chú thích',
+            },
+          ],
+        },
         defineArrayMember({
           name: 'richTableBlock',
           title: 'Bảng',
@@ -81,6 +98,7 @@ export default defineType({
           ],
         },
       ],
+      components: { input: QnAInput },
     }),
   ],
 });

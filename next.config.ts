@@ -20,6 +20,16 @@ const nextConfig: NextConfig = {
       'react-compiler-runtime/*': 'react/compiler-runtime',
     },
   },
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'cdn.sanity.io',
+        port: '',
+        pathname: '**',
+      },
+    ],
+  },
 };
 
 export default nextConfig;

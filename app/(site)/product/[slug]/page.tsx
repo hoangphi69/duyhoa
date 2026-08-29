@@ -1,3 +1,4 @@
+import { components } from '@/components/article/portable-text-components';
 import { Breadcrumbs } from '@/components/breadcrumb';
 import { ProductCard } from '@/components/product/card-product';
 import { Button } from '@/components/ui/button';
@@ -10,6 +11,7 @@ import {
   IconMapper,
 } from '@/lib/utils';
 import { client } from '@/sanity/lib/client';
+import { PortableText } from '@portabletext/react';
 import { ArrowRight, Check, Package, ShieldCheck, Truck } from 'lucide-react';
 import { Metadata } from 'next';
 import { groq } from 'next-sanity';
@@ -69,9 +71,7 @@ export async function generateMetadata({
 
   return createMetadata({
     title: product.name,
-    description:
-      product.description?.substring(0, 160) ||
-      `Sản phẩm ${product.name} chính hãng từ ${product.brand}`,
+    description: `Sản phẩm ${product.name} chính hãng từ ${product.brand}`,
     path: `/article/${product.slug}`,
     keywords: [
       product.name,
@@ -107,7 +107,6 @@ export default async function ProductDetailPage({
     '@type': 'Product',
     name: product.name,
     image: product.images,
-    description: product.description,
     brand: {
       '@type': 'Brand',
       name: product.brand,
@@ -271,10 +270,11 @@ export default async function ProductDetailPage({
                 Mô tả chi tiết
               </h3>
             </div>
-            <div className="dark:prose-invert p-6 max-w-none prose prose-zinc">
-              <p className="text-muted-foreground text-sm leading-relaxed whitespace-pre-line">
-                {product.description || 'Đang cập nhật mô tả sản phẩm...'}
-              </p>
+            <div className="prose-tr:even:bg-muted/30 p-6 max-w-none prose-headings:font-heading prose-figcaption:italic prose">
+              <PortableText
+                value={product.description || 'Đang cập nhật mô tả sản phẩm...'}
+                components={components}
+              />
             </div>
           </div>
         </div>

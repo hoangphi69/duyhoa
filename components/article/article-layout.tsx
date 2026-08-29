@@ -92,7 +92,7 @@ export function ArticleListLayout({
                 <ChevronLeft className="w-4 h-4" /> Trang trước
               </Link>
             ) : (
-              <div className="w-[100px]" />
+              <div className="w-25" />
             )}
 
             <span className="font-mono text-muted-foreground text-xs uppercase tracking-widest">
@@ -107,7 +107,7 @@ export function ArticleListLayout({
                 Trang tiếp <ChevronRight className="w-4 h-4" />
               </Link>
             ) : (
-              <div className="w-[100px]" />
+              <div className="w-25" />
             )}
           </div>
         )}
