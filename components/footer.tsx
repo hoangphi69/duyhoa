@@ -19,21 +19,20 @@ export default function Footer() {
       {/* Khối CTA sẽ tự động quản lý trạng thái hiển thị của nó */}
       {!isContactPage && (
         <section className="mx-auto px-4 sm:px-6 lg:px-8 container">
-          <div className="flex md:flex-row flex-col justify-between items-center gap-6 bg-primary my-20 p-8 md:p-12 border border-border text-foreground">
-            <div className="flex flex-col gap-2">
-              <h3 className="font-heading font-bold text-2xl md:text-3xl tracking-tight">
-                Cần tư vấn vật tư cho công trình?
-              </h3>
-              <p className="opacity-90">
-                Liên hệ ngay để nhận báo giá đại lý tốt nhất khu vực Quảng Ninh
-                - Hải Phòng - Hải Dương.
-              </p>
-            </div>
+          <div className="items-start gap-6 md:gap-4 grid grid-cols-1 md:grid-cols-4 my-10 md:my-20">
+            <p className="text-muted-foreground">
+              Cần báo giá đại lý
+              <br /> và công trình?
+            </p>
+            <h3 className="md:col-span-2 max-w-xl font-heading font-medium text-3xl sm:text-4xl md:text-5xl decoration-3 decoration-primary underline leading-[1.3] tracking-tight">
+              Liên hệ
+              <br /> với Duy Hoà ngay
+            </h3>
             <Link
               href="/contact/agency"
-              className="flex items-center gap-2 bg-background hover:bg-muted px-8 py-4 border border-background font-mono font-medium text-foreground text-sm uppercase tracking-wide transition-colors shrink-0"
+              className="flex justify-between items-center gap-2 bg-primary hover:bg-primary/80 px-6 md:px-8 py-4 border border-background w-full md:w-auto font-mono text-foreground text-sm uppercase tracking-wide transition-colors shrink-0"
             >
-              Liên hệ ngay <ArrowRight className="w-4 h-4" />
+              Trở thành đại lý <ArrowRight className="w-4 h-4" />
             </Link>
           </div>
         </section>
@@ -41,32 +40,22 @@ export default function Footer() {
 
       {/* Main Footer */}
       <footer className="z-10 relative bg-foreground pt-16 pb-8 border-border border-t text-background/90">
-        <div className="mx-auto px-4 sm:px-6 lg:px-8 container">
+        <div className="space-y-10 mx-auto px-4 sm:px-6 lg:px-8 container">
           {/* Top Section */}
-          <div className="gap-10 lg:gap-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 pb-12">
+          <div className="gap-y-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
             {/* Brand Column */}
-            <div className="flex flex-col md:col-span-2">
-              <div className="flex items-center gap-6 mb-4">
-                <Link href="/">
-                  <Image
-                    src={logo}
-                    priority
-                    alt="Duy Hoà Logo"
-                    className="w-full h-28 object-contain"
-                  />
-                </Link>
-              </div>
-              <p className="mb-5 max-w-md font-heading font-semibold text-background/65 text-base">
+            <div className="flex flex-col items-start gap-6">
+              <Link href="/">
+                <Image
+                  src={logo}
+                  priority
+                  alt="Duy Hoà Logo"
+                  className="w-full h-28 object-contain"
+                />
+              </Link>
+              <p className="mb-5 max-w-3xs font-heading font-semibold text-background/65 text-base">
                 {siteConfig.brand.positioning}
               </p>
-              <div className="mt-4 font-mono text-background/60 text-xs leading-relaxed">
-                <div>{siteConfig.contact.address}</div>
-                <div className="mt-1">{siteConfig.contact.workingHours}</div>
-                <div className="mt-1">
-                  Hotline. {formatPhoneNumber(siteConfig.contact.hotline)}
-                </div>
-                <div className="mt-1">Email. {siteConfig.contact.email}</div>
-              </div>
             </div>
 
             {/* Sitemap Column */}
@@ -79,7 +68,7 @@ export default function Footer() {
                   <Link
                     key={idx}
                     href={link.href}
-                    className="font-semibold text-background/75 hover:text-primary transition-colors"
+                    className="font-medium text-background/75 hover:text-primary text-sm transition-colors"
                   >
                     {link.name}
                   </Link>
@@ -92,12 +81,12 @@ export default function Footer() {
               <div className="mb-4 font-mono text-primary text-xs uppercase tracking-widest">
                 Liên hệ
               </div>
-              <nav className="flex flex-col gap-3 mb-5">
+              <nav className="flex flex-col gap-3">
                 {siteConfig.links.contact.map((link, idx) => (
                   <Link
                     key={idx}
                     href={link.href}
-                    className="font-semibold text-background/75 hover:text-primary transition-colors"
+                    className="font-medium text-background/75 hover:text-primary text-sm transition-colors"
                   >
                     {link.name}
                   </Link>
@@ -110,22 +99,29 @@ export default function Footer() {
               <div className="mb-4 font-mono text-primary text-xs uppercase tracking-widest">
                 Theo dõi chúng tôi
               </div>
-              <nav className="flex flex-col gap-3 mb-5">
+              <nav className="flex flex-col gap-3">
                 <Link
                   href={siteConfig.links.social[0].href}
                   target="_blank"
-                  className="font-semibold text-background/75 hover:text-primary transition-colors"
+                  className="font-medium text-background/75 hover:text-primary text-sm transition-colors"
                 >
                   Facebook
                 </Link>
                 <Link
                   href={siteConfig.links.social[1].href}
-                  className="font-semibold text-background/75 hover:text-primary transition-colors"
+                  className="font-medium text-background/75 hover:text-primary text-sm transition-colors"
                 >
                   Zalo OA
                 </Link>
               </nav>
             </div>
+          </div>
+
+          {/* Middle Section */}
+          <div className="gap-3 md:gap-0 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 font-mono text-background/60 text-xs leading-relaxed">
+            <div>Email. {siteConfig.contact.email}</div>
+            <div>Hotline. {formatPhoneNumber(siteConfig.contact.hotline)}</div>
+            <div className="sm:col-span-2">{siteConfig.contact.address}</div>
           </div>
 
           {/* Bottom Section */}

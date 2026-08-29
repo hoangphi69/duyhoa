@@ -1,28 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" width="308.33" height="646.92" viewBox="325.5 3.04 308.33 646.92" >
-  <!-- Created using Pixel Map Generator: pixelmap.amcharts.com -->
+<svg xmlns="http://www.w3.org/2000/svg" width="408.33" height="646.92" viewBox="325.5 3.04 408.33 646.92" >
   <style>
-    .land { fill: #f0bc02; stroke: #f0bc02; stroke-width: 0.34; }
+    .land {
+      fill: currentColor;
+      stroke: none;
+      cursor: pointer;
+      transition: opacity 150ms ease, fill 150ms ease;
+      stroke: none;
+    }
+
+    /* Active region highlight */
+    .land.is-active { fill: var(--foreground); }
+
+    /* Hovered region highlight */
+    #pixels.has-hover .land.is-hovered { opacity: 1; fill: currentColor; }
+
+    /* ...while dim the rest of regions */
+    #pixels.has-hover .land { opacity: 0.35; fill: var(--muted-foreground); }
   </style>
   <g id="pixels">
-    <g id="VN-03" title="Hà Giang" class="land">
-      <rect x="448.765" y="5.375" width="5.37" height="5.37"/>
-      <rect x="456.825" y="5.375" width="5.37" height="5.37"/>
-      <rect x="440.705" y="13.435" width="5.37" height="5.37"/>
-      <rect x="448.765" y="13.435" width="5.37" height="5.37"/>
-      <rect x="456.825" y="13.435" width="5.37" height="5.37"/>
-      <rect x="440.705" y="21.495" width="5.37" height="5.37"/>
-      <rect x="448.765" y="21.495" width="5.37" height="5.37"/>
-      <rect x="416.515" y="29.565" width="5.37" height="5.37"/>
-      <rect x="424.575" y="29.565" width="5.37" height="5.37"/>
-      <rect x="432.645" y="29.565" width="5.37" height="5.37"/>
-      <rect x="440.705" y="29.565" width="5.37" height="5.37"/>
-      <rect x="448.765" y="29.565" width="5.37" height="5.37"/>
-      <rect x="456.825" y="29.565" width="5.37" height="5.37"/>
-      <rect x="424.575" y="37.625" width="5.37" height="5.37"/>
-      <rect x="432.645" y="37.625" width="5.37" height="5.37"/>
-      <rect x="440.705" y="37.625" width="5.37" height="5.37"/>
-      <rect x="432.645" y="45.684999999999995" width="5.37" height="5.37"/>
+    <g id="VN-HS" title="Hoàng Sa" class="land">
+      <rect x="715" y="287.535" width="5.37" height="5.37" />
+      <rect x="715" y="295.595" width="5.37" height="5.37" />
+      <rect x="723.06" y="295.595" width="5.37" height="5.37" />
+    </g>
+    <g id="VN-TS" title="Trường Sa" class="land">
+      <rect x="698.88" y="601.935" width="5.37" height="5.37" />
+      <rect x="690.82" y="609.995" width="5.37" height="5.37" />
+      <rect x="682.76" y="609.995" width="5.37" height="5.37" />
+      <rect x="715" y="609.995" width="5.37" height="5.37" />
     </g>
     <g id="VN-04" title="Cao Bằng" class="land">
       <rect x="464.885" y="13.435" width="5.37" height="5.37"/>
@@ -88,22 +94,24 @@
       <rect x="424.575" y="53.745" width="5.37" height="5.37"/>
       <rect x="408.455" y="61.80499999999999" width="5.37" height="5.37"/>
       <rect x="416.515" y="61.80499999999999" width="5.37" height="5.37"/>
-    </g>
-    <g id="VN-53" title="Bắc Kạn" class="land">
-      <rect x="472.945" y="29.565" width="5.37" height="5.37"/>
-      <rect x="472.945" y="37.625" width="5.37" height="5.37"/>
-      <rect x="481.005" y="37.625" width="5.37" height="5.37"/>
-      <rect x="489.075" y="37.625" width="5.37" height="5.37"/>
-      <rect x="464.885" y="45.684999999999995" width="5.37" height="5.37"/>
-      <rect x="472.945" y="45.684999999999995" width="5.37" height="5.37"/>
-      <rect x="481.005" y="45.684999999999995" width="5.37" height="5.37"/>
-      <rect x="489.075" y="45.684999999999995" width="5.37" height="5.37"/>
-      <rect x="464.885" y="53.745" width="5.37" height="5.37"/>
-      <rect x="472.945" y="53.745" width="5.37" height="5.37"/>
-      <rect x="481.005" y="53.745" width="5.37" height="5.37"/>
-      <rect x="489.075" y="53.745" width="5.37" height="5.37"/>
-      <rect x="481.005" y="61.80499999999999" width="5.37" height="5.37"/>
-      <rect x="489.075" y="61.80499999999999" width="5.37" height="5.37"/>
+      
+      <!-- Yên Bái -->
+      <rect x="432.645" y="53.745" width="5.37" height="5.37"/>
+      <rect x="424.575" y="61.80499999999999" width="5.37" height="5.37"/>
+      <rect x="432.645" y="61.80499999999999" width="5.37" height="5.37"/>
+      <rect x="440.705" y="61.80499999999999" width="5.37" height="5.37"/>
+      <rect x="400.395" y="69.865" width="5.37" height="5.37"/>
+      <rect x="408.455" y="69.865" width="5.37" height="5.37"/>
+      <rect x="416.515" y="69.865" width="5.37" height="5.37"/>
+      <rect x="424.575" y="69.865" width="5.37" height="5.37"/>
+      <rect x="432.645" y="69.865" width="5.37" height="5.37"/>
+      <rect x="440.705" y="69.865" width="5.37" height="5.37"/>
+      <rect x="416.515" y="77.935" width="5.37" height="5.37"/>
+      <rect x="424.575" y="77.935" width="5.37" height="5.37"/>
+      <rect x="432.645" y="77.935" width="5.37" height="5.37"/>
+      <rect x="416.515" y="85.995" width="5.37" height="5.37"/>
+      <rect x="424.575" y="85.995" width="5.37" height="5.37"/>
+      <rect x="432.645" y="85.995" width="5.37" height="5.37"/>
     </g>
     <g id="VN-07" title="Tuyên Quang" class="land">
       <rect x="448.765" y="37.625" width="5.37" height="5.37"/>
@@ -121,6 +129,25 @@
       <rect x="448.765" y="69.865" width="5.37" height="5.37"/>
       <rect x="456.825" y="69.865" width="5.37" height="5.37"/>
       <rect x="456.825" y="77.935" width="5.37" height="5.37"/>
+
+      <!-- Hà Giang -->
+      <rect x="448.765" y="5.375" width="5.37" height="5.37"/>
+      <rect x="456.825" y="5.375" width="5.37" height="5.37"/>
+      <rect x="440.705" y="13.435" width="5.37" height="5.37"/>
+      <rect x="448.765" y="13.435" width="5.37" height="5.37"/>
+      <rect x="456.825" y="13.435" width="5.37" height="5.37"/>
+      <rect x="440.705" y="21.495" width="5.37" height="5.37"/>
+      <rect x="448.765" y="21.495" width="5.37" height="5.37"/>
+      <rect x="416.515" y="29.565" width="5.37" height="5.37"/>
+      <rect x="424.575" y="29.565" width="5.37" height="5.37"/>
+      <rect x="432.645" y="29.565" width="5.37" height="5.37"/>
+      <rect x="440.705" y="29.565" width="5.37" height="5.37"/>
+      <rect x="448.765" y="29.565" width="5.37" height="5.37"/>
+      <rect x="456.825" y="29.565" width="5.37" height="5.37"/>
+      <rect x="424.575" y="37.625" width="5.37" height="5.37"/>
+      <rect x="432.645" y="37.625" width="5.37" height="5.37"/>
+      <rect x="440.705" y="37.625" width="5.37" height="5.37"/>
+      <rect x="432.645" y="45.684999999999995" width="5.37" height="5.37"/>
     </g>
     <g id="VN-71" title="Điện Biên" class="land">
       <rect x="327.835" y="45.684999999999995" width="5.37" height="5.37"/>
@@ -174,24 +201,6 @@
       <rect x="529.375" y="85.995" width="5.37" height="5.37"/>
       <rect x="537.445" y="85.995" width="5.37" height="5.37"/>
     </g>
-    <g id="VN-06" title="Yên Bái" class="land">
-      <rect x="432.645" y="53.745" width="5.37" height="5.37"/>
-      <rect x="424.575" y="61.80499999999999" width="5.37" height="5.37"/>
-      <rect x="432.645" y="61.80499999999999" width="5.37" height="5.37"/>
-      <rect x="440.705" y="61.80499999999999" width="5.37" height="5.37"/>
-      <rect x="400.395" y="69.865" width="5.37" height="5.37"/>
-      <rect x="408.455" y="69.865" width="5.37" height="5.37"/>
-      <rect x="416.515" y="69.865" width="5.37" height="5.37"/>
-      <rect x="424.575" y="69.865" width="5.37" height="5.37"/>
-      <rect x="432.645" y="69.865" width="5.37" height="5.37"/>
-      <rect x="440.705" y="69.865" width="5.37" height="5.37"/>
-      <rect x="416.515" y="77.935" width="5.37" height="5.37"/>
-      <rect x="424.575" y="77.935" width="5.37" height="5.37"/>
-      <rect x="432.645" y="77.935" width="5.37" height="5.37"/>
-      <rect x="416.515" y="85.995" width="5.37" height="5.37"/>
-      <rect x="424.575" y="85.995" width="5.37" height="5.37"/>
-      <rect x="432.645" y="85.995" width="5.37" height="5.37"/>
-    </g>
     <g id="VN-05" title="Sơn La" class="land">
       <rect x="384.275" y="61.80499999999999" width="5.37" height="5.37"/>
       <rect x="384.275" y="69.865" width="5.37" height="5.37"/>
@@ -237,6 +246,22 @@
       <rect x="472.945" y="77.935" width="5.37" height="5.37"/>
       <rect x="481.005" y="77.935" width="5.37" height="5.37"/>
       <rect x="481.005" y="85.995" width="5.37" height="5.37"/>
+      
+      <!-- Bắc Kạn -->
+      <rect x="472.945" y="29.565" width="5.37" height="5.37"/>
+      <rect x="472.945" y="37.625" width="5.37" height="5.37"/>
+      <rect x="481.005" y="37.625" width="5.37" height="5.37"/>
+      <rect x="489.075" y="37.625" width="5.37" height="5.37"/>
+      <rect x="464.885" y="45.684999999999995" width="5.37" height="5.37"/>
+      <rect x="472.945" y="45.684999999999995" width="5.37" height="5.37"/>
+      <rect x="481.005" y="45.684999999999995" width="5.37" height="5.37"/>
+      <rect x="489.075" y="45.684999999999995" width="5.37" height="5.37"/>
+      <rect x="464.885" y="53.745" width="5.37" height="5.37"/>
+      <rect x="472.945" y="53.745" width="5.37" height="5.37"/>
+      <rect x="481.005" y="53.745" width="5.37" height="5.37"/>
+      <rect x="489.075" y="53.745" width="5.37" height="5.37"/>
+      <rect x="481.005" y="61.80499999999999" width="5.37" height="5.37"/>
+      <rect x="489.075" y="61.80499999999999" width="5.37" height="5.37"/>
     </g>
     <g id="VN-68" title="Phú Thọ" class="land">
       <rect x="440.705" y="77.935" width="5.37" height="5.37"/>
@@ -248,21 +273,28 @@
       <rect x="448.765" y="94.05499999999999" width="5.37" height="5.37"/>
       <rect x="456.825" y="94.05499999999999" width="5.37" height="5.37"/>
       <rect x="448.765" y="102.115" width="5.37" height="5.37"/>
+      
+      <!-- Hoà Bình -->
+      <rect x="440.705" y="102.115" width="5.37" height="5.37"/>
+      <rect x="448.765" y="110.175" width="5.37" height="5.37"/>
+      <rect x="456.825" y="110.175" width="5.37" height="5.37"/>
+      <rect x="464.885" y="110.175" width="5.37" height="5.37"/>
+      <rect x="440.705" y="118.235" width="5.37" height="5.37"/>
+      <rect x="448.765" y="118.235" width="5.37" height="5.37"/>
+      <rect x="456.825" y="118.235" width="5.37" height="5.37"/>
+      <rect x="464.885" y="118.235" width="5.37" height="5.37"/>
+      <rect x="456.825" y="126.305" width="5.37" height="5.37"/>
+      <rect x="464.885" y="126.305" width="5.37" height="5.37"/>
+      <rect x="472.945" y="126.305" width="5.37" height="5.37"/>
+      <rect x="472.945" y="134.365" width="5.37" height="5.37"/>
+      
+      <!-- Vĩnh Phúc -->
+      <rect x="464.885" y="85.995" width="5.37" height="5.37"/>
+      <rect x="472.945" y="85.995" width="5.37" height="5.37"/>
+      <rect x="464.885" y="94.05499999999999" width="5.37" height="5.37"/>
+      <rect x="472.945" y="94.05499999999999" width="5.37" height="5.37"/>
     </g>
-    <g id="VN-54" title="Bắc Giang" class="land">
-      <rect x="489.075" y="77.935" width="5.37" height="5.37"/>
-      <rect x="489.075" y="85.995" width="5.37" height="5.37"/>
-      <rect x="497.135" y="85.995" width="5.37" height="5.37"/>
-      <rect x="505.195" y="85.995" width="5.37" height="5.37"/>
-      <rect x="513.2550000000001" y="85.995" width="5.37" height="5.37"/>
-      <rect x="521.315" y="85.995" width="5.37" height="5.37"/>
-      <rect x="489.075" y="94.05499999999999" width="5.37" height="5.37"/>
-      <rect x="497.135" y="94.05499999999999" width="5.37" height="5.37"/>
-      <rect x="505.195" y="94.05499999999999" width="5.37" height="5.37"/>
-      <rect x="513.2550000000001" y="94.05499999999999" width="5.37" height="5.37"/>
-      <rect x="521.315" y="94.05499999999999" width="5.37" height="5.37"/>
-    </g>
-    <g id="VN-13" title="Quảng Ninh" class="land">
+    <g id="VN-QN" title="Quảng Ninh" class="land">
       <rect x="545.5050000000001" y="77.935" width="5.37" height="5.37"/>
       <rect x="561.625" y="77.935" width="5.37" height="5.37"/>
       <rect x="545.5050000000001" y="85.995" width="5.37" height="5.37"/>
@@ -279,31 +311,11 @@
       <rect x="521.315" y="110.175" width="5.37" height="5.37"/>
       <rect x="545.5050000000001" y="110.175" width="5.37" height="5.37"/>
     </g>
-    <g id="VN-70" title="Vĩnh Phúc" class="land">
-      <rect x="464.885" y="85.995" width="5.37" height="5.37"/>
-      <rect x="472.945" y="85.995" width="5.37" height="5.37"/>
-      <rect x="464.885" y="94.05499999999999" width="5.37" height="5.37"/>
-      <rect x="472.945" y="94.05499999999999" width="5.37" height="5.37"/>
-    </g>
     <g id="VN-HN" title="Hà Nội" class="land">
       <rect x="481.005" y="94.05499999999999" width="5.37" height="5.37"/>
       <rect x="481.005" y="102.115" width="5.37" height="5.37"/>
-    </g>
-    <g id="VN-14" title="Hòa Bình" class="land">
-      <rect x="440.705" y="102.115" width="5.37" height="5.37"/>
-      <rect x="448.765" y="110.175" width="5.37" height="5.37"/>
-      <rect x="456.825" y="110.175" width="5.37" height="5.37"/>
-      <rect x="464.885" y="110.175" width="5.37" height="5.37"/>
-      <rect x="440.705" y="118.235" width="5.37" height="5.37"/>
-      <rect x="448.765" y="118.235" width="5.37" height="5.37"/>
-      <rect x="456.825" y="118.235" width="5.37" height="5.37"/>
-      <rect x="464.885" y="118.235" width="5.37" height="5.37"/>
-      <rect x="456.825" y="126.305" width="5.37" height="5.37"/>
-      <rect x="464.885" y="126.305" width="5.37" height="5.37"/>
-      <rect x="472.945" y="126.305" width="5.37" height="5.37"/>
-      <rect x="472.945" y="134.365" width="5.37" height="5.37"/>
-    </g>
-    <g id="VN-15" title="Hà Tây" class="land">
+
+      <!-- Hà Tây -->
       <rect x="456.825" y="102.115" width="5.37" height="5.37"/>
       <rect x="464.885" y="102.115" width="5.37" height="5.37"/>
       <rect x="472.945" y="102.115" width="5.37" height="5.37"/>
@@ -312,13 +324,32 @@
       <rect x="472.945" y="118.235" width="5.37" height="5.37"/>
       <rect x="481.005" y="118.235" width="5.37" height="5.37"/>
     </g>
-    <g id="VN-56" title="Bắc Ninh" class="land">
+    <g id="VN-BN" title="Bắc Ninh" class="land">
       <rect x="489.075" y="102.115" width="5.37" height="5.37"/>
       <rect x="497.135" y="102.115" width="5.37" height="5.37"/>
+
+      <!-- Bắc Giang -->
+      <rect x="489.075" y="77.935" width="5.37" height="5.37"/>
+      <rect x="489.075" y="85.995" width="5.37" height="5.37"/>
+      <rect x="497.135" y="85.995" width="5.37" height="5.37"/>
+      <rect x="505.195" y="85.995" width="5.37" height="5.37"/>
+      <rect x="513.2550000000001" y="85.995" width="5.37" height="5.37"/>
+      <rect x="521.315" y="85.995" width="5.37" height="5.37"/>
+      <rect x="489.075" y="94.05499999999999" width="5.37" height="5.37"/>
+      <rect x="497.135" y="94.05499999999999" width="5.37" height="5.37"/>
+      <rect x="505.195" y="94.05499999999999" width="5.37" height="5.37"/>
+      <rect x="513.2550000000001" y="94.05499999999999" width="5.37" height="5.37"/>
+      <rect x="521.315" y="94.05499999999999" width="5.37" height="5.37"/>
     </g>
     <g id="VN-66" title="Hưng Yên" class="land">
       <rect x="489.075" y="110.175" width="5.37" height="5.37"/>
       <rect x="489.075" y="118.235" width="5.37" height="5.37"/>
+
+      <!-- Thái Bình -->
+      <rect x="497.135" y="126.305" width="5.37" height="5.37"/>
+      <rect x="505.195" y="126.305" width="5.37" height="5.37"/>
+      <rect x="497.135" y="134.365" width="5.37" height="5.37"/>
+      <rect x="505.195" y="134.365" width="5.37" height="5.37"/>
     </g>
     <g id="VN-61" title="Hải Dương" class="land">
       <rect x="497.135" y="110.175" width="5.37" height="5.37"/>
@@ -360,23 +391,17 @@
       <rect x="472.945" y="166.605" width="5.37" height="5.37"/>
       <rect x="472.945" y="174.665" width="5.37" height="5.37"/>
     </g>
-    <g id="VN-63" title="Hà Nam" class="land">
-      <rect x="481.005" y="126.305" width="5.37" height="5.37"/>
-      <rect x="489.075" y="126.305" width="5.37" height="5.37"/>
-    </g>
-    <g id="VN-20" title="Thái Bình" class="land">
-      <rect x="497.135" y="126.305" width="5.37" height="5.37"/>
-      <rect x="505.195" y="126.305" width="5.37" height="5.37"/>
-      <rect x="497.135" y="134.365" width="5.37" height="5.37"/>
-      <rect x="505.195" y="134.365" width="5.37" height="5.37"/>
-    </g>
     <g id="VN-18" title="Ninh Bình" class="land">
       <rect x="481.005" y="134.365" width="5.37" height="5.37"/>
       <rect x="481.005" y="142.425" width="5.37" height="5.37"/>
       <rect x="489.075" y="142.425" width="5.37" height="5.37"/>
       <rect x="489.075" y="150.48499999999999" width="5.37" height="5.37"/>
-    </g>
-    <g id="VN-67" title="Nam Định" class="land">
+
+      <!-- Hà Nam -->
+      <rect x="481.005" y="126.305" width="5.37" height="5.37"/>
+      <rect x="489.075" y="126.305" width="5.37" height="5.37"/>
+      
+      <!-- Nam Định -->
       <rect x="489.075" y="134.365" width="5.37" height="5.37"/>
       <rect x="497.135" y="142.425" width="5.37" height="5.37"/>
     </g>
@@ -441,7 +466,19 @@
       <rect x="497.135" y="239.165" width="5.37" height="5.37"/>
       <rect x="505.195" y="239.165" width="5.37" height="5.37"/>
     </g>
-    <g id="VN-24" title="Quảng Bình" class="land">
+    <g id="VN-25" title="Quảng Trị" class="land">
+      <rect x="529.375" y="279.475" width="5.37" height="5.37"/>
+      <rect x="513.2550000000001" y="287.535" width="5.37" height="5.37"/>
+      <rect x="521.315" y="287.535" width="5.37" height="5.37"/>
+      <rect x="529.375" y="287.535" width="5.37" height="5.37"/>
+      <rect x="513.2550000000001" y="295.59499999999997" width="5.37" height="5.37"/>
+      <rect x="521.315" y="295.59499999999997" width="5.37" height="5.37"/>
+      <rect x="529.375" y="295.59499999999997" width="5.37" height="5.37"/>
+      <rect x="537.445" y="295.59499999999997" width="5.37" height="5.37"/>
+      <rect x="513.2550000000001" y="303.655" width="5.37" height="5.37"/>
+      <rect x="529.375" y="303.655" width="5.37" height="5.37"/>
+
+      <!-- Quảng Bình -->
       <rect x="472.945" y="239.165" width="5.37" height="5.37"/>
       <rect x="481.005" y="239.165" width="5.37" height="5.37"/>
       <rect x="472.945" y="247.225" width="5.37" height="5.37"/>
@@ -463,19 +500,7 @@
       <rect x="513.2550000000001" y="279.475" width="5.37" height="5.37"/>
       <rect x="521.315" y="279.475" width="5.37" height="5.37"/>
     </g>
-    <g id="VN-25" title="Quảng Trị" class="land">
-      <rect x="529.375" y="279.475" width="5.37" height="5.37"/>
-      <rect x="513.2550000000001" y="287.535" width="5.37" height="5.37"/>
-      <rect x="521.315" y="287.535" width="5.37" height="5.37"/>
-      <rect x="529.375" y="287.535" width="5.37" height="5.37"/>
-      <rect x="513.2550000000001" y="295.59499999999997" width="5.37" height="5.37"/>
-      <rect x="521.315" y="295.59499999999997" width="5.37" height="5.37"/>
-      <rect x="529.375" y="295.59499999999997" width="5.37" height="5.37"/>
-      <rect x="537.445" y="295.59499999999997" width="5.37" height="5.37"/>
-      <rect x="513.2550000000001" y="303.655" width="5.37" height="5.37"/>
-      <rect x="529.375" y="303.655" width="5.37" height="5.37"/>
-    </g>
-    <g id="VN-26" title="Thừa Thiên–Huế" class="land">
+    <g id="VN-26" title="Huế" class="land">
       <rect x="545.5050000000001" y="295.59499999999997" width="5.37" height="5.37"/>
       <rect x="537.445" y="303.655" width="5.37" height="5.37"/>
       <rect x="545.5050000000001" y="303.655" width="5.37" height="5.37"/>
@@ -493,8 +518,7 @@
       <rect x="569.6850000000001" y="319.775" width="5.37" height="5.37"/>
       <rect x="569.6850000000001" y="327.835" width="5.37" height="5.37"/>
       <rect x="577.745" y="327.835" width="5.37" height="5.37"/>
-    </g>
-    <g id="VN-27" title="Quảng Nam" class="land">
+      <!-- Quảng Nam -->
       <rect x="553.565" y="327.835" width="5.37" height="5.37"/>
       <rect x="561.625" y="327.835" width="5.37" height="5.37"/>
       <rect x="537.445" y="335.905" width="5.37" height="5.37"/>
@@ -520,7 +544,20 @@
       <rect x="577.745" y="360.085" width="5.37" height="5.37"/>
       <rect x="569.6850000000001" y="368.145" width="5.37" height="5.37"/>
     </g>
-    <g id="VN-28" title="Kon Tum" class="land">
+    <g id="VN-29" title="Quảng Ngãi" class="land">
+      <rect x="585.815" y="360.085" width="5.37" height="5.37"/>
+      <rect x="593.875" y="360.085" width="5.37" height="5.37"/>
+      <rect x="601.9350000000001" y="360.085" width="5.37" height="5.37"/>
+      <rect x="585.815" y="368.145" width="5.37" height="5.37"/>
+      <rect x="593.875" y="368.145" width="5.37" height="5.37"/>
+      <rect x="601.9350000000001" y="368.145" width="5.37" height="5.37"/>
+      <rect x="585.815" y="376.205" width="5.37" height="5.37"/>
+      <rect x="593.875" y="376.205" width="5.37" height="5.37"/>
+      <rect x="601.9350000000001" y="376.205" width="5.37" height="5.37"/>
+      <rect x="609.995" y="376.205" width="5.37" height="5.37"/>
+      <rect x="593.875" y="384.275" width="5.37" height="5.37"/>
+      
+      <!-- Kon Tum -->
       <rect x="553.565" y="352.025" width="5.37" height="5.37"/>
       <rect x="553.565" y="360.085" width="5.37" height="5.37"/>
       <rect x="553.565" y="368.145" width="5.37" height="5.37"/>
@@ -541,37 +578,6 @@
       <rect x="577.745" y="392.335" width="5.37" height="5.37"/>
       <rect x="561.625" y="400.395" width="5.37" height="5.37"/>
       <rect x="569.6850000000001" y="400.395" width="5.37" height="5.37"/>
-    </g>
-    <g id="VN-29" title="Quảng Ngãi" class="land">
-      <rect x="585.815" y="360.085" width="5.37" height="5.37"/>
-      <rect x="593.875" y="360.085" width="5.37" height="5.37"/>
-      <rect x="601.9350000000001" y="360.085" width="5.37" height="5.37"/>
-      <rect x="585.815" y="368.145" width="5.37" height="5.37"/>
-      <rect x="593.875" y="368.145" width="5.37" height="5.37"/>
-      <rect x="601.9350000000001" y="368.145" width="5.37" height="5.37"/>
-      <rect x="585.815" y="376.205" width="5.37" height="5.37"/>
-      <rect x="593.875" y="376.205" width="5.37" height="5.37"/>
-      <rect x="601.9350000000001" y="376.205" width="5.37" height="5.37"/>
-      <rect x="609.995" y="376.205" width="5.37" height="5.37"/>
-      <rect x="593.875" y="384.275" width="5.37" height="5.37"/>
-    </g>
-    <g id="VN-31" title="Bình Định" class="land">
-      <rect x="601.9350000000001" y="384.275" width="5.37" height="5.37"/>
-      <rect x="609.995" y="384.275" width="5.37" height="5.37"/>
-      <rect x="601.9350000000001" y="392.335" width="5.37" height="5.37"/>
-      <rect x="609.995" y="392.335" width="5.37" height="5.37"/>
-      <rect x="601.9350000000001" y="400.395" width="5.37" height="5.37"/>
-      <rect x="609.995" y="400.395" width="5.37" height="5.37"/>
-      <rect x="618.0550000000001" y="400.395" width="5.37" height="5.37"/>
-      <rect x="601.9350000000001" y="408.455" width="5.37" height="5.37"/>
-      <rect x="609.995" y="408.455" width="5.37" height="5.37"/>
-      <rect x="618.0550000000001" y="408.455" width="5.37" height="5.37"/>
-      <rect x="601.9350000000001" y="416.515" width="5.37" height="5.37"/>
-      <rect x="609.995" y="416.515" width="5.37" height="5.37"/>
-      <rect x="618.0550000000001" y="416.515" width="5.37" height="5.37"/>
-      <rect x="609.995" y="424.575" width="5.37" height="5.37"/>
-      <rect x="618.0550000000001" y="424.575" width="5.37" height="5.37"/>
-      <rect x="609.995" y="432.645" width="5.37" height="5.37"/>
     </g>
     <g id="VN-30" title="Gia Lai" class="land">
       <rect x="585.815" y="392.335" width="5.37" height="5.37"/>
@@ -612,18 +618,24 @@
       <rect x="601.9350000000001" y="440.705" width="5.37" height="5.37"/>
       <rect x="593.875" y="448.765" width="5.37" height="5.37"/>
       <rect x="601.9350000000001" y="448.765" width="5.37" height="5.37"/>
-    </g>
-    <g id="VN-32" title="Phú Yên" class="land">
-      <rect x="601.9350000000001" y="432.645" width="5.37" height="5.37"/>
-      <rect x="618.0550000000001" y="432.645" width="5.37" height="5.37"/>
-      <rect x="609.995" y="440.705" width="5.37" height="5.37"/>
-      <rect x="618.0550000000001" y="440.705" width="5.37" height="5.37"/>
-      <rect x="609.995" y="448.765" width="5.37" height="5.37"/>
-      <rect x="618.0550000000001" y="448.765" width="5.37" height="5.37"/>
-      <rect x="601.9350000000001" y="456.825" width="5.37" height="5.37"/>
-      <rect x="609.995" y="456.825" width="5.37" height="5.37"/>
-      <rect x="618.0550000000001" y="456.825" width="5.37" height="5.37"/>
-      <rect x="626.115" y="456.825" width="5.37" height="5.37"/>
+
+      <!-- Bình Định -->
+      <rect x="601.9350000000001" y="384.275" width="5.37" height="5.37"/>
+      <rect x="609.995" y="384.275" width="5.37" height="5.37"/>
+      <rect x="601.9350000000001" y="392.335" width="5.37" height="5.37"/>
+      <rect x="609.995" y="392.335" width="5.37" height="5.37"/>
+      <rect x="601.9350000000001" y="400.395" width="5.37" height="5.37"/>
+      <rect x="609.995" y="400.395" width="5.37" height="5.37"/>
+      <rect x="618.0550000000001" y="400.395" width="5.37" height="5.37"/>
+      <rect x="601.9350000000001" y="408.455" width="5.37" height="5.37"/>
+      <rect x="609.995" y="408.455" width="5.37" height="5.37"/>
+      <rect x="618.0550000000001" y="408.455" width="5.37" height="5.37"/>
+      <rect x="601.9350000000001" y="416.515" width="5.37" height="5.37"/>
+      <rect x="609.995" y="416.515" width="5.37" height="5.37"/>
+      <rect x="618.0550000000001" y="416.515" width="5.37" height="5.37"/>
+      <rect x="609.995" y="424.575" width="5.37" height="5.37"/>
+      <rect x="618.0550000000001" y="424.575" width="5.37" height="5.37"/>
+      <rect x="609.995" y="432.645" width="5.37" height="5.37"/>
     </g>
     <g id="VN-33" title="Đắk Lắk" class="land">
       <rect x="561.625" y="440.705" width="5.37" height="5.37"/>
@@ -656,26 +668,18 @@
       <rect x="585.815" y="481.005" width="5.37" height="5.37"/>
       <rect x="593.875" y="481.005" width="5.37" height="5.37"/>
       <rect x="577.745" y="489.075" width="5.37" height="5.37"/>
-    </g>
-    <g id="VN-72" title="Đắk Nông" class="land">
-      <rect x="553.565" y="464.885" width="5.37" height="5.37"/>
-      <rect x="561.625" y="464.885" width="5.37" height="5.37"/>
-      <rect x="553.565" y="472.945" width="5.37" height="5.37"/>
-      <rect x="561.625" y="472.945" width="5.37" height="5.37"/>
-      <rect x="553.565" y="481.005" width="5.37" height="5.37"/>
-      <rect x="561.625" y="481.005" width="5.37" height="5.37"/>
-      <rect x="537.445" y="489.075" width="5.37" height="5.37"/>
-      <rect x="545.5050000000001" y="489.075" width="5.37" height="5.37"/>
-      <rect x="553.565" y="489.075" width="5.37" height="5.37"/>
-      <rect x="561.625" y="489.075" width="5.37" height="5.37"/>
-      <rect x="569.6850000000001" y="489.075" width="5.37" height="5.37"/>
-      <rect x="537.445" y="497.135" width="5.37" height="5.37"/>
-      <rect x="545.5050000000001" y="497.135" width="5.37" height="5.37"/>
-      <rect x="553.565" y="497.135" width="5.37" height="5.37"/>
-      <rect x="561.625" y="497.135" width="5.37" height="5.37"/>
-      <rect x="569.6850000000001" y="497.135" width="5.37" height="5.37"/>
-      <rect x="545.5050000000001" y="505.195" width="5.37" height="5.37"/>
-      <rect x="569.6850000000001" y="505.195" width="5.37" height="5.37"/>
+
+      <!-- Phú Yên -->
+      <rect x="601.9350000000001" y="432.645" width="5.37" height="5.37"/>
+      <rect x="618.0550000000001" y="432.645" width="5.37" height="5.37"/>
+      <rect x="609.995" y="440.705" width="5.37" height="5.37"/>
+      <rect x="618.0550000000001" y="440.705" width="5.37" height="5.37"/>
+      <rect x="609.995" y="448.765" width="5.37" height="5.37"/>
+      <rect x="618.0550000000001" y="448.765" width="5.37" height="5.37"/>
+      <rect x="601.9350000000001" y="456.825" width="5.37" height="5.37"/>
+      <rect x="609.995" y="456.825" width="5.37" height="5.37"/>
+      <rect x="618.0550000000001" y="456.825" width="5.37" height="5.37"/>
+      <rect x="626.115" y="456.825" width="5.37" height="5.37"/>
     </g>
     <g id="VN-34" title="Khánh Hòa" class="land">
       <rect x="618.0550000000001" y="464.885" width="5.37" height="5.37"/>
@@ -690,6 +694,16 @@
       <rect x="618.0550000000001" y="489.075" width="5.37" height="5.37"/>
       <rect x="609.995" y="497.135" width="5.37" height="5.37"/>
       <rect x="618.0550000000001" y="497.135" width="5.37" height="5.37"/>
+
+      <!-- Ninh Thuận -->
+      <rect x="601.9350000000001" y="497.135" width="5.37" height="5.37"/>
+      <rect x="601.9350000000001" y="505.195" width="5.37" height="5.37"/>
+      <rect x="609.995" y="505.195" width="5.37" height="5.37"/>
+      <rect x="601.9350000000001" y="513.2550000000001" width="5.37" height="5.37"/>
+      <rect x="609.995" y="513.2550000000001" width="5.37" height="5.37"/>
+      <rect x="618.0550000000001" y="513.2550000000001" width="5.37" height="5.37"/>
+      <rect x="601.9350000000001" y="521.315" width="5.37" height="5.37"/>
+      <rect x="609.995" y="521.315" width="5.37" height="5.37"/>
     </g>
     <g id="VN-35" title="Lâm Đồng" class="land">
       <rect x="585.815" y="489.075" width="5.37" height="5.37"/>
@@ -713,70 +727,8 @@
       <rect x="561.625" y="521.315" width="5.37" height="5.37"/>
       <rect x="569.6850000000001" y="521.315" width="5.37" height="5.37"/>
       <rect x="577.745" y="521.315" width="5.37" height="5.37"/>
-    </g>
-    <g id="VN-58" title="Bình Phước" class="land">
-      <rect x="521.315" y="497.135" width="5.37" height="5.37"/>
-      <rect x="529.375" y="497.135" width="5.37" height="5.37"/>
-      <rect x="505.195" y="505.195" width="5.37" height="5.37"/>
-      <rect x="513.2550000000001" y="505.195" width="5.37" height="5.37"/>
-      <rect x="521.315" y="505.195" width="5.37" height="5.37"/>
-      <rect x="529.375" y="505.195" width="5.37" height="5.37"/>
-      <rect x="537.445" y="505.195" width="5.37" height="5.37"/>
-      <rect x="505.195" y="513.2550000000001" width="5.37" height="5.37"/>
-      <rect x="513.2550000000001" y="513.2550000000001" width="5.37" height="5.37"/>
-      <rect x="521.315" y="513.2550000000001" width="5.37" height="5.37"/>
-      <rect x="529.375" y="513.2550000000001" width="5.37" height="5.37"/>
-      <rect x="537.445" y="513.2550000000001" width="5.37" height="5.37"/>
-      <rect x="513.2550000000001" y="521.315" width="5.37" height="5.37"/>
-      <rect x="521.315" y="521.315" width="5.37" height="5.37"/>
-      <rect x="529.375" y="521.315" width="5.37" height="5.37"/>
-    </g>
-    <g id="VN-36" title="Ninh Thuận" class="land">
-      <rect x="601.9350000000001" y="497.135" width="5.37" height="5.37"/>
-      <rect x="601.9350000000001" y="505.195" width="5.37" height="5.37"/>
-      <rect x="609.995" y="505.195" width="5.37" height="5.37"/>
-      <rect x="601.9350000000001" y="513.2550000000001" width="5.37" height="5.37"/>
-      <rect x="609.995" y="513.2550000000001" width="5.37" height="5.37"/>
-      <rect x="618.0550000000001" y="513.2550000000001" width="5.37" height="5.37"/>
-      <rect x="601.9350000000001" y="521.315" width="5.37" height="5.37"/>
-      <rect x="609.995" y="521.315" width="5.37" height="5.37"/>
-    </g>
-    <g id="VN-37" title="Tây Ninh" class="land">
-      <rect x="481.005" y="513.2550000000001" width="5.37" height="5.37"/>
-      <rect x="489.075" y="513.2550000000001" width="5.37" height="5.37"/>
-      <rect x="497.135" y="513.2550000000001" width="5.37" height="5.37"/>
-      <rect x="481.005" y="521.315" width="5.37" height="5.37"/>
-      <rect x="489.075" y="521.315" width="5.37" height="5.37"/>
-      <rect x="497.135" y="521.315" width="5.37" height="5.37"/>
-      <rect x="489.075" y="529.375" width="5.37" height="5.37"/>
-      <rect x="497.135" y="529.375" width="5.37" height="5.37"/>
-      <rect x="497.135" y="537.445" width="5.37" height="5.37"/>
-    </g>
-    <g id="VN-57" title="Bình Dương" class="land">
-      <rect x="505.195" y="521.315" width="5.37" height="5.37"/>
-      <rect x="505.195" y="529.375" width="5.37" height="5.37"/>
-      <rect x="513.2550000000001" y="529.375" width="5.37" height="5.37"/>
-      <rect x="521.315" y="529.375" width="5.37" height="5.37"/>
-      <rect x="513.2550000000001" y="537.445" width="5.37" height="5.37"/>
-      <rect x="521.315" y="537.445" width="5.37" height="5.37"/>
-    </g>
-    <g id="VN-39" title="Đồng Nai" class="land">
-      <rect x="537.445" y="521.315" width="5.37" height="5.37"/>
-      <rect x="545.5050000000001" y="521.315" width="5.37" height="5.37"/>
-      <rect x="529.375" y="529.375" width="5.37" height="5.37"/>
-      <rect x="537.445" y="529.375" width="5.37" height="5.37"/>
-      <rect x="545.5050000000001" y="529.375" width="5.37" height="5.37"/>
-      <rect x="529.375" y="537.445" width="5.37" height="5.37"/>
-      <rect x="537.445" y="537.445" width="5.37" height="5.37"/>
-      <rect x="545.5050000000001" y="537.445" width="5.37" height="5.37"/>
-      <rect x="521.315" y="545.5050000000001" width="5.37" height="5.37"/>
-      <rect x="529.375" y="545.5050000000001" width="5.37" height="5.37"/>
-      <rect x="537.445" y="545.5050000000001" width="5.37" height="5.37"/>
-      <rect x="545.5050000000001" y="545.5050000000001" width="5.37" height="5.37"/>
-      <rect x="521.315" y="553.565" width="5.37" height="5.37"/>
-      <rect x="529.375" y="553.565" width="5.37" height="5.37"/>
-    </g>
-    <g id="VN-40" title="Bình Thuận" class="land">
+
+      <!-- Bình Thuận -->
       <rect x="585.815" y="521.315" width="5.37" height="5.37"/>
       <rect x="593.875" y="521.315" width="5.37" height="5.37"/>
       <rect x="553.565" y="529.375" width="5.37" height="5.37"/>
@@ -795,34 +747,39 @@
       <rect x="569.6850000000001" y="545.5050000000001" width="5.37" height="5.37"/>
       <rect x="553.565" y="553.565" width="5.37" height="5.37"/>
       <rect x="561.625" y="553.565" width="5.37" height="5.37"/>
+
+      <!-- Đắk Nông -->
+      <rect x="553.565" y="464.885" width="5.37" height="5.37"/>
+      <rect x="561.625" y="464.885" width="5.37" height="5.37"/>
+      <rect x="553.565" y="472.945" width="5.37" height="5.37"/>
+      <rect x="561.625" y="472.945" width="5.37" height="5.37"/>
+      <rect x="553.565" y="481.005" width="5.37" height="5.37"/>
+      <rect x="561.625" y="481.005" width="5.37" height="5.37"/>
+      <rect x="537.445" y="489.075" width="5.37" height="5.37"/>
+      <rect x="545.5050000000001" y="489.075" width="5.37" height="5.37"/>
+      <rect x="553.565" y="489.075" width="5.37" height="5.37"/>
+      <rect x="561.625" y="489.075" width="5.37" height="5.37"/>
+      <rect x="569.6850000000001" y="489.075" width="5.37" height="5.37"/>
+      <rect x="537.445" y="497.135" width="5.37" height="5.37"/>
+      <rect x="545.5050000000001" y="497.135" width="5.37" height="5.37"/>
+      <rect x="553.565" y="497.135" width="5.37" height="5.37"/>
+      <rect x="561.625" y="497.135" width="5.37" height="5.37"/>
+      <rect x="569.6850000000001" y="497.135" width="5.37" height="5.37"/>
+      <rect x="545.5050000000001" y="505.195" width="5.37" height="5.37"/>
+      <rect x="569.6850000000001" y="505.195" width="5.37" height="5.37"/>
     </g>
-    <g id="VN-SG" title="Hồ Chí Minh" class="land">
-      <rect x="505.195" y="537.445" width="5.37" height="5.37"/>
-      <rect x="513.2550000000001" y="545.5050000000001" width="5.37" height="5.37"/>
-      <rect x="513.2550000000001" y="553.565" width="5.37" height="5.37"/>
-      <rect x="521.315" y="561.625" width="5.37" height="5.37"/>
-    </g>
-    <g id="VN-44" title="An Giang" class="land">
-      <rect x="448.765" y="545.5050000000001" width="5.37" height="5.37"/>
-      <rect x="448.765" y="553.565" width="5.37" height="5.37"/>
-      <rect x="456.825" y="553.565" width="5.37" height="5.37"/>
-      <rect x="440.705" y="561.625" width="5.37" height="5.37"/>
-      <rect x="448.765" y="561.625" width="5.37" height="5.37"/>
-      <rect x="456.825" y="561.625" width="5.37" height="5.37"/>
-      <rect x="464.885" y="561.625" width="5.37" height="5.37"/>
-      <rect x="448.765" y="569.6850000000001" width="5.37" height="5.37"/>
-      <rect x="456.825" y="569.6850000000001" width="5.37" height="5.37"/>
-    </g>
-    <g id="VN-45" title="Đồng Tháp" class="land">
-      <rect x="464.885" y="545.5050000000001" width="5.37" height="5.37"/>
-      <rect x="464.885" y="553.565" width="5.37" height="5.37"/>
-      <rect x="472.945" y="553.565" width="5.37" height="5.37"/>
-      <rect x="472.945" y="561.625" width="5.37" height="5.37"/>
-      <rect x="481.005" y="561.625" width="5.37" height="5.37"/>
-      <rect x="464.885" y="569.6850000000001" width="5.37" height="5.37"/>
-      <rect x="472.945" y="569.6850000000001" width="5.37" height="5.37"/>
-    </g>
-    <g id="VN-41" title="Long An" class="land">
+    <g id="VN-37" title="Tây Ninh" class="land">
+      <rect x="481.005" y="513.2550000000001" width="5.37" height="5.37"/>
+      <rect x="489.075" y="513.2550000000001" width="5.37" height="5.37"/>
+      <rect x="497.135" y="513.2550000000001" width="5.37" height="5.37"/>
+      <rect x="481.005" y="521.315" width="5.37" height="5.37"/>
+      <rect x="489.075" y="521.315" width="5.37" height="5.37"/>
+      <rect x="497.135" y="521.315" width="5.37" height="5.37"/>
+      <rect x="489.075" y="529.375" width="5.37" height="5.37"/>
+      <rect x="497.135" y="529.375" width="5.37" height="5.37"/>
+      <rect x="497.135" y="537.445" width="5.37" height="5.37"/>
+
+      <!-- Long An -->
       <rect x="472.945" y="545.5050000000001" width="5.37" height="5.37"/>
       <rect x="497.135" y="545.5050000000001" width="5.37" height="5.37"/>
       <rect x="505.195" y="545.5050000000001" width="5.37" height="5.37"/>
@@ -834,26 +791,77 @@
       <rect x="505.195" y="561.625" width="5.37" height="5.37"/>
       <rect x="513.2550000000001" y="561.625" width="5.37" height="5.37"/>
     </g>
-    <g id="VN-43" title="Bà Rịa–Vũng Tàu" class="land">
+    <g id="VN-39" title="Đồng Nai" class="land">
+      <rect x="537.445" y="521.315" width="5.37" height="5.37"/>
+      <rect x="545.5050000000001" y="521.315" width="5.37" height="5.37"/>
+      <rect x="529.375" y="529.375" width="5.37" height="5.37"/>
+      <rect x="537.445" y="529.375" width="5.37" height="5.37"/>
+      <rect x="545.5050000000001" y="529.375" width="5.37" height="5.37"/>
+      <rect x="529.375" y="537.445" width="5.37" height="5.37"/>
+      <rect x="537.445" y="537.445" width="5.37" height="5.37"/>
+      <rect x="545.5050000000001" y="537.445" width="5.37" height="5.37"/>
+      <rect x="521.315" y="545.5050000000001" width="5.37" height="5.37"/>
+      <rect x="529.375" y="545.5050000000001" width="5.37" height="5.37"/>
+      <rect x="537.445" y="545.5050000000001" width="5.37" height="5.37"/>
+      <rect x="545.5050000000001" y="545.5050000000001" width="5.37" height="5.37"/>
+      <rect x="521.315" y="553.565" width="5.37" height="5.37"/>
+      <rect x="529.375" y="553.565" width="5.37" height="5.37"/>
+
+      <!-- Bình Phước -->
+      <rect x="521.315" y="497.135" width="5.37" height="5.37"/>
+      <rect x="529.375" y="497.135" width="5.37" height="5.37"/>
+      <rect x="505.195" y="505.195" width="5.37" height="5.37"/>
+      <rect x="513.2550000000001" y="505.195" width="5.37" height="5.37"/>
+      <rect x="521.315" y="505.195" width="5.37" height="5.37"/>
+      <rect x="529.375" y="505.195" width="5.37" height="5.37"/>
+      <rect x="537.445" y="505.195" width="5.37" height="5.37"/>
+      <rect x="505.195" y="513.2550000000001" width="5.37" height="5.37"/>
+      <rect x="513.2550000000001" y="513.2550000000001" width="5.37" height="5.37"/>
+      <rect x="521.315" y="513.2550000000001" width="5.37" height="5.37"/>
+      <rect x="529.375" y="513.2550000000001" width="5.37" height="5.37"/>
+      <rect x="537.445" y="513.2550000000001" width="5.37" height="5.37"/>
+      <rect x="513.2550000000001" y="521.315" width="5.37" height="5.37"/>
+      <rect x="521.315" y="521.315" width="5.37" height="5.37"/>
+      <rect x="529.375" y="521.315" width="5.37" height="5.37"/>
+    </g>
+    <g id="VN-SG" title="Hồ Chí Minh" class="land">
+      <rect x="505.195" y="537.445" width="5.37" height="5.37"/>
+      <rect x="513.2550000000001" y="545.5050000000001" width="5.37" height="5.37"/>
+      <rect x="513.2550000000001" y="553.565" width="5.37" height="5.37"/>
+      <rect x="521.315" y="561.625" width="5.37" height="5.37"/>
+
+      <!-- Bình Dương -->
+      <rect x="505.195" y="521.315" width="5.37" height="5.37"/>
+      <rect x="505.195" y="529.375" width="5.37" height="5.37"/>
+      <rect x="513.2550000000001" y="529.375" width="5.37" height="5.37"/>
+      <rect x="521.315" y="529.375" width="5.37" height="5.37"/>
+      <rect x="513.2550000000001" y="537.445" width="5.37" height="5.37"/>
+      <rect x="521.315" y="537.445" width="5.37" height="5.37"/>
+
+      <!-- Bà Rịa - Vũng Tàu -->
       <rect x="537.445" y="553.565" width="5.37" height="5.37"/>
       <rect x="545.5050000000001" y="553.565" width="5.37" height="5.37"/>
       <rect x="529.375" y="561.625" width="5.37" height="5.37"/>
       <rect x="537.445" y="561.625" width="5.37" height="5.37"/>
       <rect x="545.5050000000001" y="561.625" width="5.37" height="5.37"/>
     </g>
-    <g id="VN-46" title="Tiền Giang" class="land">
-      <rect x="497.135" y="561.625" width="5.37" height="5.37"/>
-      <rect x="481.005" y="569.6850000000001" width="5.37" height="5.37"/>
-      <rect x="489.075" y="569.6850000000001" width="5.37" height="5.37"/>
-      <rect x="497.135" y="569.6850000000001" width="5.37" height="5.37"/>
-      <rect x="505.195" y="569.6850000000001" width="5.37" height="5.37"/>
-      <rect x="513.2550000000001" y="569.6850000000001" width="5.37" height="5.37"/>
-    </g>
-    <g id="VN-47" title="Kiên Giang" class="land">
+    <g id="VN-44" title="An Giang" class="land">
+      <rect x="448.765" y="545.5050000000001" width="5.37" height="5.37"/>
+      <rect x="448.765" y="553.565" width="5.37" height="5.37"/>
+      <rect x="456.825" y="553.565" width="5.37" height="5.37"/>
+      <rect x="440.705" y="561.625" width="5.37" height="5.37"/>
+      <rect x="448.765" y="561.625" width="5.37" height="5.37"/>
+      <rect x="456.825" y="561.625" width="5.37" height="5.37"/>
+      <rect x="464.885" y="561.625" width="5.37" height="5.37"/>
+      <rect x="448.765" y="569.6850000000001" width="5.37" height="5.37"/>
+      <rect x="456.825" y="569.6850000000001" width="5.37" height="5.37"/>
+
+      <!-- Kiên Giang -->
       <rect x="400.395" y="569.6850000000001" width="5.37" height="5.37"/>
       <rect x="424.575" y="569.6850000000001" width="5.37" height="5.37"/>
       <rect x="432.645" y="569.6850000000001" width="5.37" height="5.37"/>
       <rect x="440.705" y="569.6850000000001" width="5.37" height="5.37"/>
+      <rect x="400.395" y="577.745" width="5.37" height="5.37"/>
       <rect x="440.705" y="577.745" width="5.37" height="5.37"/>
       <rect x="448.765" y="577.745" width="5.37" height="5.37"/>
       <rect x="448.765" y="585.815" width="5.37" height="5.37"/>
@@ -864,37 +872,35 @@
       <rect x="440.705" y="601.9350000000001" width="5.37" height="5.37"/>
       <rect x="448.765" y="601.9350000000001" width="5.37" height="5.37"/>
     </g>
+    <g id="VN-45" title="Đồng Tháp" class="land">
+      <rect x="464.885" y="545.5050000000001" width="5.37" height="5.37"/>
+      <rect x="464.885" y="553.565" width="5.37" height="5.37"/>
+      <rect x="472.945" y="553.565" width="5.37" height="5.37"/>
+      <rect x="472.945" y="561.625" width="5.37" height="5.37"/>
+      <rect x="481.005" y="561.625" width="5.37" height="5.37"/>
+      <rect x="464.885" y="569.6850000000001" width="5.37" height="5.37"/>
+      <rect x="472.945" y="569.6850000000001" width="5.37" height="5.37"/>
+
+      <!-- Tiền Giang -->
+      <rect x="497.135" y="561.625" width="5.37" height="5.37"/>
+      <rect x="481.005" y="569.6850000000001" width="5.37" height="5.37"/>
+      <rect x="489.075" y="569.6850000000001" width="5.37" height="5.37"/>
+      <rect x="497.135" y="569.6850000000001" width="5.37" height="5.37"/>
+      <rect x="505.195" y="569.6850000000001" width="5.37" height="5.37"/>
+      <rect x="513.2550000000001" y="569.6850000000001" width="5.37" height="5.37"/>
+    </g>
     <g id="VN-CT" title="Cần Thơ" class="land">
       <rect x="456.825" y="577.745" width="5.37" height="5.37"/>
       <rect x="464.885" y="577.745" width="5.37" height="5.37"/>
       <rect x="464.885" y="585.815" width="5.37" height="5.37"/>
       <rect x="472.945" y="585.815" width="5.37" height="5.37"/>
-    </g>
-    <g id="VN-49" title="Vĩnh Long" class="land">
-      <rect x="472.945" y="577.745" width="5.37" height="5.37"/>
-      <rect x="481.005" y="577.745" width="5.37" height="5.37"/>
-      <rect x="489.075" y="577.745" width="5.37" height="5.37"/>
-      <rect x="481.005" y="585.815" width="5.37" height="5.37"/>
-    </g>
-    <g id="VN-50" title="Bến Tre" class="land">
-      <rect x="497.135" y="577.745" width="5.37" height="5.37"/>
-      <rect x="505.195" y="577.745" width="5.37" height="5.37"/>
-      <rect x="513.2550000000001" y="577.745" width="5.37" height="5.37"/>
-      <rect x="505.195" y="585.815" width="5.37" height="5.37"/>
-    </g>
-    <g id="VN-51" title="Trà Vinh" class="land">
-      <rect x="489.075" y="585.815" width="5.37" height="5.37"/>
-      <rect x="497.135" y="585.815" width="5.37" height="5.37"/>
-      <rect x="497.135" y="593.875" width="5.37" height="5.37"/>
-      <rect x="505.195" y="593.875" width="5.37" height="5.37"/>
-      <rect x="505.195" y="601.9350000000001" width="5.37" height="5.37"/>
-    </g>
-    <g id="VN-73" title="Hậu Giang" class="land">
       <rect x="464.885" y="593.875" width="5.37" height="5.37"/>
+
+      <!-- Hậu Giang -->
       <rect x="472.945" y="593.875" width="5.37" height="5.37"/>
-    </g>
-    <g id="VN-52" title="Sóc Trăng" class="land">
       <rect x="481.005" y="593.875" width="5.37" height="5.37"/>
+      
+      <!-- Sóc Trăng -->
       <rect x="489.075" y="593.875" width="5.37" height="5.37"/>
       <rect x="472.945" y="601.9350000000001" width="5.37" height="5.37"/>
       <rect x="481.005" y="601.9350000000001" width="5.37" height="5.37"/>
@@ -904,14 +910,24 @@
       <rect x="481.005" y="609.995" width="5.37" height="5.37"/>
       <rect x="489.075" y="609.995" width="5.37" height="5.37"/>
     </g>
-    <g id="VN-55" title="Bạc Liêu" class="land">
-      <rect x="456.825" y="601.9350000000001" width="5.37" height="5.37"/>
-      <rect x="464.885" y="601.9350000000001" width="5.37" height="5.37"/>
-      <rect x="456.825" y="609.995" width="5.37" height="5.37"/>
-      <rect x="464.885" y="609.995" width="5.37" height="5.37"/>
-      <rect x="456.825" y="618.0550000000001" width="5.37" height="5.37"/>
-      <rect x="464.885" y="618.0550000000001" width="5.37" height="5.37"/>
-      <rect x="472.945" y="618.0550000000001" width="5.37" height="5.37"/>
+    <g id="VN-49" title="Vĩnh Long" class="land">
+      <rect x="472.945" y="577.745" width="5.37" height="5.37"/>
+      <rect x="481.005" y="577.745" width="5.37" height="5.37"/>
+      <rect x="489.075" y="577.745" width="5.37" height="5.37"/>
+      <rect x="481.005" y="585.815" width="5.37" height="5.37"/>
+
+      <!-- Bến Tre -->
+      <rect x="497.135" y="577.745" width="5.37" height="5.37"/>
+      <rect x="505.195" y="577.745" width="5.37" height="5.37"/>
+      <rect x="513.2550000000001" y="577.745" width="5.37" height="5.37"/>
+      <rect x="505.195" y="585.815" width="5.37" height="5.37"/>
+
+      <!-- Trà Vinh -->
+      <rect x="489.075" y="585.815" width="5.37" height="5.37"/>
+      <rect x="497.135" y="585.815" width="5.37" height="5.37"/>
+      <rect x="497.135" y="593.875" width="5.37" height="5.37"/>
+      <rect x="505.195" y="593.875" width="5.37" height="5.37"/>
+      <rect x="505.195" y="601.9350000000001" width="5.37" height="5.37"/>
     </g>
     <g id="VN-59" title="Cà Mau" class="land">
       <rect x="440.705" y="609.995" width="5.37" height="5.37"/>
@@ -926,6 +942,15 @@
       <rect x="456.825" y="634.1750000000001" width="5.37" height="5.37"/>
       <rect x="432.645" y="642.245" width="5.37" height="5.37"/>
       <rect x="440.705" y="642.245" width="5.37" height="5.37"/>
+
+      <!-- Bạc Liêu -->
+      <rect x="456.825" y="601.9350000000001" width="5.37" height="5.37"/>
+      <rect x="464.885" y="601.9350000000001" width="5.37" height="5.37"/>
+      <rect x="456.825" y="609.995" width="5.37" height="5.37"/>
+      <rect x="464.885" y="609.995" width="5.37" height="5.37"/>
+      <rect x="456.825" y="618.0550000000001" width="5.37" height="5.37"/>
+      <rect x="464.885" y="618.0550000000001" width="5.37" height="5.37"/>
+      <rect x="472.945" y="618.0550000000001" width="5.37" height="5.37"/>
     </g>
   </g>
 </svg>

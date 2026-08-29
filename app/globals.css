@@ -129,31 +129,3 @@
     @apply font-sans;
   }
 }
-
-.hit-layer .land {
-  stroke-width: 4px;
-  stroke: black; /* Invisible due to opacity-0 on parent */
-}
-
-/* Only show pointer cursor on interactive regions */
-.hit-layer .land.active {
-  cursor: pointer;
-}
-
-/* =========================================
-   2. VISUAL LAYER (Your Pixel Design)
-========================================= */
-/* Default (Inactive) Provinces */
-.visual-layer .land {
-  fill: transparent;
-  stroke: var(--muted-foreground);
-  stroke-width: 0.33;
-}
-
-/* Default (Active) Provinces */
-.visual-layer .land.active {
-  fill: var(--primary);
-  stroke: var(--primary);
-  stroke-width: 0.33;
-  transition: all 0.15s ease-in-out;
-}

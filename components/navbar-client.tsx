@@ -79,6 +79,7 @@ export default function Navbar({
                       <li>
                         <NavigationMenuLink
                           render={<Link href="/about" />}
+                          closeOnClick
                           className="hover:bg-background p-3 font-medium text-foreground hover:text-primary text-sm transition-colors"
                         >
                           Về Duy Hoà
@@ -87,6 +88,7 @@ export default function Navbar({
                       <li>
                         <NavigationMenuLink
                           render={<Link href="/projects" />}
+                          closeOnClick
                           className="hover:bg-background p-3 font-medium text-foreground hover:text-primary text-sm transition-colors"
                         >
                           Dự án
@@ -109,29 +111,39 @@ export default function Navbar({
                         <div className="gap-8 grid grid-cols-2 lg:grid-cols-4 grow">
                           {categories.map((cat, idx) => (
                             <div key={idx} className="flex flex-col gap-4">
-                              <Link
-                                href={`/product?category=${encodeURIComponent(cat.slug)}`}
-                                className="w-fit font-mono text-muted-foreground hover:text-foreground text-xs uppercase tracking-widest transition-colors"
+                              <NavigationMenuLink
+                                render={
+                                  <Link
+                                    href={`/product?category=${encodeURIComponent(cat.slug)}`}
+                                  />
+                                }
+                                closeOnClick
+                                className="hover:bg-transparent p-0 w-fit font-mono text-muted-foreground hover:text-foreground text-xs uppercase tracking-widest transition-colors"
                               >
                                 {cat.title}
-                              </Link>
+                              </NavigationMenuLink>
                               <ul className="flex flex-col gap-3">
                                 {cat.tags.map((tag, sIdx) => (
                                   <li
                                     key={sIdx}
                                     onMouseEnter={() => setActiveTag(tag)}
                                   >
-                                    <Link
-                                      href={`/product?subcategory=${encodeURIComponent(tag.slug)}`}
+                                    <NavigationMenuLink
+                                      render={
+                                        <Link
+                                          href={`/product?subcategory=${encodeURIComponent(tag.slug)}`}
+                                        />
+                                      }
+                                      closeOnClick
                                       className={cn(
-                                        'font-medium text-sm transition-colors',
+                                        'hover:bg-transparent p-0 font-medium text-sm transition-colors',
                                         activeTag.name === tag.name
                                           ? 'text-primary'
                                           : 'text-foreground',
                                       )}
                                     >
                                       {tag.name}
-                                    </Link>
+                                    </NavigationMenuLink>
                                   </li>
                                 ))}
                               </ul>
@@ -141,26 +153,28 @@ export default function Navbar({
 
                         {/* Bottom Links (All Products & Pricing) */}
                         <div className="flex gap-12 mt-12 pt-6 border-border border-t">
-                          <Link
-                            href="/product"
-                            className="group flex items-center gap-2 font-mono text-muted-foreground hover:text-foreground text-xs uppercase tracking-wider transition-colors"
+                          <NavigationMenuLink
+                            render={<Link href="/product" />}
+                            closeOnClick
+                            className="group flex items-center gap-2 hover:bg-transparent p-0 font-mono text-muted-foreground hover:text-foreground text-xs uppercase tracking-wider transition-colors"
                           >
                             Tất cả sản phẩm
                             <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
-                          </Link>
-                          <Link
-                            href="/catalogue"
-                            className="group flex items-center gap-2 font-mono text-muted-foreground hover:text-foreground text-xs uppercase tracking-wider transition-colors"
+                          </NavigationMenuLink>
+                          <NavigationMenuLink
+                            render={<Link href="/catalogue" />}
+                            closeOnClick
+                            className="group flex items-center gap-2 hover:bg-transparent p-0 font-mono text-muted-foreground hover:text-foreground text-xs uppercase tracking-wider transition-colors"
                           >
                             Xem bảng giá
                             <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
-                          </Link>
+                          </NavigationMenuLink>
                         </div>
                       </div>
 
                       {/* Right Column: Dynamic Featured Block based on Hovered Tag */}
                       <div className="hidden lg:flex flex-col justify-between gap-3 bg-muted/20 border border-border w-[320px] shrink-0">
-                        <div className="space-x-3 p-6">
+                        <div className="space-y-3 p-6">
                           <h3 className="font-heading text-2xl leading-tight">
                             {activeTag.name}
                           </h3>
@@ -209,6 +223,7 @@ export default function Navbar({
                       <li>
                         <NavigationMenuLink
                           render={<Link href="/article/news" />}
+                          closeOnClick
                           className="hover:bg-background p-3 font-medium text-foreground hover:text-primary text-sm transition-colors"
                         >
                           Tin Duy Hoà
@@ -217,6 +232,7 @@ export default function Navbar({
                       <li>
                         <NavigationMenuLink
                           render={<Link href="/article/event" />}
+                          closeOnClick
                           className="hover:bg-background p-3 font-medium text-foreground hover:text-primary text-sm transition-colors"
                         >
                           Sự kiện
@@ -225,21 +241,23 @@ export default function Navbar({
                       <li>
                         <NavigationMenuLink
                           render={<Link href="/article/guide" />}
+                          closeOnClick
                           className="hover:bg-background p-3 font-medium text-foreground hover:text-primary text-sm transition-colors"
                         >
                           Kiến thức
                         </NavigationMenuLink>
                       </li>
                       <li>
-                        <Link
-                          href="/article"
+                        <NavigationMenuLink
+                          render={<Link href="/article" />}
+                          closeOnClick
                           className="group flex items-center gap-2 hover:bg-background mt-2 p-3 pt-6 border-t font-medium text-muted-foreground hover:text-foreground transition-colors"
                         >
                           <span className="font-mono text-xs uppercase tracking-wider transition-colors">
                             Tất cả tin tức
                           </span>
                           <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
-                        </Link>
+                        </NavigationMenuLink>
                       </li>
                     </ul>
                   </NavigationMenuContent>
@@ -255,6 +273,7 @@ export default function Navbar({
                       <li>
                         <NavigationMenuLink
                           render={<Link href="/contact/agency" />}
+                          closeOnClick
                           className="hover:bg-background p-3 font-medium text-foreground hover:text-primary text-sm transition-colors"
                         >
                           Đại lý
@@ -263,6 +282,7 @@ export default function Navbar({
                       <li>
                         <NavigationMenuLink
                           render={<Link href="/contact/project" />}
+                          closeOnClick
                           className="hover:bg-background p-3 font-medium text-foreground hover:text-primary text-sm transition-colors"
                         >
                           Dự án

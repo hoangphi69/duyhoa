@@ -30,7 +30,7 @@ export const siteConfig = {
   },
 
   contact: {
-    address: 'Số 351, Tổ 2 Khu Hợp Thành, Phường Yên Tử, Quảng Ninh',
+    address: 'Số 351, Khu Hợp Thành, Phường Yên Tử, Quảng Ninh',
     addressLocality: 'Yên Tử',
     addressRegion: 'Quảng Ninh',
     postalCode: '200000',
@@ -40,7 +40,7 @@ export const siteConfig = {
     hotline: '0333455889',
     hotlineDaiLy: '0333455889',
     hotlineDuAn: '0333455889',
-    email: 'duyhoaub@gmail.com',
+    email: 'duyhoa68.vn@gmail.com',
   },
 
   leadership: {

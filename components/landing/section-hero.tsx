@@ -17,30 +17,29 @@ export default function HeroSection() {
           <div className="flex xl:flex-row flex-col gap-6 md:gap-8 pt-8">
             <div className="flex sm:flex-row flex-col gap-4 pt-2">
               <Link
-                href="/#contact"
+                href="/contact/agency"
                 className={cn(
                   buttonVariants({ size: 'lg' }),
                   'gap-2 px-8 w-full sm:w-auto group h-12 font-mono text-sm',
                 )}
               >
-                <Phone className="size-4 group-hover:-rotate-12 transition-transform" />
-                Đăng ký làm đại lý
+                Đăng ký đại lý
+                <ChevronRight className="size-4 transition-transform group-hover:translate-x-1" />
               </Link>
               <Link
-                href="/pricing"
+                href="/catalogue"
                 className={cn(
                   buttonVariants({ variant: 'outline', size: 'lg' }),
                   'gap-2 px-8 w-full sm:w-auto group h-12 font-mono text-sm',
                 )}
               >
                 Xem bảng giá
-                <ChevronRight className="size-4 transition-transform group-hover:translate-x-1" />
               </Link>
             </div>
 
             <p className="max-w-xl text-muted-foreground text-lg sm:text-xl leading-relaxed">
               15 năm cung ứng Ðiện – Nước – Thiết bị vệ sinh – Dụng cụ cầm tay
-              cho 1.500 cửa hàng vật liệu xây dựng khu vực Ðông Bắc.
+              cho hơn 3.200 cửa hàng vật liệu xây dựng khu vực Ðông Bắc.
             </p>
           </div>
         </div>

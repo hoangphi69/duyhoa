@@ -1,4 +1,3 @@
-import BrandGrid from '@/components/landing/brand-grid';
 import SupplyCapacitySection from '@/components/landing/section-capacity';
 import DistributionSection from '@/components/landing/section-distribution';
 import HeroSection from '@/components/landing/section-hero';

@@ -1,97 +1,203 @@
-import { Layers, Clock, Factory, CalendarClock } from 'lucide-react';
-import {
-  Card,
-  CardHeader,
-  CardTitle,
-  CardDescription,
-} from '@/components/ui/card';
+'use client';
+
+import { useState, useEffect, useCallback, useRef } from 'react';
+
+const AUTO_CYCLE_MS = 6 * 1000;
 
 const commitments = [
   {
-    title: 'Ðủ quy cách, không thiếu cỡ',
-    desc: 'Duy Hoà giữ tồn thường trực toàn bộ quy cách thông dụng theo catalogue của hãng. Ðại lý không phải nhận đơn rồi đi tìm cỡ thiếu ở nơi khác.',
-    icon: Layers,
+    title: 'Đủ quy cách, không thiếu cỡ',
+    desc: 'Duy Hoà giữ tồn thường trực toàn bộ quy cách thông dụng theo catalogue của hãng. Đại lý không phải nhận đơn rồi đi tìm cỡ thiếu ở nơi khác.',
+    image: '/capacity-01.jpg',
   },
   {
     title: 'Có hàng trong ngày',
-    desc: 'Ðơn đặt trước 10h sáng — giao trong ngày tại Quảng Ninh. Các mã đặc chủng ngoài danh mục thường trực: xác nhận thời gian có hàng trong vòng 2 giờ.',
-    icon: Clock,
+    desc: 'Đơn đặt trước 10h sáng — giao trong ngày tại Quảng Ninh. Các mã đặc chủng ngoài danh mục thường trực: xác nhận thời gian có hàng trong vòng 2 giờ.',
+    image: '/capacity-02.jpg',
   },
   {
     title: 'Nhập trực tiếp từ nhà máy',
     desc: 'Là NPP cấp 1, Duy Hoà đặt hàng thẳng nhà máy theo kế hoạch tháng. Không phụ thuộc tồn kho của bên trung gian, không đứt hàng vào mùa cao điểm.',
-    icon: Factory,
+    image: '/capacity-03.jpg',
   },
   {
     title: 'Cấp hàng theo tiến độ công trình',
     desc: 'Nhận đặt hàng theo giai đoạn thi công, giữ hàng cho công trình, giao đúng lịch.',
-    icon: CalendarClock,
+    image: '/capacity-04.jpg',
   },
 ];
 
 export default function SupplyCapacitySection() {
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [progress, setProgress] = useState(0);
+  const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const progressRef = useRef<ReturnType<typeof setInterval> | null>(null);
+
+  const startTimer = useCallback(() => {
+    // Clear existing timers
+    if (timerRef.current) clearInterval(timerRef.current);
+    if (progressRef.current) clearInterval(progressRef.current);
+
+    setProgress(0);
+
+    // Progress bar ticks every 50ms
+    const progressStep = 50 / AUTO_CYCLE_MS;
+    progressRef.current = setInterval(() => {
+      setProgress((prev) => Math.min(prev + progressStep, 1));
+    }, 50);
+
+    // Auto-advance
+    timerRef.current = setInterval(() => {
+      setActiveIndex((prev) => (prev + 1) % commitments.length);
+      setProgress(0);
+    }, AUTO_CYCLE_MS);
+  }, []);
+
+  // Start auto-cycle on mount
+  useEffect(() => {
+    startTimer();
+    return () => {
+      if (timerRef.current) clearInterval(timerRef.current);
+      if (progressRef.current) clearInterval(progressRef.current);
+    };
+  }, [startTimer]);
+
+  // Reset timer whenever activeIndex changes (from click)
+  useEffect(() => {
+    startTimer();
+  }, [activeIndex, startTimer]);
+
+  const handleClick = (idx: number) => {
+    setActiveIndex(idx);
+  };
+
   return (
     <section className="py-10 md:py-20 container">
-      <div className="items-start gap-8 lg:gap-12 grid lg:grid-cols-3">
-        {/* Left Column: Sticky Title & Subtitle */}
-        <div className="lg:top-24 flex flex-col justify-between self-stretch gap-4 lg:col-span-1">
-          <div className="flex flex-col gap-4">
-            <div className="self-start bg-foreground p-1 px-2 font-mono text-primary text-xs uppercase tracking-widest">
-              supply capacity
-            </div>
-            <h2 className="lg:max-w-[15ch] font-heading text-foreground text-3xl sm:text-4xl leading-[1.3] grow">
-              Gọi là có hàng
-            </h2>
+      {/* Section Header */}
+      <div className="flex flex-col gap-4 mb-10 md:mb-14">
+        <div className="self-start bg-foreground p-1 px-2 font-mono text-primary text-xs uppercase tracking-widest">
+          supply capacity
+        </div>
+        <h2 className="max-w-3xl font-heading text-foreground text-3xl sm:text-4xl leading-[1.3]">
+          Gọi là có hàng — năng lực cung ứng được xây dựng để đại lý không bao
+          giờ phải chờ
+        </h2>
+      </div>
+
+      {/* Image container with overlaid accordion */}
+      <div className="relative w-full min-h-100 sm:min-h-120 md:min-h-150 lg:min-h-170 overflow-hidden">
+        {/* SVG grain filter */}
+        <svg className="absolute size-0" aria-hidden="true">
+          <filter id="capacity-grain">
+            <feTurbulence
+              type="fractalNoise"
+              baseFrequency="0.65"
+              numOctaves="3"
+              stitchTiles="stitch"
+            />
+            <feColorMatrix type="saturate" values="0" />
+          </filter>
+        </svg>
+
+        {/* Background images — cross-fade */}
+        {commitments.map((item, idx) => (
+          <div
+            key={idx}
+            className={`absolute inset-0 transition-opacity duration-700 ease-in-out ${
+              idx === activeIndex
+                ? 'opacity-100'
+                : 'opacity-0 pointer-events-none'
+            }`}
+          >
+            <img
+              src={item.image}
+              alt={item.title}
+              className="content-center w-full h-full object-cover font-mono text-muted-foreground text-center italic"
+            />
           </div>
-          <p className="max-w-[35ch] text-muted-foreground text-lg">
-            Câu hỏi của đại lý không phải “kho anh có bao nhiêu hàng”, mà “gọi
-            anh thì bao lâu có hàng”.
-          </p>
+        ))}
+
+        {/* Dark gradient overlay from bottom and top */}
+        <div className="absolute inset-0 bg-linear-to-b from-foreground/60 via-transparent to-foreground/90" />
+
+        {/* Grain overlay */}
+        <div
+          className="absolute inset-0 opacity-20 pointer-events-none mix-blend-overlay"
+          style={{ filter: 'url(#capacity-grain)' }}
+        />
+
+        {/* Title — top left */}
+        <div className="top-4 md:top-6 left-4 md:left-6 z-10 absolute">
+          <span className="font-mono text-background text-xs md:text-sm tracking-widest">
+            {commitments[activeIndex].title}
+          </span>
         </div>
 
-        {/* Right Column: Gapless Grid */}
-        <div className="flex flex-col lg:col-span-2">
-          <div className="grid sm:grid-cols-2 overflow-hidden">
-            {commitments.map((item, idx) => (
-              <Card
-                key={idx}
-                className="group relative flex flex-col bg-muted/20 border-0 h-full"
-              >
-                {/* 1. Subtle Primary Glow Overlay (Triggers on hover) */}
-                <div className="z-20 absolute inset-0 opacity-0 group-hover:opacity-100 shadow-[0_0_30px_-5px] shadow-primary/20 border border-primary transition-opacity duration-300 pointer-events-none" />
+        {/* Number badge — top right */}
+        <div className="top-4 md:top-6 right-4 md:right-6 z-10 absolute">
+          <span className="font-mono text-background text-xs md:text-sm tracking-widest">
+            0{activeIndex + 1} / 0{commitments.length}
+          </span>
+        </div>
 
-                {/* 2. Top-Left Number Box (Wide) */}
-                <div className="top-0 left-0 absolute flex justify-between items-center bg-background border-b w-full h-16">
-                  <div className="content-center px-6 sm:px-8 border-r h-full grow">
-                    <span className="font-mono text-primary text-sm tracking-widest">
+        {/* Accordion overlaid at the bottom */}
+        <div className="bottom-0 left-0 z-10 absolute items-end gap-4 md:gap-6 grid grid-cols-1 md:grid-cols-4 p-4 md:p-6 w-full">
+          {commitments.map((item, idx) => {
+            const isActive = idx === activeIndex;
+            return (
+              <button
+                key={idx}
+                type="button"
+                className="group text-left transition-colors duration-300 cursor-pointer"
+                onClick={() => handleClick(idx)}
+              >
+                <div className="pb-3 md:pb-4">
+                  {/* Number + Title side by side */}
+                  <div className="flex items-start gap-3">
+                    <span
+                      className={`font-mono text-xs tabular-nums tracking-widest transition-colors duration-200 mt-1 shrink-0 ${
+                        isActive ? 'text-primary' : 'text-background/40'
+                      }`}
+                    >
                       0{idx + 1}
                     </span>
+                    <h3
+                      className={`font-heading text-base md:text-lg tracking-tight transition-colors duration-200 ${
+                        isActive
+                          ? 'text-background'
+                          : 'text-background/70 group-hover:text-background'
+                      }`}
+                    >
+                      {item.title}
+                    </h3>
                   </div>
-                  <div className="content-center px-6 sm:px-8 h-full">
-                    <item.icon className="w-6 h-6 text-muted-foreground group-hover:text-primary transition-colors" />
+
+                  {/* Description — accordion expand/collapse */}
+                  <div
+                    className={`overflow-hidden transition-all duration-500 ease-in-out ${
+                      isActive
+                        ? 'max-h-48 opacity-100 mt-2'
+                        : 'max-h-0 opacity-0 mt-0'
+                    }`}
+                  >
+                    <p className="pl-8 text-background/70 text-xs md:text-sm leading-relaxed">
+                      {item.desc}
+                    </p>
                   </div>
                 </div>
 
-                <CardHeader className="flex flex-col justify-end px-6 lg:px-8 pt-20 pb-8 grow">
-                  <CardTitle className="mb-4 text-2xl">
-                    <span>{item.title}</span>
-                  </CardTitle>
-
-                  <CardDescription className="flex flex-col text-base">
-                    <span className="leading-relaxed">{item.desc}</span>
-                  </CardDescription>
-                </CardHeader>
-              </Card>
-            ))}
-          </div>
-
-          <div className="px-4 lg:px-8 py-4 border-y">
-            <div className="content-center grid grid-cols-3 font-mono text-muted-foreground tracking-widest">
-              <span className="text-xs uppercase">tốc độ</span>
-              <span className="text-xs uppercase">ổn định</span>
-              <span className="text-xs text-right uppercase">tiến độ</span>
-            </div>
-          </div>
+                {/* Progress bar — only on active item */}
+                <div className="relative bg-background/20 w-full h-px">
+                  <div
+                    className="left-0 absolute inset-y-0 bg-primary transition-none"
+                    style={{
+                      width: isActive ? `${progress * 100}%` : '0%',
+                    }}
+                  />
+                </div>
+              </button>
+            );
+          })}
         </div>
       </div>
     </section>
