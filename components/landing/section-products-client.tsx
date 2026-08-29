@@ -36,70 +36,92 @@ export default function ProductsSectionClient({
 
       <div className="mx-auto container">
         <div className="grid grid-cols-1 lg:grid-cols-2">
-          {/* LEFT: Reactive image */}
-          <div className="relative self-end bg-card lg:mr-20 aspect-video overflow-hidden">
-            {/* SVG grain filter — hidden, referenced by the overlay */}
-            <svg className="absolute size-0" aria-hidden="true">
-              <filter id="grain-noise">
-                <feTurbulence
-                  type="fractalNoise"
-                  baseFrequency="0.65"
-                  numOctaves="3"
-                  stitchTiles="stitch"
-                />
-                <feColorMatrix type="saturate" values="0" />
-              </filter>
-            </svg>
-
-            {/* Render all images, only show active */}
-            {subcategories.map((sub, i) => (
-              <div
-                key={i}
-                className={`absolute inset-0 transition-opacity duration-500 ease-in-out ${
-                  i === activeIndex
-                    ? 'opacity-100'
-                    : 'opacity-0 pointer-events-none'
-                }`}
-              >
-                {sub.image ? (
-                  <>
+          {/* LEFT: Reactive images */}
+          <div className="flex flex-col justify-between lg:mr-20">
+            {/* Brand logos overlay — top area */}
+            {active?.brands.length > 0 ? (
+              <div className="flex flex-wrap gap-4">
+                {active.brands.map((brand) => (
+                  <div
+                    key={brand.name}
+                    className="flex justify-center items-center h-16"
+                  >
                     <img
-                      src={sub.image}
-                      alt={sub.name}
-                      className="brightness-80 w-full h-full object-cover"
+                      src={brand.logo}
+                      alt={brand.name}
+                      className="max-w-20 max-h-8 object-contain"
                     />
-                    <div className="absolute inset-0 bg-linear-to-t from-foreground/60 via-transparent to-transparent" />
-                  </>
-                ) : (
-                  <div className="flex justify-center items-center bg-muted/10 w-full h-full font-mono text-muted-foreground text-xs uppercase tracking-widest">
-                    Đang cập nhật
                   </div>
-                )}
+                ))}
               </div>
-            ))}
+            ) : (
+              <div />
+            )}
 
-            {/* Grain noise overlay */}
-            <div
-              className="absolute inset-0 opacity-30 pointer-events-none mix-blend-overlay"
-              style={{ filter: 'url(#grain-noise)' }}
-            />
-
-            {/* Bottom-left label overlay */}
-            <div className="bottom-0 left-0 z-10 absolute p-6 md:p-8">
-              <div className="flex items-center gap-3 mb-2">
-                <div className="flex justify-center items-center">
-                  <IconMapper
-                    name={active?.categoryIcon || ''}
-                    className="size-4 text-background"
+            <div className="relative bg-card aspect-video overflow-hidden">
+              {/* SVG grain filter — hidden, referenced by the overlay */}
+              <svg className="absolute size-0" aria-hidden="true">
+                <filter id="grain-noise">
+                  <feTurbulence
+                    type="fractalNoise"
+                    baseFrequency="0.65"
+                    numOctaves="3"
+                    stitchTiles="stitch"
                   />
+                  <feColorMatrix type="saturate" values="0" />
+                </filter>
+              </svg>
+
+              {/* Render all images, only show active */}
+              {subcategories.map((sub, i) => (
+                <div
+                  key={i}
+                  className={`absolute inset-0 transition-opacity duration-500 ease-in-out ${
+                    i === activeIndex
+                      ? 'opacity-100'
+                      : 'opacity-0 pointer-events-none'
+                  }`}
+                >
+                  {sub.image ? (
+                    <>
+                      <img
+                        src={sub.image}
+                        alt={sub.name}
+                        className="brightness-80 w-full h-full object-cover"
+                      />
+                      <div className="absolute inset-0 bg-linear-to-t from-foreground/60 via-transparent to-transparent" />
+                    </>
+                  ) : (
+                    <div className="flex justify-center items-center bg-muted/10 w-full h-full font-mono text-muted-foreground text-xs uppercase tracking-widest">
+                      Đang cập nhật
+                    </div>
+                  )}
                 </div>
-                <span className="font-mono text-background text-xs uppercase tracking-widest">
-                  {active?.categoryTitle}
-                </span>
+              ))}
+
+              {/* Grain noise overlay */}
+              <div
+                className="absolute inset-0 opacity-30 pointer-events-none mix-blend-overlay"
+                style={{ filter: 'url(#grain-noise)' }}
+              />
+
+              {/* Bottom-left label overlay */}
+              <div className="bottom-0 left-0 z-10 absolute p-6 md:p-8">
+                <div className="flex items-center gap-3 mb-2">
+                  <div className="flex justify-center items-center">
+                    <IconMapper
+                      name={active?.categoryIcon || ''}
+                      className="size-4 text-background"
+                    />
+                  </div>
+                  <span className="font-mono text-background text-xs uppercase tracking-widest">
+                    {active?.categoryTitle}
+                  </span>
+                </div>
+                <h3 className="font-heading text-background text-2xl md:text-3xl tracking-tight">
+                  {active?.name}
+                </h3>
               </div>
-              <h3 className="font-heading text-background text-2xl md:text-3xl tracking-tight">
-                {active?.name}
-              </h3>
             </div>
           </div>
 

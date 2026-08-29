@@ -44,7 +44,7 @@ export default function HeroSection() {
           </div>
         </div>
 
-        <div className="relative flex justify-center items-center mt-12 md:mt-24 w-full min-h-[300px] grow">
+        <div className="relative flex justify-center items-center mt-12 md:mt-24 w-full min-h-75 grow">
           {/* Expanded Ambient Background Glow */}
           <div className="top-1/2 left-1/2 absolute bg-foreground/10 blur-[120px] w-full max-w-5xl h-64 -translate-x-1/2 -translate-y-1/2 pointer-events-none" />
 
@@ -52,7 +52,7 @@ export default function HeroSection() {
           <img
             src="/hero-image.jpg"
             alt="hero image"
-            className="z-10 relative drop-shadow-2xl w-full max-h-[600px] object-cover"
+            className="z-10 relative drop-shadow-2xl w-full max-h-150 object-cover"
           />
         </div>
       </div>
