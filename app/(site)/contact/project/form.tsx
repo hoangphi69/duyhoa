@@ -17,6 +17,7 @@ import {
   projectSchema,
 } from '../validation';
 import { siteConfig } from '@/config/site';
+import { analytics } from '@/components/analytics/google-analytics';
 
 const CONFIRMATION_DURATION_MS = 3000;
 
@@ -68,10 +69,14 @@ export default function ProjectForm() {
             message,
           });
         }
+        // Track failed submission
+        analytics.trackFormSubmission('project_contact_form', false);
         return;
       }
 
       setJustSubmitted(true);
+      // Track successful submission
+      analytics.trackFormSubmission('project_contact_form', true);
     });
   }
 

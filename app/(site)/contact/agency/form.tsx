@@ -17,6 +17,7 @@ import {
   agencySchema,
 } from '../validation';
 import { siteConfig } from '@/config/site';
+import { analytics } from '@/components/analytics/google-analytics';
 
 const CONFIRMATION_DURATION_MS = 3000;
 
@@ -67,10 +68,14 @@ export default function AgencyForm() {
             message,
           });
         }
+        // Track failed submission
+        analytics.trackFormSubmission('agency_contact_form', false);
         return;
       }
 
       setJustSubmitted(true);
+      // Track successful submission
+      analytics.trackFormSubmission('agency_contact_form', true);
     });
   }
 
