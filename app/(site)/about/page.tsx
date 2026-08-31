@@ -1,5 +1,6 @@
 import { Breadcrumbs } from '@/components/breadcrumb';
 import { FAQJsonLd } from '@/components/seo/JsonLd';
+import { siteConfig } from '@/config/site';
 import { createMetadata } from '@/lib/utils';
 import {
   Building2,
@@ -16,9 +17,9 @@ import {
 
 // --- Extracted Data from Source ---
 const COMPANY_INFO = [
-  { label: 'Tên đầy đủ', value: 'Công ty TNHH Thương mại Duy Hoà 68' },
-  { label: 'Tên giao dịch', value: 'Duy Hoà 68' },
-  { label: 'Mã số thuế', value: '5701765729' },
+  { label: 'Tên đầy đủ', value: siteConfig.brand.fullName },
+  { label: 'Tên giao dịch', value: siteConfig.brand.shortName },
+  { label: 'Mã số thuế', value: siteConfig.brand.taxCode },
   { label: 'Số năm hoạt động', value: '15 năm' },
   {
     label: 'Lĩnh vực',
@@ -51,15 +52,15 @@ const COMPANY_INFO = [
   },
   {
     label: 'Mạng lưới đại lý',
-    value: 'Khoảng 1.500 cửa hàng nhập hàng thường xuyên',
+    value: 'Khoảng 2.500 cửa hàng nhập hàng thường xuyên',
   },
   {
     label: 'Ban điều hành',
     value:
       'Tổng Giám đốc Nguyễn Thị Hoà · Phó Tổng Giám đốc Trần Văn Linh · Cố vấn, đồng sáng lập Trần Văn Duy',
   },
-  { label: 'Hotline', value: '*(Điền hotline)*' },
-  { label: 'Website', value: '*(Điền website)*' },
+  { label: 'Hotline', value: siteConfig.contact.hotline },
+  { label: 'Website', value: siteConfig.url },
 ];
 
 const CATEGORIES = [
@@ -634,7 +635,9 @@ export default function AboutPage() {
                 <span className="text-muted-foreground uppercase tracking-widest">
                   Mã số thuế
                 </span>
-                <span className="text-foreground">*(điền)*</span>
+                <span className="text-foreground">
+                  {siteConfig.brand.taxCode}
+                </span>
               </li>
               <li className="flex flex-col gap-1">
                 <span className="text-muted-foreground uppercase tracking-widest">
@@ -649,13 +652,17 @@ export default function AboutPage() {
                   <span className="text-muted-foreground uppercase tracking-widest">
                     Hotline
                   </span>
-                  <span className="font-bold text-primary">*(điền)*</span>
+                  <span className="font-bold text-primary">
+                    {siteConfig.contact.hotline}
+                  </span>
                 </div>
                 <div className="flex flex-col gap-1">
                   <span className="text-muted-foreground uppercase tracking-widest">
                     Zalo
                   </span>
-                  <span className="text-foreground">*(điền)*</span>
+                  <span className="text-foreground">
+                    {siteConfig.contact.hotline}
+                  </span>
                 </div>
               </li>
               <li className="gap-4 grid grid-cols-2">
@@ -663,13 +670,17 @@ export default function AboutPage() {
                   <span className="text-muted-foreground uppercase tracking-widest">
                     Email
                   </span>
-                  <span className="text-foreground">*(điền)*</span>
+                  <span className="text-foreground">
+                    {siteConfig.contact.email}
+                  </span>
                 </div>
                 <div className="flex flex-col gap-1">
                   <span className="text-muted-foreground uppercase tracking-widest">
                     Giờ làm việc
                   </span>
-                  <span className="text-foreground">*(điền)*</span>
+                  <span className="text-foreground">
+                    {siteConfig.contact.workingHours}
+                  </span>
                 </div>
               </li>
             </ul>
@@ -677,7 +688,7 @@ export default function AboutPage() {
               Cập nhật: tháng 7/2026
             </div>
           </div>
-          <div className="relative flex justify-center items-center bg-muted/20 p-8 border-border border-l min-h-[400px] font-mono text-muted-foreground text-center">
+          <div className="relative flex justify-center items-center bg-muted/20 p-8 border-border border-l min-h-100 font-mono text-muted-foreground text-center">
             {/* Embed Google Maps Here */}
             [Kèm bản đồ Google Maps nhúng, trỏ đúng vị trí tổng kho tại Uông Bí]
           </div>
